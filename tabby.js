@@ -23,7 +23,7 @@ $(function () {
 
 
 /* =============================================================
- * accessibility-styles.js v1.0.0
+ * js-accessibility.js v1.0.0
  * Adds .js class to <body> for progressive enhancement.
  * Script by Chris Ferdinandi - http://gomakethings.com
  * Licensed under WTFPL - http://www.wtfpl.net
