@@ -9,4 +9,4 @@ Getting started with Tabby is really easy. [View the online tutorial](http://cfe
   * Initial release.
 
 ## License
-Tabby is licensed under the [WTFPL](http://www.wtfpl.net/) + "Not going to maintain this because the rent is too damn high" License.
+Tabby is licensed under [WTFPL](http://www.wtfpl.net/).
