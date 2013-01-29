@@ -38,7 +38,7 @@ img, audio, video, canvas { max-width: 100%; }
 }
 
 /*  Display tab navigation if javascript enabled.
- *  This requires on the included accessibility-styles.js script. */
+ *  This requires on the included js-accessibility.js script. */
 .js .tabs {
     display: block;
     visibility: visible;
