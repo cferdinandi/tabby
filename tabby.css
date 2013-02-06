@@ -68,7 +68,7 @@ img, audio, video, canvas { max-width: 100%; }
 .tabs-stacked {
     list-style: none;
     margin-left: 0;
-    border-top: 1px solid #808080;
+    border-top: .071428571em solid #808080;
     background-color: #f4f4f4;
 }
 
@@ -105,7 +105,7 @@ img, audio, video, canvas { max-width: 100%; }
 
 /*  For bigger screens.
  *  (Tabby is mobile-first.) */
-@media (min-width: 681px) {
+@media (min-width: 40em) {
 
     /*  Turn stacked nav into vertical list. */
     .tabs-stacked {
@@ -135,7 +135,7 @@ img, audio, video, canvas { max-width: 100%; }
 /*  Mobile-first. Single-column layout by default
  *  Container sets the maximum page width. Adjust as needed. */
 .container { 
-    max-width: 640px;
+    max-width: 40em;
     width: 88%;
     margin-left: auto; 
     margin-right: auto;
@@ -145,7 +145,7 @@ img, audio, video, canvas { max-width: 100%; }
 /*  Still mostly single-column.
  *  Grid-third, grid-half, and grid-img 
  *  provide sub-gridding on smaller screens.  */
-@media (min-width: 481px) {
+@media (min-width: 30em) {
 
 	.row {
         margin-left: -1.515151515152%;
@@ -178,7 +178,7 @@ img, audio, video, canvas { max-width: 100%; }
 
 
 /*  6-column grid  */
-@media (min-width: 681px) {
+@media (min-width: 40em) {
 
     .grid-1 {
         width: 13.636363636364%;
@@ -236,7 +236,7 @@ img, audio, video, canvas { max-width: 100%; }
 
 /*  Additional gridding for grid-img on bigger screens.
  *  Adjust as needed. */
-@media (min-width: 961px) {
+@media (min-width: 40em) {
     .grid-img {
         width: 13.636363636364%;
     }
@@ -258,5 +258,3 @@ img, audio, video, canvas { max-width: 100%; }
 .row:after { 
     clear: both; 
 }
-
-
