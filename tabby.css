@@ -1,18 +1,19 @@
-/*
+/* =============================================================
 
-    TABBY.CSS v1.0
+    Tabby 2.0
     Simple, mobile-first toggle tabs by Chris Ferdinandi.
     http://gomakethings.com
 
-
     Licensed under WTFPL.
-    http://www.wtfpl.net/
+    http://www.wtfpl.net
     
+ * ============================================================= */
 
-*/
 
-/*  RESPONSIVE RESET */
-/*  Replace with your own */
+/* =============================================================
+    RESPONSIVE RESET
+    Replace with your own.
+ * ============================================================= */
 
 @-webkit-viewport { width: device-width; zoom: 1.0; }
    @-moz-viewport { width: device-width; zoom: 1.0; }
@@ -28,8 +29,10 @@ img, audio, video, canvas { max-width: 100%; }
 
 
 
-/*  TABBY TABS */
-/*  The toggle tabs code */
+/* =============================================================
+    TABBY TABS
+    Toggle tab styling.
+ * ============================================================= */
 
 /*  Hide tab navigation by default */
 .tabs {
@@ -124,13 +127,26 @@ img, audio, video, canvas { max-width: 100%; }
 }
 
 
+/* Clearfix */
+.tabs:before, .tabs:after { 
+    display: table; 
+    content: ""; 
+    zoom: 1; 
+}
+
+.tabs:after { 
+    clear: both; 
+}
 
 
 
-/*  THE GRID */
-/*  Origami.css - http://cferdinandi.github.com/origami/
- *  Not required. Feel free to use your own.
- */
+
+
+/* =============================================================
+    THE GRID
+    Included in Kraken (http://cferdinandi.github.io/kraken/).
+    Not requires. Feel free to use your own.
+ * ============================================================= */
 
 /*  Mobile-first. Single-column layout by default
  *  Container sets the maximum page width. Adjust as needed. */
@@ -245,7 +261,6 @@ img, audio, video, canvas { max-width: 100%; }
 
 /*  Clearfix */
 
-.tabs:before, .tabs:after,
 .container:before, .container:after, 
 .row:before, .row:after { 
     display: table; 
@@ -253,7 +268,6 @@ img, audio, video, canvas { max-width: 100%; }
     zoom: 1; 
 }
 
-.tabs:after,
 .container:after, 
 .row:after { 
     clear: both; 
