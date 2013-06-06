@@ -11,7 +11,7 @@
 
 (function($) {
     $(function () {
-        $('.tabs a').click(function(e) {
+        $('.tabs a, .tabs button').click(function(e) {
             e.preventDefault(); // Prevent default link behavior.
             var tabID = $(this).attr('data-target'); // Get the ID of tab
 
