@@ -5,6 +5,8 @@ Tabby is a lightweight JavaScript and CSS kit for mobile-first toggle tabs. It's
 Getting started with Tabby is really easy. [View the online tutorial](http://cferdinandi.github.com/tabby/) or dig through the `index.html` file.
 
 ## Changelog
+* v2.0 (June 7, 2013)
+  * Switched to MIT license.
 * v2.0 (June 5, 2013)
   * Switched from `href` to `data-target` value for tab id, breaking backward compatibility.
 * v1.1 (February 13, 2013)
@@ -15,4 +17,4 @@ Getting started with Tabby is really easy. [View the online tutorial](http://cfe
   * Initial release.
 
 ## License
-Tabby is licensed under [WTFPL](http://www.wtfpl.net/).
+Tabby is free to use under the [MIT License](http://gomakethings.com/mit/).

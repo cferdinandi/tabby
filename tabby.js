@@ -4,8 +4,8 @@
     Simple, mobile-first toggle tabs by Chris Ferdinandi
     http://gomakethings.com
 
-    Licensed under WTFPL.
-    http://www.wtfpl.net
+    Free to use under the MIT License.
+    http://gomakethings.com/mit/
     
  * ============================================================= */
 
@@ -36,8 +36,8 @@
     Script by Chris Ferdinandi.
     http://gomakethings.com
 
-    Licensed under WTFPL.
-    http://www.wtfpl.net
+    Free to use under the MIT License.
+    http://gomakethings.com/mit/
     
  * ============================================================= */
 
