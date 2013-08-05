@@ -5,6 +5,8 @@ Tabby is a lightweight JavaScript and CSS kit for mobile-first toggle tabs. It's
 Getting started with Tabby is really easy. [View the online tutorial](http://cferdinandi.github.com/tabby/) or dig through the `index.html` file.
 
 ## Changelog
+* v2.1 (August 5, 2013)
+  * Updated with variable for `$(this)` (better performance).
 * v2.0 (June 7, 2013)
   * Switched to MIT license.
 * v2.0 (June 5, 2013)
