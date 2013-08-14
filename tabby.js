@@ -1,6 +1,6 @@
 /* =============================================================
 
-    Tabby v2.1
+    Tabby v3.0
     Simple, mobile-first toggle tabs by Chris Ferdinandi
     http://gomakethings.com
 
@@ -9,41 +9,114 @@
     
  * ============================================================= */
 
-(function($) {
-    $(function () {
-        $('.tabs a, .tabs button').click(function(e) {
-            e.preventDefault(); // Prevent default link behavior.
-            var toggle = $(this);
-            var tabID = toggle.attr('data-target'); // Get the ID of tab
 
-            toggle.addClass('active').parent().addClass('active'); // Add the .active class to the link and it's parent li (if one exists).
-            toggle.siblings().removeClass('active'); // Remove the .active class from sibling tab navigation elements.
-            toggle.parent('li').siblings().removeClass('active').children().removeClass('active'); // Remove the .active class from sibling li elements and their links.
-            $(tabID).addClass('active'); // Add the .active class to the div with the tab content.
-            $(tabID).siblings().removeClass('active'); // Remove the .active class from other tab content divs.
-        });
-    });
-})(jQuery);
+/* =============================================================
+    MICRO-FRAMEWORK
+    Simple vanilla JavaScript functions to handle common tasks.
+ * ============================================================= */
 
+// Check if an element has a class
+var hasClass = function (elem, className) {
+    return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+}
 
+// Add a class to an element
+var addClass = function (elem, className) {
+    if (!hasClass(elem, className)) {
+        elem.className += ' ' + className;
+    }
+}
 
+// Remove a class from an element
+var removeClass = function (elem, className) {
+    var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+    if (hasClass(elem, className)) {
+        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+            newClass = newClass.replace(' ' + className + ' ', ' ');
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    }
+}
+
+// Toggle a class on an element
+var toggleClass = function (elem, className) {
+    if ( hasClass(elem, className) ) {
+        removeClass(elem, className);
+    }
+    else {
+        addClass(elem, className);
+    }
+}
+
+// Return sibling elements
+var getSiblings = function (elem) {
+    var siblings = [];
+    var sibling = elem.parentNode.firstChild;
+    var skipMe = elem;
+    for ( ; sibling; sibling = sibling.nextSibling ) 
+       if ( sibling.nodeType == 1 && sibling != elem )
+          siblings.push( sibling );        
+    return siblings;
+}
 
 
 /* =============================================================
-
-    Progressively Enhanced JS v1.0
-    Adds .js class to <body> for progressive enhancement.
-
-    Script by Chris Ferdinandi.
-    http://gomakethings.com
-
-    Free to use under the MIT License.
-    http://gomakethings.com/mit/
-    
+    TABBY FUNCTIONS
+    Control the toggle tabs.
  * ============================================================= */
 
-(function($) {
-    $(function () {
-        $('body').addClass('js'); // On page load, add the .js class to the <body> element.
+// Function to show a tab
+var showTab = function (toggle) {
+
+    // Define the target tab and siblings
+    var dataID = toggle.getAttribute('data-target');
+    var dataTarget = document.querySelector(dataID);
+    var targetSiblings = getSiblings(dataTarget);
+
+    // Get toggle parent and parent sibling elements
+    var toggleParent = toggle.parentNode;
+    var toggleSiblings = getSiblings(toggleParent);
+
+    // Add '.active' class to tab toggle and parent element
+    addClass(toggle, 'active');
+    addClass(toggleParent, 'active');
+
+    // Remove '.active' class from all sibling elements
+    [].forEach.call(toggleSiblings, function (sibling) {
+        removeClass(sibling, 'active');
     });
-})(jQuery);
+
+    // Add '.active' class to target tab
+    addClass(dataTarget, 'active');
+
+    // Remove '.active' class from all other tabs
+    [].forEach.call(targetSiblings, function (sibling) {
+        removeClass(sibling, 'active');
+    });
+
+}
+
+
+// Feature Test
+if ( 'querySelector' in document && 'addEventListener' in window ) {
+
+    // Define tab toggles
+    var tabToggle = document.querySelectorAll('.tabs a, .tabs button');
+
+    // For each tab toggle
+    [].forEach.call(tabToggle, function (toggle) {
+
+        // When tab toggle is clicked
+        toggle.addEventListener('click', function(e) {
+         
+            // Prevent default link behavior
+            e.preventDefault();
+
+            // Activate the tab
+            showTab(toggle);
+         
+        }, false);
+
+    });
+
+}

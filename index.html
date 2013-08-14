@@ -4,8 +4,16 @@
     <meta charset="utf-8">
     <title>Tabby - Simple, mobile-first toggle tabs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <!-- stylesheets -->
     <link rel="stylesheet" href="tabby.css" type="text/css">
+
+    <!-- Feature Test -->
+    <script>
+        if ( 'querySelector' in document && 'addEventListener' in window ) {
+            document.documentElement.className += 'js';
+        }
+    </script>
 
     <!-- HTML5 Shim for IE -->
     <!--[if IE]>
@@ -113,7 +121,6 @@
 	</section>
 
     <!-- Javascript -->
-    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
     <script src="tabby.js"></script>
 
 </body>
