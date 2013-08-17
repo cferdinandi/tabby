@@ -24,7 +24,7 @@
 
     <!-- Feature Test -->
     <script>
-        if ( 'querySelector' in document && 'addEventListener' in window ) {
+        if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
             document.documentElement.className += 'js';
         }
     </script>
