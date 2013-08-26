@@ -1,6 +1,6 @@
 /* =============================================================
 
-    Tabby v3.0
+    Tabby v3.1
     Simple, mobile-first toggle tabs by Chris Ferdinandi
     http://gomakethings.com
 
@@ -9,113 +9,61 @@
     
  * ============================================================= */
 
+(function() {
 
-/* =============================================================
-    MICRO-FRAMEWORK
-    Simple vanilla JavaScript functions to handle common tasks.
- * ============================================================= */
+    // Feature Test
+    if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
-// Check if an element has a class
-var hasClass = function (elem, className) {
-    return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
-}
+        // Function to show a tab
+        var showTab = function (toggle) {
 
-// Add a class to an element
-var addClass = function (elem, className) {
-    if (!hasClass(elem, className)) {
-        elem.className += ' ' + className;
-    }
-}
+            // Define the target tab and siblings
+            var dataID = toggle.getAttribute('data-target');
+            var dataTarget = document.querySelector(dataID);
+            var targetSiblings = buoy.getSiblings(dataTarget);
 
-// Remove a class from an element
-var removeClass = function (elem, className) {
-    var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
-    if (hasClass(elem, className)) {
-        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
-            newClass = newClass.replace(' ' + className + ' ', ' ');
+            // Get toggle parent and parent sibling elements
+            var toggleParent = toggle.parentNode;
+            var toggleSiblings = buoy.getSiblings(toggleParent);
+
+            // Add '.active' class to tab toggle and parent element
+            buoy.addClass(toggle, 'active');
+            buoy.addClass(toggleParent, 'active');
+
+            // Remove '.active' class from all sibling elements
+            [].forEach.call(toggleSiblings, function (sibling) {
+                buoy.removeClass(sibling, 'active');
+            });
+
+            // Add '.active' class to target tab
+            buoy.addClass(dataTarget, 'active');
+
+            // Remove '.active' class from all other tabs
+            [].forEach.call(targetSiblings, function (sibling) {
+                buoy.removeClass(sibling, 'active');
+            });
+
         }
-        elem.className = newClass.replace(/^\s+|\s+$/g, '');
-    }
-}
 
-// Toggle a class on an element
-var toggleClass = function (elem, className) {
-    if ( hasClass(elem, className) ) {
-        removeClass(elem, className);
-    }
-    else {
-        addClass(elem, className);
-    }
-}
+        // Define tab toggles
+        var tabToggle = document.querySelectorAll('.tabs a, .tabs button');
 
-// Return sibling elements
-var getSiblings = function (elem) {
-    var siblings = [];
-    var sibling = elem.parentNode.firstChild;
-    var skipMe = elem;
-    for ( ; sibling; sibling = sibling.nextSibling ) 
-       if ( sibling.nodeType == 1 && sibling != elem )
-          siblings.push( sibling );        
-    return siblings;
-}
+        // For each tab toggle
+        [].forEach.call(tabToggle, function (toggle) {
 
+            // When tab toggle is clicked
+            toggle.addEventListener('click', function(e) {
+             
+                // Prevent default link behavior
+                e.preventDefault();
 
-/* =============================================================
-    TABBY FUNCTIONS
-    Control the toggle tabs.
- * ============================================================= */
+                // Activate the tab
+                showTab(toggle);
+             
+            }, false);
 
-// Feature Test
-if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
-
-    // Function to show a tab
-    var showTab = function (toggle) {
-
-        // Define the target tab and siblings
-        var dataID = toggle.getAttribute('data-target');
-        var dataTarget = document.querySelector(dataID);
-        var targetSiblings = getSiblings(dataTarget);
-
-        // Get toggle parent and parent sibling elements
-        var toggleParent = toggle.parentNode;
-        var toggleSiblings = getSiblings(toggleParent);
-
-        // Add '.active' class to tab toggle and parent element
-        addClass(toggle, 'active');
-        addClass(toggleParent, 'active');
-
-        // Remove '.active' class from all sibling elements
-        [].forEach.call(toggleSiblings, function (sibling) {
-            removeClass(sibling, 'active');
-        });
-
-        // Add '.active' class to target tab
-        addClass(dataTarget, 'active');
-
-        // Remove '.active' class from all other tabs
-        [].forEach.call(targetSiblings, function (sibling) {
-            removeClass(sibling, 'active');
         });
 
     }
 
-    // Define tab toggles
-    var tabToggle = document.querySelectorAll('.tabs a, .tabs button');
-
-    // For each tab toggle
-    [].forEach.call(tabToggle, function (toggle) {
-
-        // When tab toggle is clicked
-        toggle.addEventListener('click', function(e) {
-         
-            // Prevent default link behavior
-            e.preventDefault();
-
-            // Activate the tab
-            showTab(toggle);
-         
-        }, false);
-
-    });
-
-}
+})();

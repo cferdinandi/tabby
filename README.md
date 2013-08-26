@@ -5,6 +5,9 @@ Tabby is a lightweight, mobile-first toggle tab powered by vanilla JS.
 Getting started with Tabby is really easy. [View the online tutorial](http://cferdinandi.github.com/tabby/) or dig through the `index.html` file.
 
 ## Changelog
+* v3.1 (August 26,2013)
+  * Converted to an IIFE pattern.
+  * Added Buoy vanilla JS micro-library.
 * v3.0 (August 13, 2013)
   * Converted to vanilla JS.
   * Removed dependence on jQuery.
