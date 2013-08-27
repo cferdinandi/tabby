@@ -1,6 +1,6 @@
 /* =============================================================
 
-    Tabby v3.1
+    Tabby v3.2
     Simple, mobile-first toggle tabs by Chris Ferdinandi
     http://gomakethings.com
 
@@ -43,7 +43,7 @@
                 buoy.removeClass(sibling, 'active');
             });
 
-        }
+        };
 
         // Define tab toggles
         var tabToggle = document.querySelectorAll('.tabs a, .tabs button');
