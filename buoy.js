@@ -1,6 +1,6 @@
 /* =============================================================
 
-    Buoy v1.0
+    Buoy v1.1
     A simple vanilla JS micro-library by Chris Ferdinandi.
     http://gomakethings.com
 
@@ -20,14 +20,14 @@ window.buoy = (function(){
     // Check if an element has a class
     var hasClass = function (elem, className) {
         return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
-    }
+    };
 
     // Add a class to an element
     var addClass = function (elem, className) {
         if (!hasClass(elem, className)) {
             elem.className += ' ' + className;
         }
-    }
+    };
 
     // Remove a class from an element
     var removeClass = function (elem, className) {
@@ -38,7 +38,7 @@ window.buoy = (function(){
             }
             elem.className = newClass.replace(/^\s+|\s+$/g, '');
         }
-    }
+    };
 
     // Toggle a class on an element
     var toggleClass = function (elem, className) {
@@ -48,18 +48,18 @@ window.buoy = (function(){
         else {
             addClass(elem, className);
         }
-    }
+    };
 
     // Get siblings of an element
     var getSiblings = function (elem) {
         var siblings = [];
         var sibling = elem.parentNode.firstChild;
         var skipMe = elem;
-        for ( ; sibling; sibling = sibling.nextSibling ) 
+        for ( ; sibling; sibling = sibling.nextSibling )
            if ( sibling.nodeType == 1 && sibling != elem )
-              siblings.push( sibling );        
+              siblings.push( sibling );
         return siblings;
-    }
+    };
 
     // Return functions
     return{
