@@ -17,6 +17,8 @@
 
 window.buoy = (function(){
 
+    'use strict';
+
     // Check if an element has a class
     var hasClass = function (elem, className) {
         return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');

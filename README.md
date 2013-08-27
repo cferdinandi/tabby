@@ -7,6 +7,7 @@ Getting started with Tabby is really easy. [View the online tutorial](http://cfe
 ## Changelog
 * v3.2 (August 27, 2013)
   * Added missing semicolon.
+  * Activated strict mode.
 * v3.1 (August 26,2013)
   * Converted to an IIFE pattern.
   * Added Buoy vanilla JS micro-library.
