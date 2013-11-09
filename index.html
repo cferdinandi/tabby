@@ -1,142 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Tabby - Simple, mobile-first toggle tabs</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>Tabby - Simple, mobile-first toggle tabs</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- A basic responsive reset -->
-    <style>
-        @-webkit-viewport { width: device-width; zoom: 1.0; }
-           @-moz-viewport { width: device-width; zoom: 1.0; }
-            @-ms-viewport { width: device-width; zoom: 1.0; }
-             @-o-viewport { width: device-width; zoom: 1.0; }
-                @viewport { width: device-width; zoom: 1.0; }
+	<!-- A basic responsive reset -->
+	<style>
+		@-webkit-viewport { width: device-width; zoom: 1.0; }
+		   @-moz-viewport { width: device-width; zoom: 1.0; }
+			@-ms-viewport { width: device-width; zoom: 1.0; }
+			 @-o-viewport { width: device-width; zoom: 1.0; }
+				@viewport { width: device-width; zoom: 1.0; }
 
-        html { overflow-y: auto; }
+		html { overflow-y: auto; }
 
-        img, audio, video, canvas { max-width: 100%; }
-    </style>
-    
-    <!-- stylesheets -->
-    <link rel="stylesheet" href="tabby.css" type="text/css">
-    <link rel="stylesheet" href="kraken-grid.css" type="text/css">
+		img, audio, video, canvas { max-width: 100%; }
+	</style>
 
-    <!-- Feature Test -->
-    <script>
-        if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
-            document.documentElement.className += 'js';
-        }
-    </script>
+	<!-- stylesheets -->
+	<link rel="stylesheet" href="tabby.css" type="text/css">
+	<link rel="stylesheet" href="kraken-grid.css" type="text/css">
 
-    <!-- HTML5 Shim for IE -->
-    <!--[if IE]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<!-- Feature Test -->
+	<script>
+		if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
+			document.documentElement.className += 'js';
+		}
+	</script>
+
+	<!-- HTML5 Shim for IE -->
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 </head>
 
 <body>
 	<section class="container">
-	    <h1 style="text-align: center; font-size: 3em;">Tabby</h1>
-	    <p style="text-align: center; font-size: 1.5em;">Simple, mobile-first toggle tabs.</p>
+		<h1 style="text-align: center; font-size: 3em;">Tabby</h1>
+		<p style="text-align: center; font-size: 1.5em;">Simple, mobile-first toggle tabs.</p>
 
-	    <p>There are three types of tabs: Basic, Horizontal, and Stacked.</p>
-
-
-
-	    <h1>Basic Tabs</h1>
-
-        <div class="tabs">
-            <button class="tab-toggle" data-target="#tab1">Superheroes</button>
-            <button class="tab-toggle" data-target="#tab2">Ice Cream</button>
-            <button class="tab-toggle" data-target="#tab3">Seasons</button>
-        </div>
-
-        <div class="tabs-content">
-            <div class="tabs-pane active" id="tab1">
-                <p><strong>Superheros</strong></p>
-                <p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
-            </div>
-
-            <div class="tabs-pane" id="tab2">
-                <p><strong>Ice Cream</strong></p>
-                <p>Chocolate, vanilla or strawberry?</p>
-            </div>
-
-            <div class="tabs-pane" id="tab3">
-                <p><strong>Seasons</strong></p>
-                <p>Winter, summer, spring or fall?</p>
-            </div>
-        </div>
+		<p>There are three types of tabs: Basic, Horizontal, and Stacked.</p>
 
 
 
-	    <h1>Horizontal Tabs</h1>
+		<h1>Basic Tabs</h1>
 
-        <ul class="tabs tabs-horizontal">
-            <li class="active"><a data-target="#tabA" href="#">Superheroes</a></li>
-            <li><a data-target="#tabB" href="#">Ice Cream</a></li>
-            <li><a data-target="#tabC" href="#">Seasons</a></li>
-        </ul>
+		<div class="tabs">
+			<button class="tab-toggle" data-target="#tab1">Superheroes</button>
+			<button class="tab-toggle" data-target="#tab2">Ice Cream</button>
+			<button class="tab-toggle" data-target="#tab3">Seasons</button>
+		</div>
 
-        <div class="tabs-content">
-            <div class="tabs-pane active" id="tabA">
-                <p><strong>Superheros</strong></p>
-                <p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
-            </div>
+		<div class="tabs-content">
+			<div class="tabs-pane active" id="tab1">
+				<p><strong>Superheros</strong></p>
+				<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
+			</div>
 
-            <div class="tabs-pane" id="tabB">
-                <p><strong>Ice Cream</strong></p>
-                <p>Chocolate, vanilla or strawberry?</p>
-            </div>
+			<div class="tabs-pane" id="tab2">
+				<p><strong>Ice Cream</strong></p>
+				<p>Chocolate, vanilla or strawberry?</p>
+			</div>
 
-            <div class="tabs-pane" id="tabC">
-                <p><strong>Seasons</strong></p>
-                <p>Winter, summer, spring or fall?</p>
-            </div>
-        </div>
+			<div class="tabs-pane" id="tab3">
+				<p><strong>Seasons</strong></p>
+				<p>Winter, summer, spring or fall?</p>
+			</div>
+		</div>
 
 
 
-        <h1>Stacked Tabs</h1>
+		<h1>Horizontal Tabs</h1>
 
-        <div class="row text-left-desktop">
-            <div class="grid-2">
-                <ul class="tabs tabs-stacked">
-                    <li class="active"><a data-target="#tabHero" href="#">Superheroes</a></li>
-                    <li><a data-target="#tabIC" href="#">Ice Cream</a></li>
-                    <li><a data-target="#tabSeasons" href="#">Seasons</a></li>
-                </ul>
-            </div>
-            <div class="grid-4">
-                <div class="tabs-content">
-                    <div class="tabs-pane active" id="tabHero">
-                        <p><strong>Superheros</strong></p>
-                        <p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
-                    </div>
+		<ul class="tabs tabs-horizontal">
+			<li class="active"><a data-target="#tabA" href="#">Superheroes</a></li>
+			<li><a data-target="#tabB" href="#">Ice Cream</a></li>
+			<li><a data-target="#tabC" href="#">Seasons</a></li>
+		</ul>
 
-                    <div class="tabs-pane" id="tabIC">
-                        <p><strong>Ice Cream</strong></p>
-                        <p>Chocolate, vanilla or strawberry?</p>
-                    </div>
+		<div class="tabs-content">
+			<div class="tabs-pane active" id="tabA">
+				<p><strong>Superheros</strong></p>
+				<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
+			</div>
 
-                    <div class="tabs-pane" id="tabSeasons">
-                        <p><strong>Seasons</strong></p>
-                        <p>Winter, summer, spring or fall?</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+			<div class="tabs-pane" id="tabB">
+				<p><strong>Ice Cream</strong></p>
+				<p>Chocolate, vanilla or strawberry?</p>
+			</div>
 
-	    
+			<div class="tabs-pane" id="tabC">
+				<p><strong>Seasons</strong></p>
+				<p>Winter, summer, spring or fall?</p>
+			</div>
+		</div>
 
-	   
+
+
+		<h1>Stacked Tabs</h1>
+
+		<div class="row text-left-desktop">
+			<div class="grid-2">
+				<ul class="tabs tabs-stacked">
+					<li class="active"><a data-target="#tabHero" href="#">Superheroes</a></li>
+					<li><a data-target="#tabIC" href="#">Ice Cream</a></li>
+					<li><a data-target="#tabSeasons" href="#">Seasons</a></li>
+				</ul>
+			</div>
+			<div class="grid-4">
+				<div class="tabs-content">
+					<div class="tabs-pane active" id="tabHero">
+						<p><strong>Superheros</strong></p>
+						<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
+					</div>
+
+					<div class="tabs-pane" id="tabIC">
+						<p><strong>Ice Cream</strong></p>
+						<p>Chocolate, vanilla or strawberry?</p>
+					</div>
+
+					<div class="tabs-pane" id="tabSeasons">
+						<p><strong>Seasons</strong></p>
+						<p>Winter, summer, spring or fall?</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
 
 	</section>
 
-    <!-- Javascript -->
-    <script src="buoy.js"></script>
-    <script src="tabby.js"></script>
+	<!-- Javascript -->
+	<script src="buoy.js"></script>
+	<script src="tabby.js"></script>
 
 </body>
 </html>

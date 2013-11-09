@@ -12,7 +12,7 @@
 
     Free to use under the MIT License.
     http://gomakethings.com/mit/
-    
+
  * ============================================================= */
 
 window.buoy = (function(){
@@ -26,7 +26,7 @@ window.buoy = (function(){
 
     // Add a class to an element
     var addClass = function (elem, className) {
-        if (!hasClass(elem, className)) {
+        if ( !hasClass(elem, className) ) {
             elem.className += ' ' + className;
         }
     };
@@ -44,7 +44,7 @@ window.buoy = (function(){
 
     // Toggle a class on an element
     var toggleClass = function (elem, className) {
-        if ( hasClass(elem, className) ) {
+        if ( hasClass(elem, className ) ) {
             removeClass(elem, className);
         }
         else {
@@ -57,19 +57,21 @@ window.buoy = (function(){
         var siblings = [];
         var sibling = elem.parentNode.firstChild;
         var skipMe = elem;
-        for ( ; sibling; sibling = sibling.nextSibling )
-           if ( sibling.nodeType == 1 && sibling != elem )
-              siblings.push( sibling );
+        for ( ; sibling; sibling = sibling.nextSibling ) {
+            if ( sibling.nodeType == 1 && sibling != elem ) {
+                siblings.push( sibling );
+            }
+        }
         return siblings;
     };
 
     // Return functions
-    return{
+    return {
         toggleClass: toggleClass,
         removeClass: removeClass,
         addClass: addClass,
         hasClass: hasClass,
         getSiblings: getSiblings
     };
-    
+
 })();
