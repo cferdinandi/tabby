@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Tabby v3.2
+	Tabby v4.0
 	Simple, mobile-first toggle tabs by Chris Ferdinandi
 	http://gomakethings.com
 
@@ -26,15 +26,20 @@
 
 			// Get toggle parent and parent sibling elements
 			var toggleParent = toggle.parentNode;
-			var toggleSiblings = buoy.getSiblings(toggleParent);
+			var toggleListSiblings = buoy.getSiblings(toggleParent);
+			var toggleButtonSiblings = buoy.getSiblings(toggle);
 
 			// Add '.active' class to tab toggle and parent element
 			buoy.addClass(toggle, 'active');
 			buoy.addClass(toggleParent, 'active');
 
 			// Remove '.active' class from all sibling elements
-			[].forEach.call(toggleSiblings, function (sibling) {
+			[].forEach.call(toggleListSiblings, function (sibling) {
 				buoy.removeClass(sibling, 'active');
+			});
+			[].forEach.call(toggleButtonSiblings, function (sibling) {
+				buoy.removeClass(sibling, 'active');
+				console.log(sibling);
 			});
 
 			// Add '.active' class to target tab
