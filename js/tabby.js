@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Tabby v3.2
+	Tabby v4.0
 	Simple, mobile-first toggle tabs by Chris Ferdinandi
 	http://gomakethings.com
 

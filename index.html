@@ -19,8 +19,8 @@
 	</style>
 
 	<!-- stylesheets -->
-	<link rel="stylesheet" href="tabby.css" type="text/css">
-	<link rel="stylesheet" href="kraken-grid.css" type="text/css">
+	<link rel="stylesheet" href="css/tabby-css.css" type="text/css">
+	<link rel="stylesheet" href="css/kraken-grid.css" type="text/css">
 
 	<!-- Feature Test -->
 	<script>
@@ -38,13 +38,10 @@
 <body>
 	<section class="container">
 		<h1 style="text-align: center; font-size: 3em;">Tabby</h1>
-		<p style="text-align: center; font-size: 1.5em;">Simple, mobile-first toggle tabs.</p>
-
-		<p>There are three types of tabs: Basic, Horizontal, and Stacked.</p>
+		<p style="text-align: center; font-size: 1.5em;">Simple toggle tabs.</p>
 
 
-
-		<h1>Basic Tabs</h1>
+		<h2>Buttons</h2>
 
 		<div class="tabs">
 			<button class="tab-toggle" data-target="#tab1">Superheroes</button>
@@ -70,73 +67,37 @@
 		</div>
 
 
+		<h2>List</h2>
 
-		<h1>Horizontal Tabs</h1>
-
-		<ul class="tabs tabs-horizontal">
-			<li class="active"><a data-target="#tabA" href="#">Superheroes</a></li>
-			<li><a data-target="#tabB" href="#">Ice Cream</a></li>
-			<li><a data-target="#tabC" href="#">Seasons</a></li>
+		<ul class="tabs">
+			<li><a class="tab-toggle" data-target="#taba" href="#taba">Superheroes</a></li>
+			<li><a class="tab-toggle" data-target="#tabb" href="#tabb">Ice Cream</a></li>
+			<li><a class="tab-toggle" data-target="#tabc" href="#tabc">Seasons</a></li>
 		</ul>
 
 		<div class="tabs-content">
-			<div class="tabs-pane active" id="tabA">
+			<div class="tabs-pane active" id="taba">
 				<p><strong>Superheros</strong></p>
 				<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
 			</div>
 
-			<div class="tabs-pane" id="tabB">
+			<div class="tabs-pane" id="tabb">
 				<p><strong>Ice Cream</strong></p>
 				<p>Chocolate, vanilla or strawberry?</p>
 			</div>
 
-			<div class="tabs-pane" id="tabC">
+			<div class="tabs-pane" id="tabc">
 				<p><strong>Seasons</strong></p>
 				<p>Winter, summer, spring or fall?</p>
 			</div>
 		</div>
 
 
-
-		<h1>Stacked Tabs</h1>
-
-		<div class="row text-left-desktop">
-			<div class="grid-2">
-				<ul class="tabs tabs-stacked">
-					<li class="active"><a data-target="#tabHero" href="#">Superheroes</a></li>
-					<li><a data-target="#tabIC" href="#">Ice Cream</a></li>
-					<li><a data-target="#tabSeasons" href="#">Seasons</a></li>
-				</ul>
-			</div>
-			<div class="grid-4">
-				<div class="tabs-content">
-					<div class="tabs-pane active" id="tabHero">
-						<p><strong>Superheros</strong></p>
-						<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
-					</div>
-
-					<div class="tabs-pane" id="tabIC">
-						<p><strong>Ice Cream</strong></p>
-						<p>Chocolate, vanilla or strawberry?</p>
-					</div>
-
-					<div class="tabs-pane" id="tabSeasons">
-						<p><strong>Seasons</strong></p>
-						<p>Winter, summer, spring or fall?</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
-
-
 	</section>
 
 	<!-- Javascript -->
-	<script src="buoy.js"></script>
-	<script src="tabby.js"></script>
+	<script src="js/buoy.js"></script>
+	<script src="js/tabby.js"></script>
 
 </body>
 </html>

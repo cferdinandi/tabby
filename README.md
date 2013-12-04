@@ -1,10 +1,13 @@
 # Tabby
-Tabby is a lightweight, mobile-first toggle tab powered by vanilla JS.
+Tabby is a lightweight toggle tab powered by vanilla JS.
 
 ## How It Works
 Getting started with Tabby is really easy. [View the online tutorial](http://cferdinandi.github.com/tabby/) or dig through the `index.html` file.
 
 ## Changelog
+* v4.0 (December 4, 2013)
+  * Added Sass support.
+  * Removed horizontal and vertical styling for great design flexibility.
 * v3.2 (August 27, 2013)
   * Added missing semicolon.
   * Activated strict mode.
