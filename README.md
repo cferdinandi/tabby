@@ -8,6 +8,7 @@ Getting started with Tabby is really easy. [View the online tutorial](http://cfe
 * v4.0 (December 4, 2013)
   * Added Sass support.
   * Removed horizontal and vertical styling for great design flexibility.
+  * Add active class to button elements.
 * v3.2 (August 27, 2013)
   * Added missing semicolon.
   * Activated strict mode.
