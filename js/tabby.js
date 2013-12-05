@@ -24,20 +24,20 @@
 			var dataTarget = document.querySelector(dataID);
 			var targetSiblings = buoy.getSiblings(dataTarget);
 
-			// Get toggle parent and parent sibling elements
+			// Get toggle siblings, toggle parent, and parent sibling elements
 			var toggleParent = toggle.parentNode;
-			var toggleListSiblings = buoy.getSiblings(toggleParent);
-			var toggleButtonSiblings = buoy.getSiblings(toggle);
+			var toggleSiblings = buoy.getSiblings(toggle);
+			var toggleParentSiblings = buoy.getSiblings(toggleParent);
 
 			// Add '.active' class to tab toggle and parent element
 			buoy.addClass(toggle, 'active');
 			buoy.addClass(toggleParent, 'active');
 
 			// Remove '.active' class from all sibling elements
-			[].forEach.call(toggleListSiblings, function (sibling) {
+			[].forEach.call(toggleParentSiblings, function (sibling) {
 				buoy.removeClass(sibling, 'active');
 			});
-			[].forEach.call(toggleButtonSiblings, function (sibling) {
+			[].forEach.call(toggleSiblings, function (sibling) {
 				buoy.removeClass(sibling, 'active');
 				console.log(sibling);
 			});
