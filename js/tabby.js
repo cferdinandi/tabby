@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Tabby v4.0
+	Tabby v4.1
 	Simple, mobile-first toggle tabs by Chris Ferdinandi
 	http://gomakethings.com
 
@@ -16,59 +16,79 @@
 	// Feature Test
 	if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
-		// Function to show a tab
+		// VARIABLES
+
+		// Get all tab toggle elements
+		var tabToggle = document.querySelectorAll('.tabs a, .tabs button');
+
+
+		// FUNCTIONS
+
+		// Setup function to show a tab (and hide all others)
 		var showTab = function (toggle) {
 
-			// Define the target tab and siblings
-			var dataID = toggle.getAttribute('data-target');
-			var dataTarget = document.querySelector(dataID);
-			var targetSiblings = buoy.getSiblings(dataTarget);
+			// VARIABLES
 
-			// Get toggle siblings, toggle parent, and parent sibling elements
+			// Define the target tab
+			var dataID = toggle.getAttribute('data-target');
+			var dataTarget = document.querySelectorAll(dataID);
+
+			// Get other toggle elements
 			var toggleParent = toggle.parentNode;
 			var toggleSiblings = buoy.getSiblings(toggle);
 			var toggleParentSiblings = buoy.getSiblings(toggleParent);
 
-			// Add '.active' class to tab toggle and parent element
+
+			// FUNCTIONS
+
+			// Setup function to remove '.active' class from all other tab toggles
+			var deactivateOtherToggles = function ( toggleParentSiblings, toggleSiblings ) {
+				[].forEach.call(toggleParentSiblings, function (sibling) {
+					buoy.removeClass(sibling, 'active');
+				});
+				[].forEach.call(toggleSiblings, function (sibling) {
+					buoy.removeClass(sibling, 'active');
+				});
+			};
+
+			// Setup function to hide all tab content sections
+			var hideOtherTabs = function ( targetSiblings ) {
+				[].forEach.call(targetSiblings, function (sibling) {
+					buoy.removeClass(sibling, 'active');
+				});
+			};
+
+			// Setup function to show target tabs
+			var showTargetTabs = function ( dataTarget ) {
+				[].forEach.call(dataTarget, function (target) {
+					var targetSiblings = buoy.getSiblings(target);
+					buoy.addClass(target, 'active');
+					hideOtherTabs(targetSiblings);
+				});
+			};
+
+
+			// LISTENERS AND EVENTS
+
+			// Set clicked toggle to active. Deactivate others.
 			buoy.addClass(toggle, 'active');
 			buoy.addClass(toggleParent, 'active');
+			deactivateOtherToggles(toggleParentSiblings, toggleSiblings);
 
-			// Remove '.active' class from all sibling elements
-			[].forEach.call(toggleParentSiblings, function (sibling) {
-				buoy.removeClass(sibling, 'active');
-			});
-			[].forEach.call(toggleSiblings, function (sibling) {
-				buoy.removeClass(sibling, 'active');
-				console.log(sibling);
-			});
-
-			// Add '.active' class to target tab
-			buoy.addClass(dataTarget, 'active');
-
-			// Remove '.active' class from all other tabs
-			[].forEach.call(targetSiblings, function (sibling) {
-				buoy.removeClass(sibling, 'active');
-			});
+			// Show target tab content. Hide others.
+			showTargetTabs(dataTarget);
 
 		};
 
-		// Define tab toggles
-		var tabToggle = document.querySelectorAll('.tabs a, .tabs button');
 
-		// For each tab toggle
+		// LISTENERS AND EVENTS
+
+		// When tab toggles are clicked, hide/show tab content
 		[].forEach.call(tabToggle, function (toggle) {
-
-			// When tab toggle is clicked
 			toggle.addEventListener('click', function(e) {
-
-				// Prevent default link behavior
 				e.preventDefault();
-
-				// Activate the tab
 				showTab(toggle);
-
 			}, false);
-
 		});
 
 	}
