@@ -1,77 +1,92 @@
 /* =============================================================
 
-    Buoy v1.1
-    A simple vanilla JS micro-library by Chris Ferdinandi.
-    http://gomakethings.com
+	Buoy v1.2
+	A simple vanilla JS micro-library by Chris Ferdinandi.
+	http://gomakethings.com
 
-    Class handlers by Todd Motto.
-    http://toddmotto.com/
+	Class handlers by Todd Motto.
+	https://github.com/toddmotto/apollo
 
-    Module pattern by Keith Rousseau.
-    https://twitter.com/keithtri
+	Module pattern by Keith Rousseau.
+	https://twitter.com/keithtri
 
-    Free to use under the MIT License.
-    http://gomakethings.com/mit/
+	Free to use under the MIT License.
+	http://gomakethings.com/mit/
 
  * ============================================================= */
 
-window.buoy = (function(){
+window.buoy = (function (window, document, undefined) {
 
-    'use strict';
+	'use strict';
 
-    // Check if an element has a class
-    var hasClass = function (elem, className) {
-        return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
-    };
+	// Check for classList support
+	var classList = document.documentElement.classList;
 
-    // Add a class to an element
-    var addClass = function (elem, className) {
-        if ( !hasClass(elem, className) ) {
-            elem.className += ' ' + className;
-        }
-    };
+	// Check if an element has a class
+	var hasClass = function (elem, className) {
+		if ( classList ) {
+			return elem.classList.contains(className);
+		} else {
+			return new RegExp('(^|\\s)' + className + '(\\s|$)').test(elem.className);
+		}
+	};
 
-    // Remove a class from an element
-    var removeClass = function (elem, className) {
-        var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
-        if (hasClass(elem, className)) {
-            while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
-                newClass = newClass.replace(' ' + className + ' ', ' ');
-            }
-            elem.className = newClass.replace(/^\s+|\s+$/g, '');
-        }
-    };
+	// Add a class to an element
+	var addClass = function (elem, className) {
+		if ( !hasClass(elem, className) ) {
+			if ( classList ) {
+				elem.classList.add(className);
+			} else {
+				elem.className += (elem.className ? ' ' : '') + className;
+			}
+		}
+	};
 
-    // Toggle a class on an element
-    var toggleClass = function (elem, className) {
-        if ( hasClass(elem, className ) ) {
-            removeClass(elem, className);
-        }
-        else {
-            addClass(elem, className);
-        }
-    };
+	// Remove a class from an element
+	var removeClass = function (elem, className) {
+		if (hasClass(elem, className)) {
+			if ( classList ) {
+				elem.classList.remove(className);
+			} else {
+				elem.className = elem.className.replace(new RegExp('(^|\\s)*' + className + '(\\s|$)*', 'g'), '');
+			}
+		}
+	};
 
-    // Get siblings of an element
-    var getSiblings = function (elem) {
-        var siblings = [];
-        var sibling = elem.parentNode.firstChild;
-        var skipMe = elem;
-        for ( ; sibling; sibling = sibling.nextSibling ) {
-            if ( sibling.nodeType == 1 && sibling != elem ) {
-                siblings.push( sibling );
-            }
-        }
-        return siblings;
-    };
+	// Toggle a class on an element
+	var toggleClass = function (elem, className) {
+		if ( classList ) {
+			elem.classList.toggle(className);
+		} else {
+			if ( hasClass(elem, className ) ) {
+				removeClass(elem, className);
+			}
+			else {
+				addClass(elem, className);
+			}
+		}
+	};
 
-    // Return functions
-    return {
-        toggleClass: toggleClass,
-        removeClass: removeClass,
-        addClass: addClass,
-        hasClass: hasClass,
-        getSiblings: getSiblings
-    };
+	// Get siblings of an element
+	var getSiblings = function (elem) {
+		var siblings = [];
+		var sibling = elem.parentNode.firstChild;
+		var skipMe = elem;
+		for ( ; sibling; sibling = sibling.nextSibling ) {
+			if ( sibling.nodeType == 1 && sibling != elem ) {
+				siblings.push( sibling );
+			}
+		}
+		return siblings;
+	};
 
-})();
+	// Return functions
+	return {
+		toggleClass: toggleClass,
+		removeClass: removeClass,
+		addClass: addClass,
+		hasClass: hasClass,
+		getSiblings: getSiblings
+	};
+
+})(window, document);
