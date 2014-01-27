@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Tabby v4.1
+	Tabby v5.0
 	Simple, mobile-first toggle tabs by Chris Ferdinandi
 	http://gomakethings.com
 
@@ -9,25 +9,25 @@
 
  * ============================================================= */
 
-(function (window, document, undefined) {
+;window.tabby = (function (window, document, undefined) {
 
 	'use strict';
 
 	// Feature Test
 	if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
-		// VARIABLES
+		// SELECTORS
 
 		// Get all tab toggle elements
-		var tabToggle = document.querySelectorAll('.tabs a, .tabs button');
+		var tabToggle = document.querySelectorAll('[data-tab]');
 
 
-		// FUNCTIONS
+		// METHODS
 
 		// Setup function to show a tab (and hide all others)
 		var showTab = function (toggle) {
 
-			// VARIABLES
+			// SELECTORS
 
 			// Define the target tab
 			var dataID = toggle.getAttribute('data-target');
@@ -39,7 +39,7 @@
 			var toggleParentSiblings = buoy.getSiblings(toggleParent);
 
 
-			// FUNCTIONS
+			// METHODS
 
 			// Setup function to remove '.active' class from all other tab toggles
 			var deactivateOtherToggles = function ( toggleParentSiblings, toggleSiblings ) {
@@ -68,7 +68,7 @@
 			};
 
 
-			// LISTENERS AND EVENTS
+			// EVENTS, LISTENERS, AND INITS
 
 			// Set clicked toggle to active. Deactivate others.
 			buoy.addClass(toggle, 'active');
@@ -81,7 +81,7 @@
 		};
 
 
-		// LISTENERS AND EVENTS
+		// EVENTS, LISTENERS, AND INITS
 
 		// When tab toggles are clicked, hide/show tab content
 		[].forEach.call(tabToggle, function (toggle) {

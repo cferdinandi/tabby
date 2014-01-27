@@ -5,6 +5,11 @@ Tabby is a lightweight toggle tab powered by vanilla JS.
 Getting started with Tabby is really easy. [View the online tutorial](http://cferdinandi.github.com/tabby/) or dig through the `index.html` file.
 
 ## Changelog
+* v5.0 (January 27, 2014)
+  * Switched to a data attribute for the toggle selector (separates scripts from styles).
+  * Removed unused `tab-toggle` class.
+  * Prefixed script with a `;` to prevent errors if other scripts are incorrectly closed.
+  * Added namespacing to IIFE.
 * v4.0 (December 4, 2013)
   * Added Sass support.
   * Removed horizontal and vertical styling for great design flexibility.

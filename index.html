@@ -28,12 +28,11 @@
 
 	<!-- stylesheets -->
 	<link rel="stylesheet" href="css/tabby-css.css" type="text/css">
-	<link rel="stylesheet" href="css/kraken-grid.css" type="text/css">
 
 	<!-- Feature Test -->
 	<script>
 		if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
-			document.documentElement.className += 'js';
+			document.documentElement.className += ' js';
 		}
 	</script>
 
@@ -52,9 +51,9 @@
 		<h2>Buttons</h2>
 
 		<div class="tabs">
-			<button class="tab-toggle" data-target="#tab1">Superheroes</button>
-			<button class="tab-toggle" data-target="#tab2">Ice Cream</button>
-			<button class="tab-toggle" data-target="#tab3">Seasons</button>
+			<button data-tab data-target="#tab1">Superheroes</button>
+			<button data-tab data-target="#tab2">Ice Cream</button>
+			<button data-tab data-target="#tab3">Seasons</button>
 		</div>
 
 		<div class="tabs-content">
@@ -78,9 +77,9 @@
 		<h2>List</h2>
 
 		<ul class="tabs">
-			<li><a class="tab-toggle" data-target="#taba" href="#taba">Superheroes</a></li>
-			<li><a class="tab-toggle" data-target="#tabb" href="#tabb">Ice Cream</a></li>
-			<li><a class="tab-toggle" data-target="#tabc" href="#tabc">Seasons</a></li>
+			<li><a data-tab data-target="#taba" href="#taba">Superheroes</a></li>
+			<li><a data-tab data-target="#tabb" href="#tabb">Ice Cream</a></li>
+			<li><a data-tab data-target="#tabc" href="#tabc">Seasons</a></li>
 		</ul>
 
 		<div class="tabs-content">
