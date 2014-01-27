@@ -15,8 +15,8 @@
 }
 
 /*  Display tab navigation if javascript enabled.
- *  This requires on the included js-accessibility.js script. */
-.js .tabs {
+ *  This requires on the included js-accessibility.js-tabby script. */
+.js-tabby .tabs {
   display: block;
   visibility: visible;
 }
@@ -28,7 +28,7 @@
 }
 
 /*  Hide tab content if javascript is enabled. */
-.js .tabs-pane {
+.js-tabby .tabs-pane {
   display: none;
   visibility: hidden;
 }
