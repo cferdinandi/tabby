@@ -14,7 +14,7 @@ window.tabby = (function (window, document, undefined) {
 	'use strict';
 
 	// Feature Test
-	if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
+	if ( 'querySelector' in document && 'addEventListener' in window ) {
 
 		// SELECTORS
 
