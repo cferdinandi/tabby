@@ -5,6 +5,8 @@ Tabby is a lightweight toggle tab powered by vanilla JS.
 Getting started with Tabby is really easy. [View the online tutorial](http://cferdinandi.github.com/tabby/) or dig through the `index.html` file.
 
 ## Changelog
+* v5.2 (February 5, 2014)
+  * Reverted to `Array.prototype.forEach` loops.
 * v5.1 (January 27, 2014)
   * Updated addEventListener to be more object oriented.
   * Moved feature test to script itself.

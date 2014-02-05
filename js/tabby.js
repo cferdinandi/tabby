@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Tabby v5.1
+	Tabby v5.2
 	Simple, mobile-first toggle tabs by Chris Ferdinandi
 	http://gomakethings.com
 
@@ -14,7 +14,7 @@ window.tabby = (function (window, document, undefined) {
 	'use strict';
 
 	// Feature Test
-	if ( 'querySelector' in document && 'addEventListener' in window ) {
+	if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
 		// SELECTORS
 
@@ -26,24 +26,24 @@ window.tabby = (function (window, document, undefined) {
 
 		// Remove '.active' class from all other tab toggles
 		var deactivateOtherToggles = function ( toggleParentSiblings, toggleSiblings ) {
-			[].forEach.call(toggleParentSiblings, function (sibling) {
+			Array.prototype.forEach.call(toggleParentSiblings, function (sibling, index) {
 				buoy.removeClass(sibling, 'active');
 			});
-			[].forEach.call(toggleSiblings, function (sibling) {
+			Array.prototype.forEach.call(toggleSiblings, function (sibling, index) {
 				buoy.removeClass(sibling, 'active');
 			});
 		};
 
 		// Hide all tab content sections
 		var hideOtherTabs = function ( targetSiblings ) {
-			[].forEach.call(targetSiblings, function (sibling) {
+			Array.prototype.forEach.call(targetSiblings, function (sibling, index) {
 				buoy.removeClass(sibling, 'active');
 			});
 		};
 
 		// Show target tabs
 		var showTargetTabs = function ( dataTarget ) {
-			[].forEach.call(dataTarget, function (target) {
+			Array.prototype.forEach.call(dataTarget, function (target, index) {
 				var targetSiblings = buoy.getSiblings(target);
 				buoy.addClass(target, 'active');
 				hideOtherTabs(targetSiblings);
@@ -86,10 +86,9 @@ window.tabby = (function (window, document, undefined) {
 		buoy.addClass(document.documentElement, 'js-tabby');
 
 		// When tab toggles are clicked, hide/show tab content
-		for (var i = toggles.length; i--;) {
-			var toggle = toggles[i];
+		Array.prototype.forEach.call(toggles, function (toggle, index) {
 			toggle.addEventListener('click', toggleTab, false);
-		}
+		});
 
 	}
 
