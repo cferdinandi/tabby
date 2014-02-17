@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Tabby v5.2
+	Tabby v5.3
 	Simple, mobile-first toggle tabs by Chris Ferdinandi
 	http://gomakethings.com
 
@@ -24,6 +24,19 @@ window.tabby = (function (window, document, undefined) {
 
 		// METHODS
 
+		// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the slide
+		var stopVideo = function (tab) {
+			var iframe = tab.querySelector( 'iframe');
+			var video = tab.querySelector( 'video' );
+			if ( iframe !== null ) {
+				var iframeSrc = iframe.src;
+				iframe.src = iframeSrc;
+			}
+			if ( video !== null ) {
+				video.pause();
+			}
+		};
+
 		// Remove '.active' class from all other tab toggles
 		var deactivateOtherToggles = function ( toggleParentSiblings, toggleSiblings ) {
 			Array.prototype.forEach.call(toggleParentSiblings, function (sibling, index) {
@@ -38,6 +51,7 @@ window.tabby = (function (window, document, undefined) {
 		var hideOtherTabs = function ( targetSiblings ) {
 			Array.prototype.forEach.call(targetSiblings, function (sibling, index) {
 				buoy.removeClass(sibling, 'active');
+				stopVideo(sibling);
 			});
 		};
 
