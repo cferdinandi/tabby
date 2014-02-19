@@ -24,7 +24,7 @@ window.tabby = (function (window, document, undefined) {
 
 		// METHODS
 
-		// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the slide
+		// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the tab
 		var stopVideo = function (tab) {
 			var iframe = tab.querySelector( 'iframe');
 			var video = tab.querySelector( 'video' );
