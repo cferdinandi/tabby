@@ -5,6 +5,10 @@ Tabby is a lightweight toggle tab powered by vanilla JS.
 Getting started with Tabby is really easy. [View the online tutorial](http://cferdinandi.github.com/tabby/) or dig through the `index.html` file.
 
 ## Changelog
+* v6.0 (February 21, 2014)
+  * Better public/private method namespacing.
+  * Require `init()` call to run.
+  * Better documentation (noting what's returned on functions).
 * v5.3 (February 16, 2014)
   * [Added method to stop YouTube, Vimeo, and HTML5 videos from playing when tab is closed.](https://github.com/cferdinandi/tabby/issues/8)
 * v5.2 (February 5, 2014)
