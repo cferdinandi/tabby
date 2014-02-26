@@ -1,11 +1,13 @@
 # Tabby
-Simple toggle tabs, by [Chris Ferdinandi](http://gomakethings.com). [View the Demo](http://cferdinandi.github.io/tabby/)
+Simple toggle tabs. [View the demo](http://cferdinandi.github.io/tabby/).
+
+**In This Documentation**
 
 1. [Getting Started](#getting-started)
-2. [Browser Compatability](#browser-compatability)
-3. [Options & Settings](#options-and-settings)
-4. [Changelog](#changelog)
-5. [License](#license)
+2. [Options & Settings](#options-and-settings)
+3. [Browser Compatibility](#browser-compatibility)
+4. [License](#license)
+5. [Changelog](#changelog)
 6. [Older Docs](#older-docs)
 
 
@@ -14,9 +16,11 @@ Simple toggle tabs, by [Chris Ferdinandi](http://gomakethings.com). [View the De
 
 ### 1. Include Tabby on your site.
 
-	<link rel="stylesheet" href="css/tabby-css.css">
-	<script src="js/tabby.js"></script>
-	<script src="buoy.js"></script>
+```html
+<link rel="stylesheet" href="css/tabby-css.css">
+<script src="js/tabby.js"></script>
+<script src="buoy.js"></script>
+```
 
 Tabby is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
 
@@ -32,50 +36,56 @@ Add the `.active` class to the tab and content that you'd like displayed by defa
 
 **Standalone Buttons**
 
-	<div class="tabs">
-		<button class="active" data-tab="#tab1">Superheroes</button>
-		<button data-tab="#tab2">Ice Cream</button>
-		<button data-tab="#tab3">Seasons</button>
-	</div>
+```html
+<div class="tabs">
+	<button class="active" data-tab="#tab1">Superheroes</button>
+	<button data-tab="#tab2">Ice Cream</button>
+	<button data-tab="#tab3">Seasons</button>
+</div>
 
-	<div class="tabs-content">
-		<div class="tabs-pane active" id="tab1">
-			Superheros
-			...
-		</div>
-
-		<div class="tabs-pane" id="tab2">
-			Ice Cream
-			...
-		</div>
-
-		<div class="tabs-pane" id="tab3">
-			Seasons
-			...
-		</div>
-	</div>
-
-**List Links**
-
-	<ul class="tabs">
-		<li class="active"><a data-tab="#tab1" href="#">Superheroes</a></li>
-		<li><a data-tab="#tab2" href="#">Ice Cream</a></li>
-		<li><a data-tab="#tab3" href="#">Seasons</a></li>
-	</ul>
-
-	<div class="tabs-content">
-		<div class="tabs-pane active" id="tab1">
-			Superheros
-			...
-		</div>
+<div class="tabs-content">
+	<div class="tabs-pane active" id="tab1">
+		Superheros
 		...
 	</div>
 
+	<div class="tabs-pane" id="tab2">
+		Ice Cream
+		...
+	</div>
+
+	<div class="tabs-pane" id="tab3">
+		Seasons
+		...
+	</div>
+</div>
+```
+
+**List Links**
+
+```html
+<ul class="tabs">
+	<li class="active"><a data-tab="#tab1" href="#">Superheroes</a></li>
+	<li><a data-tab="#tab2" href="#">Ice Cream</a></li>
+	<li><a data-tab="#tab3" href="#">Seasons</a></li>
+</ul>
+
+<div class="tabs-content">
+	<div class="tabs-pane active" id="tab1">
+		Superheros
+		...
+	</div>
+	...
+</div>
+```
+
 ### 3. Initialize Tabby.
 
-	<script>
-		tabby.init();
-	</script>
+```html
+<script>
+	tabby.init();
+</script>
+```
 
 In the footer of your page, after the content, initialize Tabby. And that's it, you're done. Nice work!
 
@@ -97,28 +107,32 @@ Tabby includes smart defaults and works right out of the box. But if you want to
 
 You can pass options and callbacks into Tabby through the `init()` function:
 
-	tabby.init({
-		toggleActiveClass: 'active', // Class added to active toggle elements
-		contentActiveClass: 'active', // Class added to active tab content areas
-		initClass: 'js-tabby', // Class added to <html> element when initiated
-		callbackBefore: function () {}, // Function that's run before tab content is toggled
-		callbackAfter: function () {} // Function that's run after tab content is toggled
-	});
+```javascript
+tabby.init({
+	toggleActiveClass: 'active', // Class added to active toggle elements
+	contentActiveClass: 'active', // Class added to active tab content areas
+	initClass: 'js-tabby', // Class added to <html> element when initiated
+	callbackBefore: function () {}, // Function that's run before tab content is toggled
+	callbackAfter: function () {} // Function that's run after tab content is toggled
+});
+```
 
 ### Use Tabby events in your own scripts
 
 You can also call Tabby toggle event in your own scripts:
 
-	tabby.toggleTab(
-		toggle, // Node that toggles the tab action. ex. document.querySelector('#toggle')
-		tabID, // The ID of the tab content area to show. ex. '#content'
-		options, // Classes and callbacks. Same options as those passed into the init() function.
-		event // Optional, if a DOM event was triggered.
-	);
+```javascript
+tabby.toggleTab(
+	toggle, // Node that toggles the tab action. ex. document.querySelector('#toggle')
+	tabID, // The ID of the tab content area to show. ex. '#content'
+	options, // Classes and callbacks. Same options as those passed into the init() function.
+	event // Optional, if a DOM event was triggered.
+);
+```
 
 
 
-## Browser Compatability
+## Browser Compatibility
 
 Tabby works in all modern browsers, and IE 9 and above.
 
@@ -126,54 +140,54 @@ Tabby is built with modern JavaScript APIs, and uses progressive enhancement. If
 
 
 
-## Changelog
-* v6.0 (February 24, 2014)
-  * Better public/private method namespacing.
-  * Require `init()` call to run.
-  * New API exposes additional methods for use in your own scripts.
-  * Better documentation.
-* v5.3 (February 16, 2014)
-  * [Added method to stop YouTube, Vimeo, and HTML5 videos from playing when tab is closed.](https://github.com/cferdinandi/tabby/issues/8)
-* v5.2 (February 5, 2014)
-  * Reverted to `Array.prototype.forEach` loops.
-* v5.1 (January 27, 2014)
-  * Updated addEventListener to be more object oriented.
-  * Moved feature test to script itself.
-* v5.0 (January 27, 2014)
-  * Switched to a data attribute for the toggle selector (separates scripts from styles).
-  * Removed unused `tab-toggle` class.
-  * Prefixed script with a `;` to prevent errors if other scripts are incorrectly closed.
-  * Added namespacing to IIFE.
-* v4.0 (December 4, 2013)
-  * Added Sass support.
-  * Removed horizontal and vertical styling for great design flexibility.
-  * Add active class to button elements.
-* v3.2 (August 27, 2013)
-  * Added missing semicolon.
-  * Activated strict mode.
-* v3.1 (August 26,2013)
-  * Converted to an IIFE pattern.
-  * Added Buoy vanilla JS micro-library.
-* v3.0 (August 13, 2013)
-  * Converted to vanilla JS.
-  * Removed dependence on jQuery.
-* v2.1 (August 5, 2013)
-  * Updated with variable for `$(this)` (better performance).
-* v2.0 (June 7, 2013)
-  * Switched to MIT license.
-* v2.0 (June 5, 2013)
-  * Switched from `href` to `data-target` value for tab id, breaking backward compatibility.
-* v1.1 (February 13, 2013)
-  * Renamed `example.html` to `index.html`.
-* v1.1 (February 5, 2013)
-  * Switched to relative sizing.
-* v1.0 (January 22, 2013)
-  * Initial release.
-
-
-
 ## License
 Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
+
+
+
+## Changelog
+* v6.0 - February 24, 2014
+	* Better public/private method namespacing.
+	* Require `init()` call to run.
+	* New API exposes additional methods for use in your own scripts.
+	* Better documentation.
+* v5.3 - February 16, 2014
+	* [Added method to stop YouTube, Vimeo, and HTML5 videos from playing when tab is closed.](https://github.com/cferdinandi/tabby/issues/8)
+* v5.2 - February 5, 2014
+	* Reverted to `Array.prototype.forEach` loops.
+* v5.1 - January 27, 2014
+	* Updated addEventListener to be more object oriented.
+	* Moved feature test to script itself.
+* v5.0 - January 27, 2014
+	* Switched to a data attribute for the toggle selector (separates scripts from styles).
+	* Removed unused `tab-toggle` class.
+	* Prefixed script with a `;` to prevent errors if other scripts are incorrectly closed.
+	* Added namespacing to IIFE.
+* v4.0 - December 4, 2013
+	* Added Sass support.
+	* Removed horizontal and vertical styling for great design flexibility.
+	* Add active class to button elements.
+* v3.2 - August 27, 2013
+	* Added missing semicolon.
+	* Activated strict mode.
+* v3.1 - August 26,2013
+	* Converted to an IIFE pattern.
+	* Added Buoy vanilla JS micro-library.
+* v3.0 - August 13, 2013
+	* Converted to vanilla JS.
+	* Removed dependence on jQuery.
+* v2.1 - August 5, 2013
+	* Updated with variable for `$(this)` (better performance).
+* v2.0 - June 7, 2013
+	* Switched to MIT license.
+* v2.0 - June 5, 2013
+	* Switched from `href` to `data-target` value for tab id, breaking backward compatibility.
+* v1.1 - February 13, 2013
+	* Renamed `example.html` to `index.html`.
+* v1.1 - February 5, 2013
+	* Switched to relative sizing.
+* v1.0 - January 22, 2013
+	* Initial release.
 
 
 
