@@ -1,8 +1,130 @@
 # Tabby
-Tabby is a lightweight toggle tab powered by vanilla JS.
+Simple toggle tabs, by [Chris Ferdinandi](http://gomakethings.com). [View the Demo](http://cferdinandi.github.io/tabby/)
 
-## How It Works
-Getting started with Tabby is really easy. [View the online tutorial](http://cferdinandi.github.com/tabby/) or dig through the `index.html` file.
+1. [Getting Started](#getting-started)
+2. [Browser Compatability](#browser-compatability)
+3. [Options & Settings](#options-and-settings)
+4. [Changelog](#changelog)
+5. [License](#license)
+6. [Older Docs](#older-docs)
+
+
+
+## Getting Started
+
+### 1. Include Tabby on your site.
+
+	<link rel="stylesheet" href="css/tabby-css.css">
+	<script src="js/tabby.js"></script>
+	<script src="buoy.js"></script>
+
+Tabby is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
+
+The `_config.scss` and `_mixins.scss` files are the same ones used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_tabby.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
+
+Tabby also requires [Buoy](http://cferdinandi.github.io/buoy/), a vanilla JS micro-library that contains simple helper functions used by Tabby.
+
+### 2. Add the markup to your HTML.
+
+Tab toggles can be buttons or links, and can optionally be wrapped in a list element. Make sure that the `[data-tab]` value of each tab toggle matches the ID of the matching `.tab-pane`.
+
+Add the `.active` class to the tab and content that you'd like displayed by default.
+
+**Standalone Buttons**
+
+	<div class="tabs">
+		<button class="active" data-tab="#tab1">Superheroes</button>
+		<button data-tab="#tab2">Ice Cream</button>
+		<button data-tab="#tab3">Seasons</button>
+	</div>
+
+	<div class="tabs-content">
+		<div class="tabs-pane active" id="tab1">
+			Superheros
+			...
+		</div>
+
+		<div class="tabs-pane" id="tab2">
+			Ice Cream
+			...
+		</div>
+
+		<div class="tabs-pane" id="tab3">
+			Seasons
+			...
+		</div>
+	</div>
+
+**List Links**
+
+	<ul class="tabs">
+		<li class="active"><a data-tab="#tab1" href="#">Superheroes</a></li>
+		<li><a data-tab="#tab2" href="#">Ice Cream</a></li>
+		<li><a data-tab="#tab3" href="#">Seasons</a></li>
+	</ul>
+
+	<div class="tabs-content">
+		<div class="tabs-pane active" id="tab1">
+			Superheros
+			...
+		</div>
+		...
+	</div>
+
+### 3. Initialize Tabby.
+
+	<script>
+		tabby.init();
+	</script>
+
+In the footer of your page, after the content, initialize Tabby. And that's it, you're done. Nice work!
+
+
+
+## Styling Tabby
+
+Tabby ships without any default styles, so you can adapt it to whatever project you're working on. For responsive navigation patterns, you might use Tabby with [Astro](http://cferdinandi.github.io/astro/).
+
+If you need something with styling, check out [Tabby 3](http://cferdinandi.github.io/tabby/archive/v3/).
+
+
+
+## Options and Settings
+
+Tabby includes smart defaults and works right out of the box. But if you want to customize things, it also has a robust API that provides multiple ways for you to adjust the default options and settings.
+
+### Global Settings
+
+You can pass options and callbacks into Tabby through the `init()` function:
+
+tabby.init({
+	toggleActiveClass: 'active', // Class added to active toggle elements
+	contentActiveClass: 'active', // Class added to active tab content areas
+	initClass: 'js-tabby', // Class added to <html> element when initiated
+	callbackBefore: function () {}, // Function that's run before tab content is toggled
+	callbackAfter: function () {} // Function that's run after tab content is toggled
+});
+
+### Use Tabby events in your own scripts
+
+You can also call Tabby toggle event in your own scripts:
+
+	tabby.toggleTab(
+		toggle, // Node that toggles the tab action. ex. document.querySelector('#toggle')
+		tabID, // The ID of the tab content area to show. ex. '#content'
+		options, // Classes and callbacks. Same options as those passed into the init() function.
+		event // Optional, if a DOM event was triggered.
+	);
+
+
+
+## Brower Compatability
+
+Tabby works in all modern browsers, and IE 9 and above.
+
+Tabby is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all content will be displayed by default. If you need to support older browsers, you can still [download the jQuery version of Tabby on GitHub](https://github.com/cferdinandi/tabby/tree/archive-v2).
+
+
 
 ## Changelog
 * v6.0 (February 24, 2014)
@@ -48,5 +170,14 @@ Getting started with Tabby is really easy. [View the online tutorial](http://cfe
 * v1.0 (January 22, 2013)
   * Initial release.
 
+
+
 ## License
-Tabby is free to use under the [MIT License](http://gomakethings.com/mit/).
+Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
+
+
+
+## Older Docs
+
+* [Version 5](http://cferdinandi.github.io/tabby/archive/v5/)
+* [Version 3](http://cferdinandi.github.io/tabby/archive/v3/)
