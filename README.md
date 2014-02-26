@@ -97,13 +97,13 @@ Tabby includes smart defaults and works right out of the box. But if you want to
 
 You can pass options and callbacks into Tabby through the `init()` function:
 
-tabby.init({
-	toggleActiveClass: 'active', // Class added to active toggle elements
-	contentActiveClass: 'active', // Class added to active tab content areas
-	initClass: 'js-tabby', // Class added to <html> element when initiated
-	callbackBefore: function () {}, // Function that's run before tab content is toggled
-	callbackAfter: function () {} // Function that's run after tab content is toggled
-});
+	tabby.init({
+		toggleActiveClass: 'active', // Class added to active toggle elements
+		contentActiveClass: 'active', // Class added to active tab content areas
+		initClass: 'js-tabby', // Class added to <html> element when initiated
+		callbackBefore: function () {}, // Function that's run before tab content is toggled
+		callbackAfter: function () {} // Function that's run after tab content is toggled
+	});
 
 ### Use Tabby events in your own scripts
 
