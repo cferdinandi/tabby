@@ -118,7 +118,7 @@ You can also call Tabby toggle event in your own scripts:
 
 
 
-## Brower Compatability
+## Browser Compatability
 
 Tabby works in all modern browsers, and IE 9 and above.
 
