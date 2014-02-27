@@ -130,6 +130,13 @@ tabby.toggleTab(
 );
 ```
 
+**Example**
+
+```javascript
+var toggle = document.querySelector('#toggle');
+tabby.toggleTab( toggle, '#content' );
+```
+
 
 
 ## Browser Compatibility
