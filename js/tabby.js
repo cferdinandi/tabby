@@ -16,14 +16,12 @@ window.tabby = (function (window, document, undefined) {
 	// Default settings
 	// Private method
 	// Returns an {object}
-	var _defaults = function () {
-		return {
-			toggleActiveClass: 'active',
-			contentActiveClass: 'active',
-			initClass: 'js-tabby',
-			callbackBefore: function () {},
-			callbackAfter: function () {}
-		};
+	var _defaults = {
+		toggleActiveClass: 'active',
+		contentActiveClass: 'active',
+		initClass: 'js-tabby',
+		callbackBefore: function () {},
+		callbackAfter: function () {}
 	};
 
 	// Merge default settings with user options
@@ -90,7 +88,7 @@ window.tabby = (function (window, document, undefined) {
 	var toggleTab = function ( toggle, tabID, options, event ) {
 
 		// Selectors and variables
-		options = _mergeObjects( _defaults(), options || {} ); // Merge user options with defaults
+		options = _mergeObjects( _defaults, options || {} ); // Merge user options with defaults
 		var tabs = document.querySelectorAll(tabID); // Get tab content
 
 		// Get other toggle elements
@@ -126,7 +124,7 @@ window.tabby = (function (window, document, undefined) {
 		if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
 
 			// Selectors and variables
-			options = _mergeObjects( _defaults(), options || {} ); // Merge user options with defaults
+			options = _mergeObjects( _defaults, options || {} ); // Merge user options with defaults
 			var toggles = document.querySelectorAll('[data-tab]'); // Get all tab toggle elements
 			buoy.addClass(document.documentElement, options.initClass); // Add class to HTML element to activate conditional CSS
 
