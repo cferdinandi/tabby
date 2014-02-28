@@ -133,8 +133,8 @@ tabby.toggleTab(
 **Example**
 
 ```javascript
-var toggle = document.querySelector('#toggle');
-tabby.toggleTab( toggle, '#content' );
+var toggle = document.querySelector('[data-tab="#tab2"]');
+tabby.toggleTab( toggle, '#tab2' );
 ```
 
 
