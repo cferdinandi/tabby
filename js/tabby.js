@@ -52,10 +52,7 @@ window.tabby = (function (window, document, undefined) {
 	// Remove '.active' class from all other tab toggles
 	// Private method
 	// Runs functions
-	var _deactivateOtherToggles = function ( toggleParentSiblings, toggleSiblings, options ) {
-		Array.prototype.forEach.call(toggleParentSiblings, function (sibling, index) {
-			buoy.removeClass(sibling, options.toggleActiveClass);
-		});
+	var _deactivateOtherToggles = function ( toggleSiblings, options ) {
 		Array.prototype.forEach.call(toggleSiblings, function (sibling, index) {
 			buoy.removeClass(sibling, options.toggleActiveClass);
 		});
@@ -86,27 +83,29 @@ window.tabby = (function (window, document, undefined) {
 	// Public method
 	// Runs functions
 	var toggleTab = function ( toggle, tabID, options, event ) {
-
-		// Selectors and variables
-		options = _mergeObjects( _defaults, options || {} ); // Merge user options with defaults
-		var tabs = document.querySelectorAll(tabID); // Get tab content
-
-		// Get other toggle elements
-		var toggleParent = toggle.parentNode;
-		var toggleSiblings = buoy.getSiblings(toggle);
-		var toggleParentSiblings = buoy.getSiblings(toggleParent);
-
 		// If a link, prevent default click event
 		if ( toggle && toggle.tagName === 'A' && event ) {
 			event.preventDefault();
 		}
 
+		// Get content
+		var tabs = document.querySelectorAll(tabID);
+
+		// Check if the toggle is in a list
+		var toggleParent = toggle.parentNode;
+		if (toggleParent && toggleParent.tagName === 'LI') {
+			// adjust toggle to target the li element
+			var toggle = toggle.parentNode;
+		}
+
+		// Get siblings
+		var toggleSiblings = buoy.getSiblings(toggle);
+		
 		options.callbackBefore(); // Run callbacks before toggling tab
 
 		// Set clicked toggle to active. Deactivate others.
 		buoy.addClass(toggle, options.toggleActiveClass);
-		buoy.addClass(toggleParent, options.toggleActiveClass);
-		_deactivateOtherToggles(toggleParentSiblings, toggleSiblings, options);
+		_deactivateOtherToggles(toggleSiblings, options);
 
 		// Show target tab content. Hide others.
 		_showTargetTabs(tabs, options);
