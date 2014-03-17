@@ -87,9 +87,8 @@ window.tabby = (function (window, document, undefined) {
 	// Runs functions
 	var toggleTab = function ( toggle, tabID, options, event ) {
 
-		// Selectors and variables
-		options = _mergeObjects( _defaults, options || {} ); // Merge user options with defaults
-		var tabs = document.querySelectorAll(tabID); // Get tab content
+		// Get content
+		var tabs = document.querySelectorAll(tabID);
 
 		// Get other toggle elements
 		var toggleParent = toggle.parentNode;
