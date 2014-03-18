@@ -21,7 +21,9 @@ window.tabby = (function (window, document, undefined) {
 		contentActiveClass: 'active',
 		initClass: 'js-tabby',
 		callbackBefore: function () {},
-		callbackAfter: function () {}
+		callbackAfter: function () {},
+		callbackShow: function () {},
+		callbackHide: function () {}
 	};
 
 	// Merge default settings with user options
@@ -32,21 +34,6 @@ window.tabby = (function (window, document, undefined) {
 			original[key] = updates[key];
 		}
 		return original;
-	};
-
-	// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the tab
-	// Private method
-	// Runs functions
-	var _stopVideo = function (tab) {
-		var iframe = tab.querySelector( 'iframe');
-		var video = tab.querySelector( 'video' );
-		if ( iframe !== null ) {
-			var iframeSrc = iframe.src;
-			iframe.src = iframeSrc;
-		}
-		if ( video !== null ) {
-			video.pause();
-		}
 	};
 
 	// Remove '.active' class from all other tab toggles
@@ -66,8 +53,12 @@ window.tabby = (function (window, document, undefined) {
 	// Runs functions
 	var _hideOtherTabs = function ( tabSiblings, options ) {
 		Array.prototype.forEach.call(tabSiblings, function (tab, index) {
-			buoy.removeClass(tab, options.contentActiveClass);
-			_stopVideo(tab);
+			//only change if the tab was active
+			if (buoy.hasClass(tab,options.contentActiveClass)){
+				buoy.removeClass(tab, options.contentActiveClass);
+				//call after hiding tab
+				options.callbackHide(tab);
+			}
 		});
 	};
 
@@ -79,6 +70,8 @@ window.tabby = (function (window, document, undefined) {
 			var tabSiblings = buoy.getSiblings(tab);
 			buoy.addClass(tab, options.contentActiveClass);
 			_hideOtherTabs(tabSiblings, options);
+			//call after showing the new tab
+			options.callbackShow(tab);
 		});
 	};
 
