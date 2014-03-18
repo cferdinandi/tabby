@@ -36,21 +36,6 @@ window.tabby = (function (window, document, undefined) {
 		return original;
 	};
 
-	// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the tab
-	// Private method
-	// Runs functions
-	var _stopVideo = function (tab) {
-		var iframe = tab.querySelector( 'iframe');
-		var video = tab.querySelector( 'video' );
-		if ( iframe !== null ) {
-			var iframeSrc = iframe.src;
-			iframe.src = iframeSrc;
-		}
-		if ( video !== null ) {
-			video.pause();
-		}
-	};
-
 	// Remove '.active' class from all other tab toggles
 	// Private method
 	// Runs functions
@@ -71,7 +56,6 @@ window.tabby = (function (window, document, undefined) {
 			//only change if the tab was active
 			if (buoy.hasClass(tab,options.contentActiveClass)){
 				buoy.removeClass(tab, options.contentActiveClass);
-				_stopVideo(tab);
 				//call after hiding tab
 				options.callbackHide(tab);
 			}
