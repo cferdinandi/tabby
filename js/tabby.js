@@ -21,7 +21,9 @@ window.tabby = (function (window, document, undefined) {
 		contentActiveClass: 'active',
 		initClass: 'js-tabby',
 		callbackBefore: function () {},
-		callbackAfter: function () {}
+		callbackAfter: function () {},
+		callbackShow: function () {},
+		callbackHide: function () {}
 	};
 
 	// Merge default settings with user options
@@ -68,6 +70,8 @@ window.tabby = (function (window, document, undefined) {
 		Array.prototype.forEach.call(tabSiblings, function (tab, index) {
 			buoy.removeClass(tab, options.contentActiveClass);
 			_stopVideo(tab);
+			//call after hiding tab
+			options.callbackHide(tab);
 		});
 	};
 
@@ -79,6 +83,8 @@ window.tabby = (function (window, document, undefined) {
 			var tabSiblings = buoy.getSiblings(tab);
 			buoy.addClass(tab, options.contentActiveClass);
 			_hideOtherTabs(tabSiblings, options);
+			//call after showing the new tab
+			options.callbackShow(tab);
 		});
 	};
 
