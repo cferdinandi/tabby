@@ -68,10 +68,13 @@ window.tabby = (function (window, document, undefined) {
 	// Runs functions
 	var _hideOtherTabs = function ( tabSiblings, options ) {
 		Array.prototype.forEach.call(tabSiblings, function (tab, index) {
-			buoy.removeClass(tab, options.contentActiveClass);
-			_stopVideo(tab);
-			//call after hiding tab
-			options.callbackHide(tab);
+			//only change if the tab was active
+			if (buoy.hasClass(tab,options.contentActiveClass)){
+				buoy.removeClass(tab, options.contentActiveClass);
+				_stopVideo(tab);
+				//call after hiding tab
+				options.callbackHide(tab);
+			}
 		});
 	};
 
