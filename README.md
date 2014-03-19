@@ -112,8 +112,8 @@ tabby.init({
 	toggleActiveClass: 'active', // Class added to active toggle elements
 	contentActiveClass: 'active', // Class added to active tab content areas
 	initClass: 'js-tabby', // Class added to <html> element when initiated
-	callbackBefore: function () {}, // Function that's run before tab content is toggled
-	callbackAfter: function () {} // Function that's run after tab content is toggled
+	callbackBefore: function ( toggle, tabID ) {}, // Function that's run before tab content is toggled
+	callbackAfter: function ( toggle, tabID ) {} // Function that's run after tab content is toggled
 });
 ```
 
@@ -153,6 +153,10 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 
 ## Changelog
+* v6.2 - March 18, 2014
+	* Pass `toggle` and `tabID` variables into callbacks.
+	* Run a check for `active` class before running `_stopVideos` function to avoid unneccessary reloading of `src`.
+	* Checks if toggle is part of a list before crawling up DOM tree to avoid unneccessary class setting.
 * v6.1 - February 27, 2014
 	* Converted `_defaults` to a literal object
 * v6.0 - February 24, 2014
