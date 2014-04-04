@@ -1,6 +1,6 @@
 /* =============================================================
 
-	Tabby v6.2
+	Tabby v7.0
 	Simple, mobile-first toggle tabs by Chris Ferdinandi
 	http://gomakethings.com
 
@@ -34,6 +34,21 @@ window.tabby = (function (window, document, undefined) {
 		return original;
 	};
 
+	// Get siblings of an element
+	// Private method
+	// Returns array of nodes
+	var _getSiblings = function (elem) {
+		var siblings = [];
+		var sibling = elem.parentNode.firstChild;
+		var skipMe = elem;
+		for ( ; sibling; sibling = sibling.nextSibling ) {
+			if ( sibling.nodeType == 1 && sibling != elem ) {
+				siblings.push( sibling );
+			}
+		}
+		return siblings;
+	};
+
 	// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the tab
 	// Private method
 	// Runs functions
@@ -54,11 +69,11 @@ window.tabby = (function (window, document, undefined) {
 	// Runs functions
 	var _deactivateOtherToggles = function ( toggleSiblings, toggleParentSiblings, options ) {
 		Array.prototype.forEach.call(toggleSiblings, function (sibling) {
-			buoy.removeClass(sibling, options.toggleActiveClass);
+			sibling.classList.remove( options.toggleActiveClass );
 		});
 		Array.prototype.forEach.call(toggleParentSiblings, function (sibling) {
 			if ( sibling.tagName === 'LI' ) {
-				buoy.removeClass(sibling, options.toggleActiveClass);
+				sibling.classList.remove( options.toggleActiveClass );
 			}
 		});
 	};
@@ -68,9 +83,9 @@ window.tabby = (function (window, document, undefined) {
 	// Runs functions
 	var _hideOtherTabs = function ( tabSiblings, options ) {
 		Array.prototype.forEach.call(tabSiblings, function (tab) {
-			if ( buoy.hasClass(tab, options.contentActiveClass) ) {
+			if ( tab.classList.contains( options.contentActiveClass ) ) {
 				_stopVideo(tab);
-				buoy.removeClass(tab, options.contentActiveClass);
+				tab.classList.remove( options.contentActiveClass );
 			}
 		});
 	};
@@ -80,8 +95,8 @@ window.tabby = (function (window, document, undefined) {
 	// Runs functions
 	var _showTargetTabs = function ( tabs, options ) {
 		Array.prototype.forEach.call(tabs, function (tab) {
-			var tabSiblings = buoy.getSiblings(tab);
-			buoy.addClass(tab, options.contentActiveClass);
+			var tabSiblings = _getSiblings(tab);
+			tab.classList.add( options.contentActiveClass );
 			_hideOtherTabs(tabSiblings, options);
 		});
 	};
@@ -97,8 +112,8 @@ window.tabby = (function (window, document, undefined) {
 
 		// Get other toggle elements
 		var toggleParent = toggle.parentNode;
-		var toggleSiblings = buoy.getSiblings(toggle);
-		var toggleParentSiblings = buoy.getSiblings(toggleParent);
+		var toggleSiblings = _getSiblings(toggle);
+		var toggleParentSiblings = _getSiblings(toggleParent);
 
 		// If a link, prevent default click event
 		if ( toggle && toggle.tagName === 'A' && event ) {
@@ -108,9 +123,9 @@ window.tabby = (function (window, document, undefined) {
 		options.callbackBefore( toggle, tabID ); // Run callbacks before toggling tab
 
 		// Set clicked toggle to active. Deactivate others.
-		buoy.addClass(toggle, options.toggleActiveClass);
+		toggle.classList.add( options.toggleActiveClass );
 		if ( toggleParent && toggleParent.tagName === 'LI' ) {
-			buoy.addClass(toggleParent, options.toggleActiveClass);
+			toggleParent.classList.add( options.toggleActiveClass );
 		}
 		_deactivateOtherToggles(toggleSiblings, toggleParentSiblings, options);
 
@@ -132,7 +147,7 @@ window.tabby = (function (window, document, undefined) {
 			// Selectors and variables
 			options = _mergeObjects( _defaults, options || {} ); // Merge user options with defaults
 			var toggles = document.querySelectorAll('[data-tab]'); // Get all tab toggle elements
-			buoy.addClass(document.documentElement, options.initClass); // Add class to HTML element to activate conditional CSS
+			document.documentElement.classList.add( options.initClass ); // Add class to HTML element to activate conditional CSS
 
 			// When tab toggles are clicked, hide/show tab content
 			Array.prototype.forEach.call(toggles, function (toggle) {
