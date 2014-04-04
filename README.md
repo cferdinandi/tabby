@@ -160,6 +160,9 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 
 ## Changelog
+
+* v7.0 - April 4, 2014
+	* Converted from Buoy class helpers to `classList` with polyfill.
 * v6.2 - March 18, 2014
 	* Pass `toggle` and `tabID` variables into callbacks.
 	* Run a check for `active` class before running `_stopVideos` function to avoid unneccessary reloading of `src`.
@@ -213,6 +216,7 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Older Docs
 
+* [Version 6](https://github.com/cferdinandi/tabby/tree/archive-v6)
 * [Version 5](http://cferdinandi.github.io/tabby/archive/v5/)
 * [Version 3](http://cferdinandi.github.io/tabby/archive/v3/)
 * [Version 2](https://github.com/cferdinandi/tabby/tree/archive-v2)
