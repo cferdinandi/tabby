@@ -216,6 +216,7 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Older Docs
 
+* [Version 6](https://github.com/cferdinandi/tabby/tree/archive-v6)
 * [Version 5](http://cferdinandi.github.io/tabby/archive/v5/)
 * [Version 3](http://cferdinandi.github.io/tabby/archive/v3/)
 * [Version 2](https://github.com/cferdinandi/tabby/tree/archive-v2)
