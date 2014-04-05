@@ -1,5 +1,7 @@
 # Tabby
-Simple toggle tabs. [View the demo](http://cferdinandi.github.io/tabby/).
+Simple toggle tabs.
+
+[Download Tabby 7](https://github.com/cferdinandi/tabby/archive/master.zip) / [View the demo](http://cferdinandi.github.io/tabby/).
 
 **In This Documentation**
 
