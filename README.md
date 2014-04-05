@@ -29,7 +29,7 @@ Tabby is [built with Sass](http://sass-lang.com/) for easy customization. If you
 
 The `_config.scss` and `_mixins.scss` files are the same ones used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_tabby.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
 
-Tabby also requires [Buoy](http://cferdinandi.github.io/buoy/), a vanilla JS micro-library that contains simple helper functions used by Tabby.
+Tabby also requires [Buoy](http://cferdinandi.github.io/buoy/), a simple `classList` polyfill that makes working with classes in vanilla JS a little bit easier.
 
 ### 2. Add the markup to your HTML.
 
