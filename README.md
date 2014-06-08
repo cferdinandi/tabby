@@ -22,8 +22,8 @@ Simple toggle tabs.
 
 ```html
 <link rel="stylesheet" href="css/tabby-css.css">
+<script src="js/classList.js"></script>
 <script src="js/tabby.js"></script>
-<script src="buoy.js"></script>
 ```
 
 Tabby is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
