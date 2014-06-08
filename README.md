@@ -6,7 +6,7 @@ Simple toggle tabs.
 **In This Documentation**
 
 1. [Getting Started](#getting-started)
-2. [Installing with Package Managers](#installing-with-package-manageres)
+2. [Installing with Package Managers](#installing-with-package-managers)
 3. [Options & Settings](#options-and-settings)
 4. [Browser Compatibility](#browser-compatibility)
 5. [How to Contribute](#how-to-contribute)
