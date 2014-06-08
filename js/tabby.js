@@ -1,22 +1,35 @@
-/* =============================================================
+/**
+ *
+ * Tabby v7.1.0
+ * Simple, mobile-first toggle tabs by Chris Ferdinandi.
+ * http://gomakethings.com
+ *
+ * Free to use under the MIT License.
+ * http://gomakethings.com/mit/
+ *
+ */
 
-	Tabby v7.0
-	Simple, mobile-first toggle tabs by Chris Ferdinandi
-	http://gomakethings.com
-
-	Free to use under the MIT License.
-	http://gomakethings.com/mit/
-
- * ============================================================= */
-
-window.tabby = (function (window, document, undefined) {
+(function (root, factory) {
+	if ( typeof define === 'function' && define.amd ) {
+		define(factory);
+	} else if ( typeof exports === 'object' ) {
+		module.exports = factory;
+	} else {
+		root.tabby = factory(root); // @todo Update to plugin name
+	}
+})(this, function (root) {
 
 	'use strict';
 
+	//
+	// Variables
+	//
+
+	var exports = {}; // Object for public APIs
+	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
+
 	// Default settings
-	// Private method
-	// Returns an {object}
-	var _defaults = {
+	var defaults = {
 		toggleActiveClass: 'active',
 		contentActiveClass: 'active',
 		initClass: 'js-tabby',
@@ -24,20 +37,55 @@ window.tabby = (function (window, document, undefined) {
 		callbackAfter: function () {}
 	};
 
-	// Merge default settings with user options
-	// Private method
-	// Returns an {object}
-	var _mergeObjects = function ( original, updates ) {
-		for (var key in updates) {
-			original[key] = updates[key];
+
+	//
+	// Methods
+	//
+
+	/**
+	 * Merge defaults with user options
+	 * @private
+	 * @param {Object} defaults Default settings
+	 * @param {Object} options User options
+	 * @returns {Object} Merged values of defaults and options
+	 */
+	var extend = function ( defaults, options ) {
+		for ( var key in options ) {
+			if (Object.prototype.hasOwnProperty.call(options, key)) {
+				defaults[key] = options[key];
+			}
 		}
-		return original;
+		return defaults;
 	};
 
-	// Get siblings of an element
-	// Private method
-	// Returns array of nodes
-	var _getSiblings = function (elem) {
+	/**
+	 * A simple forEach() implementation for Arrays, Objects and NodeLists
+	 * @private
+	 * @param {Array|Object|NodeList} collection Collection of items to iterate
+	 * @param {Function} callback Callback function for each iteration
+	 * @param {Array|Object|NodeList} scope Object/NodeList/Array that forEach is iterating over (aka `this`)
+	 */
+	var forEach = function (collection, callback, scope) {
+		if (Object.prototype.toString.call(collection) === '[object Object]') {
+			for (var prop in collection) {
+				if (Object.prototype.hasOwnProperty.call(collection, prop)) {
+					callback.call(scope, collection[prop], prop, collection);
+				}
+			}
+		} else {
+			for (var i = 0, len = collection.length; i < len; i++) {
+				callback.call(scope, collection[i], i, collection);
+			}
+		}
+	};
+
+	/**
+	 * Get siblings of an element
+	 * @private
+	 * @param  {Element} elem
+	 * @return {NodeList}
+	 */
+	var getSiblings = function (elem) {
 		var siblings = [];
 		var sibling = elem.parentNode.firstChild;
 		var skipMe = elem;
@@ -49,119 +97,140 @@ window.tabby = (function (window, document, undefined) {
 		return siblings;
 	};
 
-	// Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the tab
-	// Private method
-	// Runs functions
-	var _stopVideo = function (tab) {
-		var iframe = tab.querySelector( 'iframe');
-		var video = tab.querySelector( 'video' );
-		if ( iframe !== null ) {
-			var iframeSrc = iframe.src;
-			iframe.src = iframeSrc;
-		}
-		if ( video !== null ) {
-			video.pause();
+	/**
+	 * Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the slide
+	 * @private
+	 * @param  {Element} content The content container the video is in
+	 * @param  {String} activeClass The class asigned to expanded content areas
+	 */
+	var stopVideos = function ( content, activeClass ) {
+		if ( !content.classList.contains( activeClass ) ) {
+			var iframe = content.querySelector( 'iframe');
+			var video = content.querySelector( 'video' );
+			if ( iframe ) {
+				var iframeSrc = iframe.src;
+				iframe.src = iframeSrc;
+			}
+			if ( video ) {
+				video.pause();
+			}
 		}
 	};
 
-	// Remove '.active' class from all other tab toggles
-	// Private method
-	// Runs functions
-	var _deactivateOtherToggles = function ( toggleSiblings, toggleParentSiblings, options ) {
-		Array.prototype.forEach.call(toggleSiblings, function (sibling) {
-			sibling.classList.remove( options.toggleActiveClass );
+	/**
+	 * Deactivate all other tab toggles
+	 * @private
+	 * @param  {NodeList} toggleSiblings Sibling elements to the toggle element
+	 * @param  {NodeList} toggleParentSiblings Sibling elements to the toggle's parent element
+	 * @param  {Object} settings
+	 */
+	var deactivateOtherToggles = function ( toggleSiblings, toggleParentSiblings, settings ) {
+		forEach(toggleSiblings, function (sibling) {
+			sibling.classList.remove( settings.toggleActiveClass );
 		});
-		Array.prototype.forEach.call(toggleParentSiblings, function (sibling) {
-			if ( sibling.tagName === 'LI' ) {
-				sibling.classList.remove( options.toggleActiveClass );
+		forEach(toggleParentSiblings, function (sibling) {
+			if ( sibling.tagName.toLowerCase() === 'li' ) {
+				sibling.classList.remove( settings.toggleActiveClass );
 			}
 		});
 	};
 
-	// Hide all tab content sections
-	// Private method
-	// Runs functions
-	var _hideOtherTabs = function ( tabSiblings, options ) {
-		Array.prototype.forEach.call(tabSiblings, function (tab) {
-			if ( tab.classList.contains( options.contentActiveClass ) ) {
-				_stopVideo(tab);
-				tab.classList.remove( options.contentActiveClass );
+	/**
+	 * Hide all tab content sections
+	 * @private
+	 * @param  {NodeList} tabSiblings Siblings to current tab content area
+	 * @param  {Object} settings
+	 */
+	var hideOtherTabs = function ( tabSiblings, settings ) {
+		forEach(tabSiblings, function (tab) {
+			if ( tab.classList.contains( settings.contentActiveClass ) ) {
+				stopVideos(tab);
+				tab.classList.remove( settings.contentActiveClass );
 			}
 		});
 	};
 
-	// Show target tabs
-	// Private method
-	// Runs functions
-	var _showTargetTabs = function ( tabs, options ) {
-		Array.prototype.forEach.call(tabs, function (tab) {
-			var tabSiblings = _getSiblings(tab);
-			tab.classList.add( options.contentActiveClass );
-			_hideOtherTabs(tabSiblings, options);
+	/**
+	 * Show target tabs
+	 * @private
+	 * @param  {NodeList} tabs A nodelist of tabs to close
+	 * @param  {Object} settings
+	 */
+	var showTargetTabs = function ( tabs, settings ) {
+		forEach(tabs, function (tab) {
+			var tabSiblings = getSiblings(tab);
+			tab.classList.add( settings.contentActiveClass );
+			hideOtherTabs(tabSiblings, settings);
 		});
 	};
 
-	// Show a tab (and hide all others)
-	// Public method
-	// Runs functions
-	var toggleTab = function ( toggle, tabID, options, event ) {
+	/**
+	 * Show a tab and hide all others
+	 * @public
+	 * @param  {Element} toggle The element that toggled the show tab event
+	 * @param  {String} tabID The ID of the tab to show
+	 * @param  {Object} options
+	 * @param  {Event} event
+	 */
+	exports.toggleTab = function ( toggle, tabID, options, event ) {
 
 		// Selectors and variables
-		options = _mergeObjects( _defaults, options || {} ); // Merge user options with defaults
+		var settings = extend( defaults, options || {} ); // Merge user options with defaults
 		var tabs = document.querySelectorAll(tabID); // Get tab content
 
 		// Get other toggle elements
 		var toggleParent = toggle.parentNode;
-		var toggleSiblings = _getSiblings(toggle);
-		var toggleParentSiblings = _getSiblings(toggleParent);
+		var toggleSiblings = getSiblings(toggle);
+		var toggleParentSiblings = getSiblings(toggleParent);
 
 		// If a link, prevent default click event
-		if ( toggle && toggle.tagName === 'A' && event ) {
+		if ( toggle && toggle.tagName.toLowerCase() === 'a' && event ) {
 			event.preventDefault();
 		}
 
-		options.callbackBefore( toggle, tabID ); // Run callbacks before toggling tab
+		settings.callbackBefore( toggle, tabID ); // Run callbacks before toggling tab
 
 		// Set clicked toggle to active. Deactivate others.
-		toggle.classList.add( options.toggleActiveClass );
-		if ( toggleParent && toggleParent.tagName === 'LI' ) {
-			toggleParent.classList.add( options.toggleActiveClass );
+		toggle.classList.add( settings.toggleActiveClass );
+		if ( toggleParent && toggleParent.tagName.toLowerCase() === 'li' ) {
+			toggleParent.classList.add( settings.toggleActiveClass );
 		}
-		_deactivateOtherToggles(toggleSiblings, toggleParentSiblings, options);
+		deactivateOtherToggles(toggleSiblings, toggleParentSiblings, settings);
 
 		// Show target tab content. Hide others.
-		_showTargetTabs(tabs, options);
+		showTargetTabs(tabs, settings);
 
-		options.callbackAfter( toggle, tabID ); // Run callbacks after toggling tab
-
-	};
-
-	// Initialize Tabby
-	// Public method
-	// Runs functions
-	var init = function ( options ) {
-
-		// Feature test before initializing
-		if ( 'querySelector' in document && 'addEventListener' in window && Array.prototype.forEach ) {
-
-			// Selectors and variables
-			options = _mergeObjects( _defaults, options || {} ); // Merge user options with defaults
-			var toggles = document.querySelectorAll('[data-tab]'); // Get all tab toggle elements
-			document.documentElement.classList.add( options.initClass ); // Add class to HTML element to activate conditional CSS
-
-			// When tab toggles are clicked, hide/show tab content
-			Array.prototype.forEach.call(toggles, function (toggle) {
-				toggle.addEventListener('click', toggleTab.bind(null, toggle, toggle.getAttribute('data-tab'), options), false);
-			});
-
-		}
+		settings.callbackAfter( toggle, tabID ); // Run callbacks after toggling tab
 
 	};
 
-	// Return public methods
-	return {
-		init: init,
-		toggleTab: toggleTab
+	/**
+	 * Initialize Tabby
+	 * @public
+	 * @param {Object} options User settings
+	 */
+	exports.init = function ( options ) {
+
+		// feature test
+		if ( !supports ) return;
+
+		// Selectors and variables
+		var settings = extend( defaults, options || {} ); // Merge user options with defaults
+		var toggles = document.querySelectorAll('[data-tab]'); // Get all tab toggle elements
+		document.documentElement.classList.add( settings.initClass ); // Add class to HTML element to activate conditional CSS
+
+		// When tab toggles are clicked, hide/show tab content
+		forEach(toggles, function (toggle) {
+			toggle.addEventListener('click', exports.toggleTab.bind(null, toggle, toggle.getAttribute('data-tab'), settings), false);
+		});
+
 	};
 
-})(window, document);
+
+	//
+	// Public APIs
+	//
+
+	return exports;
+
+});
