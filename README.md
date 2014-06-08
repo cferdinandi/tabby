@@ -6,12 +6,13 @@ Simple toggle tabs.
 **In This Documentation**
 
 1. [Getting Started](#getting-started)
-2. [Options & Settings](#options-and-settings)
-3. [Browser Compatibility](#browser-compatibility)
-4. [How to Contribute](#how-to-contribute)
-5. [License](#license)
-6. [Changelog](#changelog)
-7. [Older Docs](#older-docs)
+2. [Installing with Package Managers](#installing-with-package-manageres)
+3. [Options & Settings](#options-and-settings)
+4. [Browser Compatibility](#browser-compatibility)
+5. [How to Contribute](#how-to-contribute)
+6. [License](#license)
+7. [Changelog](#changelog)
+8. [Older Docs](#older-docs)
 
 
 
@@ -29,7 +30,7 @@ Tabby is [built with Sass](http://sass-lang.com/) for easy customization. If you
 
 The `_config.scss` and `_mixins.scss` files are the same ones used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_tabby.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
 
-Tabby also requires [Buoy](http://cferdinandi.github.io/buoy/), a simple `classList` polyfill that makes working with classes in vanilla JS a little bit easier.
+Tabby also requires [classList.js](https://github.com/eligrey/classList.js), a polyfill that extends `classList` support back to IE8.
 
 ### 2. Add the markup to your HTML.
 
@@ -91,6 +92,16 @@ Add the `.active` class to the tab and content that you'd like displayed by defa
 ```
 
 In the footer of your page, after the content, initialize Tabby. And that's it, you're done. Nice work!
+
+
+
+## Installing with Package Managers
+
+You can install Tabby with your favorite package manager.
+
+* **NPM:** `npm install cferdinandi/tabby`
+* **Bower:** `bower install https://github.com/cferdinandi/tabby.git`
+* **Component:** `component install install cferdinandi/tabby`
 
 
 
@@ -163,6 +174,16 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v7.1.1 - June 8, 2014
+	* Added UMD support.
+	* Moved public APIs to exports variable.
+	* Improved feature test.
+	* Replaced `Array.prototype.forEach` hack with proper `forEach` function.
+	* Added a more well supported `trim` function.
+	* General code optimizations for better minification and performance.
+	* Updated to JSDoc documentation.
+	* Updated to three number versioning system.
+	* Added package manager installation info.
 * v7.0 - April 4, 2014
 	* Converted from Buoy class helpers to `classList` with polyfill.
 * v6.2 - March 18, 2014
