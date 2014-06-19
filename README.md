@@ -101,7 +101,7 @@ You can install Tabby with your favorite package manager.
 
 * **NPM:** `npm install cferdinandi/tabby`
 * **Bower:** `bower install https://github.com/cferdinandi/tabby.git`
-* **Component:** `component install install cferdinandi/tabby`
+* **Component:** `component install cferdinandi/tabby`
 
 
 
@@ -174,6 +174,8 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v7.1.1 - June 19, 2014
+	* Fixed factory/root/UMD definition.
 * v7.1.1 - June 8, 2014
 	* Added UMD support.
 	* Moved public APIs to exports variable.

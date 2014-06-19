@@ -1,6 +1,6 @@
 /**
  *
- * Tabby v7.1.0
+ * Tabby v7.1.2
  * Simple, mobile-first toggle tabs by Chris Ferdinandi.
  * http://gomakethings.com
  *
@@ -11,11 +11,11 @@
 
 (function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
-		define(factory);
+		define('tabby', factory(root));
 	} else if ( typeof exports === 'object' ) {
-		module.exports = factory;
+		module.exports = factory(root);
 	} else {
-		root.tabby = factory(root); // @todo Update to plugin name
+		root.tabby = factory(root);
 	}
 })(this, function (root) {
 
