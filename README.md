@@ -1,4 +1,4 @@
-# Tabby
+# Tabby [![Build Status](https://travis-ci.org/cferdinandi/tabby.svg)](https://travis-ci.org/cferdinandi/tabby)
 Simple toggle tabs.
 
 [Download Tabby 7](https://github.com/cferdinandi/tabby/archive/master.zip) / [View the demo](http://cferdinandi.github.io/tabby/).
@@ -18,6 +18,8 @@ Simple toggle tabs.
 
 ## Getting Started
 
+Compiled and production-ready code can be found in the `dist` directory. The `src` directory contains development code. Unit tests are located in the `test` directory.
+
 ### 1. Include Tabby on your site.
 
 ```html
@@ -28,7 +30,7 @@ Simple toggle tabs.
 
 Tabby is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
 
-The `_config.scss` and `_mixins.scss` files are the same ones used in [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_tabby.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
+Tabby follows the same coding conventions as [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_tabby.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
 
 Tabby also requires [classList.js](https://github.com/eligrey/classList.js), a polyfill that extends `classList` support back to IE8.
 
@@ -174,6 +176,12 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v7.2.0 - June 20, 2014
+	* Converted to gulp.js workflow.
+	* Added unit testing.
+	* Updated naming conventions.
+	* Removed unused `_config.scss` and `_mixins.scss` files.
+	* Added minified versions of files.
 * v7.1.1 - June 19, 2014
 	* Fixed factory/root/UMD definition.
 * v7.1.1 - June 8, 2014
