@@ -23,7 +23,7 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 ### 1. Include Tabby on your site.
 
 ```html
-<link rel="stylesheet" href="css/tabby-css.css">
+<link rel="stylesheet" href="css/tabby.css">
 <script src="js/classList.js"></script>
 <script src="js/tabby.js"></script>
 ```
