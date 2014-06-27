@@ -135,7 +135,10 @@ tabby.init({
 
 ### Use Tabby events in your own scripts
 
-You can also call Tabby toggle event in your own scripts:
+You can also call Tabby toggle event in your own scripts.
+
+### toggleTab()
+Show tab content.
 
 ```javascript
 tabby.toggleTab(
@@ -151,6 +154,13 @@ tabby.toggleTab(
 ```javascript
 var toggle = document.querySelector('[data-tab="#tab2"]');
 tabby.toggleTab( toggle, '#tab2' );
+```
+
+#### destroy()
+Destroy the current `tabby.init()`.
+
+```javascript
+tabby.destroy();
 ```
 
 
@@ -176,6 +186,9 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v7.3.0 - June 27, 2014
+	* Updated unit tests.
+	* Added `destroy()` method.
 * v7.2.0 - June 20, 2014
 	* Converted to gulp.js workflow.
 	* Added unit testing.
