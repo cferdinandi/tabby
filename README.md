@@ -189,6 +189,7 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 * v7.3.0 - June 27, 2014
 	* Updated unit tests.
 	* Added `destroy()` method.
+	* Fixed a bug that wasn't removing the `.active` class from `li` links.
 * v7.2.0 - June 20, 2014
 	* Converted to gulp.js workflow.
 	* Added unit testing.
