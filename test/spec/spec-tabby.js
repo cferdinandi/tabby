@@ -225,4 +225,84 @@ describe('Tabby', function () {
 
 	});
 
+	describe('Tab content in one set should not modify content in another set', function () {
+
+		var tabsets, toggle1, toggle2, content1, content2;
+
+		beforeEach(function () {
+			injectElem();
+			tabby.init();
+			tabsets = document.querySelectorAll('.tabset');
+			toggles1 = tabsets[0].querySelectorAll('[data-tab]');
+			content1 = tabsets[0].querySelectorAll('.tabs-pane');
+			toggles2 = tabsets[1].querySelectorAll('[data-tab]');
+			content2 = tabsets[1].querySelectorAll('.tabs-pane');
+		});
+
+		it('Toggle buttons and content in second set should remain active on click in first set', function () {
+			trigger('click', toggles2[0]);
+			expect(toggles2[0].classList.contains('active')).toBe(true);
+			expect(content2[0].classList.contains('active')).toBe(true);
+			trigger('click', toggles1[0]);
+			expect(toggles2[0].classList.contains('active')).toBe(true);
+			expect(content2[0].classList.contains('active')).toBe(true);
+		});
+
+	});
+
+
+	//
+	// APIs
+	//
+
+	describe('Should toggle from public API', function () {
+
+		var toggle, tabID, content;
+
+		beforeEach(function () {
+			injectElem();
+			toggle = document.querySelector('[data-tab]');
+			tabID = toggle.getAttribute('data-tab');
+			content = document.querySelector(tabID);
+			tabby.toggleTab(toggle, tabID, null, null);
+		});
+
+		it('Toggle and content should have an active class', function () {
+			expect(toggle.classList.contains('active')).toBe(true);
+			expect(content.classList.contains('active')).toBe(true);
+		});
+
+	});
+
+	describe('Should remove initialized plugin', function () {
+
+		var toggles, content, doc;
+
+		beforeEach(function () {
+			injectElem();
+			tabby.init();
+			toggles = document.querySelectorAll('[data-tab]');
+			content = document.querySelectorAll('.tabs-pane');
+			doc = document.documentElement;
+		});
+
+		it('Tabby should be uninitialized', function () {
+			trigger('click', toggles[0]);
+			expect(toggles[0].classList.contains('active')).toBe(true);
+			expect(content[0].classList.contains('active')).toBe(true);
+			expect(doc.classList.contains('js-tabby')).toBe(true);
+			trigger('click', toggles[1]);
+			expect(toggles[1].classList.contains('active')).toBe(true);
+			expect(content[1].classList.contains('active')).toBe(true);
+			expect(toggles[0].classList.contains('active')).toBe(false);
+			expect(content[0].classList.contains('active')).toBe(false);
+			tabby.destroy();
+			trigger('click', toggles[0]);
+			expect(toggles[0].classList.contains('active')).toBe(false);
+			expect(content[0].classList.contains('active')).toBe(false);
+			expect(doc.classList.contains('js-tabby')).toBe(false);
+		});
+
+	});
+
 });
