@@ -16,6 +16,8 @@
 
 	var exports = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
+	var eventListeners = []; //Listeners array
+	var settings, toggles;
 
 	// Default settings
 	var defaults = {
@@ -30,22 +32,6 @@
 	//
 	// Methods
 	//
-
-	/**
-	 * Merge defaults with user options
-	 * @private
-	 * @param {Object} defaults Default settings
-	 * @param {Object} options User options
-	 * @returns {Object} Merged values of defaults and options
-	 */
-	var extend = function ( defaults, options ) {
-		for ( var key in options ) {
-			if (Object.prototype.hasOwnProperty.call(options, key)) {
-				defaults[key] = options[key];
-			}
-		}
-		return defaults;
-	};
 
 	/**
 	 * A simple forEach() implementation for Arrays, Objects and NodeLists
@@ -66,6 +52,24 @@
 				callback.call(scope, collection[i], i, collection);
 			}
 		}
+	};
+
+	/**
+	 * Merge defaults with user options
+	 * @private
+	 * @param {Object} defaults Default settings
+	 * @param {Object} options User options
+	 * @returns {Object} Merged values of defaults and options
+	 */
+	var extend = function ( defaults, options ) {
+		var extended = {};
+		forEach(defaults, function (value, prop) {
+			extended[prop] = defaults[prop];
+		});
+		forEach(options, function (value, prop) {
+			extended[prop] = options[prop];
+		});
+		return extended;
 	};
 
 	/**
@@ -107,36 +111,34 @@
 	};
 
 	/**
-	 * Deactivate all other tab toggles
-	 * @private
-	 * @param  {NodeList} toggleSiblings Sibling elements to the toggle element
-	 * @param  {NodeList} toggleParentSiblings Sibling elements to the toggle's parent element
+	 * Hide all other tabs and content
+	 * @param  {Element} toggle The element that toggled the tab content
+	 * @param  {Element} tab The tab to show
 	 * @param  {Object} settings
 	 */
-	var deactivateOtherToggles = function ( toggleSiblings, toggleParentSiblings, settings ) {
+	var hideOtherTabs = function ( toggle, tab, settings ) {
+
+		// Variables
+		var isLinkList = toggle.parentNode.tagName.toLowerCase() === 'li' ? true : false;
+		var toggleSiblings = isLinkList ? getSiblings(toggle.parentNode) : getSiblings(toggle);
+		var tabSiblings = getSiblings(tab);
+
+		// Hide toggles
 		forEach(toggleSiblings, function (sibling) {
 			sibling.classList.remove( settings.toggleActiveClass );
-		});
-		forEach(toggleParentSiblings, function (sibling) {
-			if ( sibling.tagName.toLowerCase() === 'li' ) {
-				sibling.classList.remove( settings.toggleActiveClass );
+			if ( isLinkList ) {
+				sibling.querySelector('[data-tab]').classList.remove( settings.toggleActiveClass );
 			}
 		});
-	};
 
-	/**
-	 * Hide all tab content sections
-	 * @private
-	 * @param  {NodeList} tabSiblings Siblings to current tab content area
-	 * @param  {Object} settings
-	 */
-	var hideOtherTabs = function ( tabSiblings, settings ) {
+		// Hide tabs
 		forEach(tabSiblings, function (tab) {
 			if ( tab.classList.contains( settings.contentActiveClass ) ) {
 				stopVideos(tab);
 				tab.classList.remove( settings.contentActiveClass );
 			}
 		});
+
 	};
 
 	/**
@@ -145,11 +147,15 @@
 	 * @param  {NodeList} tabs A nodelist of tabs to close
 	 * @param  {Object} settings
 	 */
-	var showTargetTabs = function ( tabs, settings ) {
+	// var showTargetTabs = function ( tabs, settings ) {
+	var showTargetTabs = function ( toggle, tabs, settings ) {
+		var toggleParent = toggle.parentNode;
+		toggle.classList.add( settings.toggleActiveClass );
+		if ( toggleParent && toggleParent.tagName.toLowerCase() === 'li' ) {
+			toggleParent.classList.add( settings.toggleActiveClass );
+		}
 		forEach(tabs, function (tab) {
-			var tabSiblings = getSiblings(tab);
 			tab.classList.add( settings.contentActiveClass );
-			hideOtherTabs(tabSiblings, settings);
 		});
 	};
 
@@ -164,13 +170,8 @@
 	exports.toggleTab = function ( toggle, tabID, options, event ) {
 
 		// Selectors and variables
-		var settings = extend( defaults, options || {} ); // Merge user options with defaults
+		var settings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var tabs = document.querySelectorAll(tabID); // Get tab content
-
-		// Get other toggle elements
-		var toggleParent = toggle.parentNode;
-		var toggleSiblings = getSiblings(toggle);
-		var toggleParentSiblings = getSiblings(toggleParent);
 
 		// If a link, prevent default click event
 		if ( toggle && toggle.tagName.toLowerCase() === 'a' && event ) {
@@ -180,17 +181,28 @@
 		settings.callbackBefore( toggle, tabID ); // Run callbacks before toggling tab
 
 		// Set clicked toggle to active. Deactivate others.
-		toggle.classList.add( settings.toggleActiveClass );
-		if ( toggleParent && toggleParent.tagName.toLowerCase() === 'li' ) {
-			toggleParent.classList.add( settings.toggleActiveClass );
-		}
-		deactivateOtherToggles(toggleSiblings, toggleParentSiblings, settings);
-
-		// Show target tab content. Hide others.
-		showTargetTabs(tabs, settings);
+		hideOtherTabs( toggle, tabs[0], settings );
+		showTargetTabs( toggle, tabs, settings );
 
 		settings.callbackAfter( toggle, tabID ); // Run callbacks after toggling tab
 
+	};
+
+	/**
+	 * Destroy the current initialization.
+	 * @public
+	 */
+	exports.destroy = function () {
+		if ( !settings ) return;
+		document.documentElement.classList.remove( settings.initClass );
+		if ( toggles ) {
+			forEach( toggles, function ( toggle, index ) {
+				toggle.removeEventListener( 'click', eventListeners[index], false );
+			});
+			eventListeners = [];
+		}
+		settings = null;
+		toggles = null;
 	};
 
 	/**
@@ -203,14 +215,20 @@
 		// feature test
 		if ( !supports ) return;
 
+		// Destroy any existing initializations
+		exports.destroy();
+
 		// Selectors and variables
-		var settings = extend( defaults, options || {} ); // Merge user options with defaults
-		var toggles = document.querySelectorAll('[data-tab]'); // Get all tab toggle elements
-		document.documentElement.classList.add( settings.initClass ); // Add class to HTML element to activate conditional CSS
+		settings = extend( defaults, options || {} ); // Merge user options with defaults
+		toggles = document.querySelectorAll('[data-tab]'); // Get all tab toggle elements
+
+		// Add class to HTML element to activate conditional CSS
+		document.documentElement.classList.add( settings.initClass );
 
 		// When tab toggles are clicked, hide/show tab content
-		forEach(toggles, function (toggle) {
-			toggle.addEventListener('click', exports.toggleTab.bind(null, toggle, toggle.getAttribute('data-tab'), settings), false);
+		forEach(toggles, function (toggle, index) {
+			eventListeners[index] = exports.toggleTab.bind(null, toggle, toggle.getAttribute('data-tab'), settings);
+			toggle.addEventListener('click', eventListeners[index], false);
 		});
 
 	};
