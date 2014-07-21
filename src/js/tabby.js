@@ -121,24 +121,20 @@
 		// Variables
 		var isLinkList = toggle.parentNode.tagName.toLowerCase() === 'li' ? true : false;
 		var toggleSiblings = isLinkList ? getSiblings(toggle.parentNode) : getSiblings(toggle);
-		var tabSiblings = getSiblings(tab);
 
-		// Hide toggles
 		forEach(toggleSiblings, function (sibling) {
+			// Hide toggles
 			sibling.classList.remove( settings.toggleActiveClass );
 			if ( isLinkList ) {
 				sibling.querySelector('[data-tab]').classList.remove( settings.toggleActiveClass );
 			}
-		});
 
-		// Hide tabs
-		forEach(tabSiblings, function (tab) {
-			if ( tab.classList.contains( settings.contentActiveClass ) ) {
-				stopVideos(tab);
-				tab.classList.remove( settings.contentActiveClass );
-			}
+			// Hide tabs
+                    	var el = isLinkList ? sibling.querySelector('[data-tab]') : sibling;
+                    	var tab = document.querySelector( el.getAttribute('data-tab') );
+                    	stopVideos( tab );
+                    	tab.classList.remove( settings.contentActiveClass );
 		});
-
 	};
 
 	/**
