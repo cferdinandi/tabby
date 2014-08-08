@@ -25,6 +25,7 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 ```html
 <link rel="stylesheet" href="css/tabby.css">
 <script src="js/classList.js"></script>
+<script src="js/bind-polyfill.js"></script>
 <script src="js/tabby.js"></script>
 ```
 
@@ -32,7 +33,7 @@ Tabby is [built with Sass](http://sass-lang.com/) for easy customization. If you
 
 Tabby follows the same coding conventions as [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_tabby.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
 
-Tabby also requires [classList.js](https://github.com/eligrey/classList.js), a polyfill that extends `classList` support back to IE8.
+Tabby also requires [classList.js](https://github.com/eligrey/classList.js) and `bind-polyfill.js`, polyfills that extend ECMAScript 5 API support to more browsers.
 
 ### 2. Add the markup to your HTML.
 
@@ -186,6 +187,9 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 ## Changelog
 
+* v7.3.1 - August 8, 2014
+	* Added polyfill for `Functions.prototype.bind`.
+	* Removed Sass paths from `gulpfile.js`.
 * v7.3.0 - June 27, 2014
 	* Updated unit tests.
 	* Added `destroy()` method.
