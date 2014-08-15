@@ -14,7 +14,7 @@
 	// Variables
 	//
 
-	var exports = {}; // Object for public APIs
+	var tabby = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
 	var eventListeners = []; //Listeners array
 	var settings, toggles;
@@ -167,7 +167,7 @@
 	 * @param  {Object} options
 	 * @param  {Event} event
 	 */
-	exports.toggleTab = function ( toggle, tabID, options, event ) {
+	tabby.toggleTab = function ( toggle, tabID, options, event ) {
 
 		// Selectors and variables
 		var settings = extend( settings || defaults, options || {} );  // Merge user options with defaults
@@ -192,7 +192,7 @@
 	 * Destroy the current initialization.
 	 * @public
 	 */
-	exports.destroy = function () {
+	tabby.destroy = function () {
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
 		if ( toggles ) {
@@ -210,13 +210,13 @@
 	 * @public
 	 * @param {Object} options User settings
 	 */
-	exports.init = function ( options ) {
+	tabby.init = function ( options ) {
 
 		// feature test
 		if ( !supports ) return;
 
 		// Destroy any existing initializations
-		exports.destroy();
+		tabby.destroy();
 
 		// Selectors and variables
 		settings = extend( defaults, options || {} ); // Merge user options with defaults
@@ -227,7 +227,7 @@
 
 		// When tab toggles are clicked, hide/show tab content
 		forEach(toggles, function (toggle, index) {
-			eventListeners[index] = exports.toggleTab.bind(null, toggle, toggle.getAttribute('data-tab'), settings);
+			eventListeners[index] = tabby.toggleTab.bind(null, toggle, toggle.getAttribute('data-tab'), settings);
 			toggle.addEventListener('click', eventListeners[index], false);
 		});
 
@@ -238,6 +238,6 @@
 	// Public APIs
 	//
 
-	return exports;
+	return tabby;
 
 });
