@@ -189,6 +189,10 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 Tabby uses [semantic versioning](http://semver.org/).
 
+* v7.4.0 - August 23, 2014
+	* Converted to Ruby Sass.
+	* Updated unit test path.
+	* Switched to event bubbling.
 * v7.3.2 - August 15, 2014
 	* Added fix for UMD structure.
 * v7.3.1 - August 8, 2014

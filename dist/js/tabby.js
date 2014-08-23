@@ -1,5 +1,5 @@
 /**
- * Tabby v7.3.2
+ * Tabby v7.4.0
  * Simple, mobile-first toggle tabs., by Chris Ferdinandi.
  * http://github.com/cferdinandi/tabby
  * 
@@ -25,8 +25,7 @@
 
 	var tabby = {}; // Object for public APIs
 	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-	var eventListeners = []; //Listeners array
-	var settings, toggles;
+	var settings;
 
 	// Default settings
 	var defaults = {
@@ -182,11 +181,6 @@
 		var settings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var tabs = document.querySelectorAll(tabID); // Get tab content
 
-		// If a link, prevent default click event
-		if ( toggle && toggle.tagName.toLowerCase() === 'a' && event ) {
-			event.preventDefault();
-		}
-
 		settings.callbackBefore( toggle, tabID ); // Run callbacks before toggling tab
 
 		// Set clicked toggle to active. Deactivate others.
@@ -198,20 +192,26 @@
 	};
 
 	/**
+	 * Handle toggle click events
+	 * @private
+	 */
+	var eventHandler = function (event) {
+		var toggle = event.target;
+		if ( toggle.hasAttribute('data-tab') ) {
+			event.preventDefault();
+			tabby.toggleTab(toggle, toggle.getAttribute('data-tab'), settings);
+		}
+	};
+
+	/**
 	 * Destroy the current initialization.
 	 * @public
 	 */
 	tabby.destroy = function () {
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
-		if ( toggles ) {
-			forEach( toggles, function ( toggle, index ) {
-				toggle.removeEventListener( 'click', eventListeners[index], false );
-			});
-			eventListeners = [];
-		}
+		document.removeEventListener('click', eventHandler, false);
 		settings = null;
-		toggles = null;
 	};
 
 	/**
@@ -227,18 +227,14 @@
 		// Destroy any existing initializations
 		tabby.destroy();
 
-		// Selectors and variables
-		settings = extend( defaults, options || {} ); // Merge user options with defaults
-		toggles = document.querySelectorAll('[data-tab]'); // Get all tab toggle elements
+		// Merge user options with defaults
+		settings = extend( defaults, options || {} );
 
 		// Add class to HTML element to activate conditional CSS
 		document.documentElement.classList.add( settings.initClass );
 
-		// When tab toggles are clicked, hide/show tab content
-		forEach(toggles, function (toggle, index) {
-			eventListeners[index] = tabby.toggleTab.bind(null, toggle, toggle.getAttribute('data-tab'), settings);
-			toggle.addEventListener('click', eventListeners[index], false);
-		});
+		// Listen for all click events
+		document.addEventListener('click', eventHandler, false);
 
 	};
 
