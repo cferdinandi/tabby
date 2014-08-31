@@ -1,3 +1,12 @@
+/**
+ * Tabby v7.4.1
+ * Simple, mobile-first toggle tabs., by Chris Ferdinandi.
+ * http://github.com/cferdinandi/tabby
+ * 
+ * Free to use under the MIT License.
+ * http://gomakethings.com/mit/
+ */
+
 /*
  * classList.js: Cross-browser full element.classList implementation.
  * 2014-01-31

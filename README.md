@@ -1,7 +1,7 @@
 # Tabby [![Build Status](https://travis-ci.org/cferdinandi/tabby.svg)](https://travis-ci.org/cferdinandi/tabby)
 Simple toggle tabs.
 
-[Download Tabby 7](https://github.com/cferdinandi/tabby/archive/master.zip) / [View the demo](http://cferdinandi.github.io/tabby/).
+[Download Tabby](https://github.com/cferdinandi/tabby/archive/master.zip) / [View the demo](http://cferdinandi.github.io/tabby/).
 
 **In This Documentation**
 
@@ -189,6 +189,8 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 Tabby uses [semantic versioning](http://semver.org/).
 
+* v7.4.1 - August 31, 2014
+	* Fixed event listener filter to account for sub elements.
 * v7.4.0 - August 23, 2014
 	* Converted to Ruby Sass.
 	* Updated unit test path.
