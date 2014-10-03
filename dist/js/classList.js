@@ -1,5 +1,5 @@
 /**
- * Tabby v7.4.1
+ * Tabby v7.4.2
  * Simple, mobile-first toggle tabs., by Chris Ferdinandi.
  * http://github.com/cferdinandi/tabby
  * 

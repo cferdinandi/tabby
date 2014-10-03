@@ -7,12 +7,13 @@ Simple toggle tabs.
 
 1. [Getting Started](#getting-started)
 2. [Installing with Package Managers](#installing-with-package-managers)
-3. [Options & Settings](#options-and-settings)
-4. [Browser Compatibility](#browser-compatibility)
-5. [How to Contribute](#how-to-contribute)
-6. [License](#license)
-7. [Changelog](#changelog)
-8. [Older Docs](#older-docs)
+3. [Working with the Source Files](#working-with-the-source-files)
+4. [Options & Settings](#options-and-settings)
+5. [Browser Compatibility](#browser-compatibility)
+6. [How to Contribute](#how-to-contribute)
+7. [License](#license)
+8. [Changelog](#changelog)
+9. [Older Docs](#older-docs)
 
 
 
@@ -108,6 +109,28 @@ You can install Tabby with your favorite package manager.
 
 
 
+## Working with the Source Files
+
+If you would prefer, you can work with the development code in the `src` directory using the included [Gulp build system](http://gulpjs.com/). This compiles, lints, and minifies code, and runs unit tests.
+
+### Dependencies
+Make sure these are installed first.
+
+* [Node.js](http://nodejs.org)
+* [Ruby Sass](http://sass-lang.com/install)
+* [Gulp](http://gulpjs.com) `sudo npm install -g gulp`
+* [PhantomJS](http://phantomjs.org)
+
+### Quick Start
+
+1. In bash/terminal/command line, `cd` into your project directory.
+2. Run `npm install` to install required files.
+3. When it's done installing, run `gulp` to get going.
+
+Every time you want to run your tasks, run `gulp`.
+
+
+
 ## Styling Tabby
 
 Tabby ships without any default styles, so you can adapt it to whatever project you're working on. For responsive navigation patterns, you might use Tabby with [Astro](http://cferdinandi.github.io/astro/).
@@ -158,7 +181,7 @@ tabby.toggleTab( toggle, '#tab2' );
 ```
 
 #### destroy()
-Destroy the current `tabby.init()`.
+Destroy the current `tabby.init()`. This is called automatically during the init function to remove any existing initializations.
 
 ```javascript
 tabby.destroy();
@@ -189,6 +212,9 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 Tabby uses [semantic versioning](http://semver.org/).
 
+* v7.4.2 - October 2, 2014
+	* Fixed CommonJS bug.
+	* Added lazypipe to `gulpfile.js`.
 * v7.4.1 - August 31, 2014
 	* Fixed event listener filter to account for sub elements.
 * v7.4.0 - August 23, 2014
