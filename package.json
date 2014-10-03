@@ -1,7 +1,8 @@
 {
 	"name": "Tabby",
-	"version": "7.4.1",
+	"version": "7.4.2",
 	"description": "Simple, mobile-first toggle tabs.",
+	"main": "./dist",
 	"author": {
 		"name": "Chris Ferdinandi",
 		"url": "http://gomakethings.com"
@@ -27,6 +28,7 @@
 		"gulp-ruby-sass": "~0.7.1",
 		"gulp-uglify": "~0.3.0",
 		"jshint-stylish": "^0.2.0",
+		"lazypipe": "0.2.2",
 		"karma": "^0.12.16",
 		"karma-coverage": "^0.2.4",
 		"karma-jasmine": "~0.2.0",
