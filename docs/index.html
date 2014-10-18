@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Tabby</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- stylesheets -->
+		<link rel="stylesheet" href="dist/css/tabby.css" type="text/css">
+		<link rel="stylesheet" href="assets/css/custom.css" type="text/css">
+	</head>
+
+	<body>
+
+		<main class="container">
+
+			<nav>
+				<h1>Houdini</h1>
+				<p><a href="https://github.com/cferdinandi/tabby">GitHub</a></p>
+				<hr>
+			</nav>
+
+			<section>
+	<h2>Buttons</h2>
+
+	<div class="tabs">
+		<button data-tab="#tab1">Superheroes</button>
+		<button data-tab="#tab2">Ice Cream</button>
+		<button data-tab="#tab3">Seasons</button>
+	</div>
+
+	<div class="tabs-content">
+		<div class="tabs-pane active" id="tab1">
+			<p><strong>Superheros</strong></p>
+			<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
+		</div>
+
+		<div class="tabs-pane" id="tab2">
+			<p><strong>Ice Cream</strong></p>
+			<p>Chocolate, vanilla or strawberry?</p>
+		</div>
+
+		<div class="tabs-pane" id="tab3">
+			<p><strong>Seasons</strong></p>
+			<p>Winter, summer, spring or fall?</p>
+		</div>
+	</div>
+
+
+	<h2>List</h2>
+
+	<ul class="tabs">
+		<li><a data-tab="#taba" href="#taba">Superheroes</a></li>
+		<li><a data-tab="#tabb" href="#tabb">Ice Cream</a></li>
+		<li><a data-tab="#tabc" href="#tabc">Seasons</a></li>
+	</ul>
+
+	<div class="tabs-content">
+		<div class="tabs-pane active" id="taba">
+			<p><strong>Superheros</strong></p>
+			<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
+		</div>
+
+		<div class="tabs-pane" id="tabb">
+			<p><strong>Ice Cream</strong></p>
+			<p>Chocolate, vanilla or strawberry?</p>
+		</div>
+
+		<div class="tabs-pane" id="tabc">
+			<p><strong>Seasons</strong></p>
+			<p>Winter, summer, spring or fall?</p>
+		</div>
+	</div>
+			</section>
+		</main>
+
+		<!-- Javascript -->
+		<script src="dist/js/classList.js"></script>
+		<script src="dist/js/tabby.js"></script>
+		<script>
+			tabby.init({
+				toggleActiveClass: 'active',
+				contentActiveClass: 'active',
+				initClass: 'js-tabby',
+				callbackBefore: function ( toggle, tabID ) {},
+				callbackAfter: function ( toggle, tabID ) {}
+			});
+		</script>
+
+
+	</body>
+</html>
