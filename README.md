@@ -72,7 +72,7 @@ Add the `.active` class to the tab and content that you'd like displayed by defa
 
 ```html
 <ul class="tabs">
-	<li class="active"><a data-tab="#tab1" href="#">Superheroes</a></li>
+	<li class="active"><a class="active" data-tab="#tab1" href="#">Superheroes</a></li>
 	<li><a data-tab="#tab2" href="#">Ice Cream</a></li>
 	<li><a data-tab="#tab3" href="#">Seasons</a></li>
 </ul>
