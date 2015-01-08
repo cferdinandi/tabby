@@ -125,8 +125,7 @@ Make sure these are installed first.
 2. Run `npm install` to install required files.
 3. When it's done installing, run one of the task runners to get going:
 	* `gulp` manually compiles files.
-	* `gulp watch` automatically compiles files when changes are made.
-	* `gulp reload` automatically compiles files and applies changes using [LiveReload](http://livereload.com/).
+	* `gulp watch` automatically compiles files and applies changes using [LiveReload](http://livereload.com/).
 
 
 
