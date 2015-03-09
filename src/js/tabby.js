@@ -1,12 +1,12 @@
 (function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
-		define('tabby', factory(root));
+		define([], factory);
 	} else if ( typeof exports === 'object' ) {
-		module.exports = factory(root);
+		module.exports = factory;
 	} else {
 		root.tabby = factory(root);
 	}
-})(this, function (root) {
+})(this, function (window) {
 
 	'use strict';
 
@@ -15,7 +15,7 @@
 	//
 
 	var tabby = {}; // Object for public APIs
-	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
+	var supports = !!document.querySelector && !!window.addEventListener; // Feature test
 	var settings;
 
 	// Default settings
