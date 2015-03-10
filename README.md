@@ -210,6 +210,8 @@ Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
 
 Tabby uses [semantic versioning](http://semver.org/).
 
+* v7.4.5 - March 9, 2015
+	* REALLY fixed UMD wrapper.
 * v7.4.4 - March 6, 2015
 	* Fixed AMD wrapper window variable.
 * v7.4.3 - October 27, 2014
