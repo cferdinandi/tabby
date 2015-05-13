@@ -1,5 +1,5 @@
 /**
- * Tabby v7.4.5
+ * Tabby v7.4.6
  * Simple, mobile-first toggle tabs., by Chris Ferdinandi.
  * http://github.com/cferdinandi/tabby
  * 
@@ -15,7 +15,7 @@
 	} else {
 		root.tabby = factory(root);
 	}
-})(this, function (root) {
+})(typeof global !== "undefined" ? global : this.window || this.global, function (root) {
 
 	'use strict';
 
