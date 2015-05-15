@@ -12,8 +12,7 @@ Simple toggle tabs.
 5. [Browser Compatibility](#browser-compatibility)
 6. [How to Contribute](#how-to-contribute)
 7. [License](#license)
-8. [Changelog](#changelog)
-9. [Older Docs](#older-docs)
+8. [Older Docs](#older-docs)
 
 
 
@@ -203,108 +202,6 @@ In lieu of a formal style guide, take care to maintain the existing coding style
 
 ## License
 Tabby is licensed under the [MIT License](http://gomakethings.com/mit/).
-
-
-
-## Changelog
-
-Tabby uses [semantic versioning](http://semver.org/).
-
-* v7.4.6 - May 13, 2015
-	* Fixed Browserify `window` bug.
-* v7.4.5 - March 9, 2015
-	* REALLY fixed UMD wrapper.
-* v7.4.4 - March 6, 2015
-	* Fixed AMD wrapper window variable.
-* v7.4.3 - October 27, 2014
-	* Removed `.bind` dependency and polyfill.
-	* Updated `gulpfile.js` tasks and namespacing.
-* v7.4.2 - October 2, 2014
-	* Fixed CommonJS bug.
-	* Added lazypipe to `gulpfile.js`.
-* v7.4.1 - August 31, 2014
-	* Fixed event listener filter to account for sub elements.
-* v7.4.0 - August 23, 2014
-	* Converted to Ruby Sass.
-	* Updated unit test path.
-	* Switched to event bubbling.
-* v7.3.2 - August 15, 2014
-	* Added fix for UMD structure.
-* v7.3.1 - August 8, 2014
-	* Added polyfill for `Functions.prototype.bind`.
-	* Removed Sass paths from `gulpfile.js`.
-* v7.3.0 - June 27, 2014
-	* Updated unit tests.
-	* Added `destroy()` method.
-	* Fixed a bug that wasn't removing the `.active` class from `li` links.
-* v7.2.0 - June 20, 2014
-	* Converted to gulp.js workflow.
-	* Added unit testing.
-	* Updated naming conventions.
-	* Removed unused `_config.scss` and `_mixins.scss` files.
-	* Added minified versions of files.
-* v7.1.1 - June 19, 2014
-	* Fixed factory/root/UMD definition.
-* v7.1.1 - June 8, 2014
-	* Added UMD support.
-	* Moved public APIs to exports variable.
-	* Improved feature test.
-	* Replaced `Array.prototype.forEach` hack with proper `forEach` function.
-	* Added a more well supported `trim` function.
-	* General code optimizations for better minification and performance.
-	* Updated to JSDoc documentation.
-	* Updated to three number versioning system.
-	* Added package manager installation info.
-* v7.0 - April 4, 2014
-	* Converted from Buoy class helpers to `classList` with polyfill.
-* v6.2 - March 18, 2014
-	* Pass `toggle` and `tabID` variables into callbacks.
-	* Run a check for `active` class before running `_stopVideos` function to avoid unneccessary reloading of `src`.
-	* Checks if toggle is part of a list before crawling up DOM tree to avoid unneccessary class setting.
-* v6.1 - February 27, 2014
-	* Converted `_defaults` to a literal object
-* v6.0 - February 24, 2014
-	* Better public/private method namespacing.
-	* Require `init()` call to run.
-	* New API exposes additional methods for use in your own scripts.
-	* Better documentation.
-* v5.3 - February 16, 2014
-	* [Added method to stop YouTube, Vimeo, and HTML5 videos from playing when tab is closed.](https://github.com/cferdinandi/tabby/issues/8)
-* v5.2 - February 5, 2014
-	* Reverted to `Array.prototype.forEach` loops.
-* v5.1 - January 27, 2014
-	* Updated addEventListener to be more object oriented.
-	* Moved feature test to script itself.
-* v5.0 - January 27, 2014
-	* Switched to a data attribute for the toggle selector (separates scripts from styles).
-	* Removed unused `tab-toggle` class.
-	* Prefixed script with a `;` to prevent errors if other scripts are incorrectly closed.
-	* Added namespacing to IIFE.
-* v4.0 - December 4, 2013
-	* Added Sass support.
-	* Removed horizontal and vertical styling for great design flexibility.
-	* Add active class to button elements.
-* v3.2 - August 27, 2013
-	* Added missing semicolon.
-	* Activated strict mode.
-* v3.1 - August 26,2013
-	* Converted to an IIFE pattern.
-	* Added Buoy vanilla JS micro-library.
-* v3.0 - August 13, 2013
-	* Converted to vanilla JS.
-	* Removed dependence on jQuery.
-* v2.1 - August 5, 2013
-	* Updated with variable for `$(this)` (better performance).
-* v2.0 - June 7, 2013
-	* Switched to MIT license.
-* v2.0 - June 5, 2013
-	* Switched from `href` to `data-target` value for tab id, breaking backward compatibility.
-* v1.1 - February 13, 2013
-	* Renamed `example.html` to `index.html`.
-* v1.1 - February 5, 2013
-	* Switched to relative sizing.
-* v1.0 - January 22, 2013
-	* Initial release.
 
 
 
