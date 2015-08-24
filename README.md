@@ -114,7 +114,6 @@ If you would prefer, you can work with the development code in the `src` directo
 Make sure these are installed first.
 
 * [Node.js](http://nodejs.org)
-* [Ruby Sass](http://sass-lang.com/install)
 * [Gulp](http://gulpjs.com) `sudo npm install -g gulp`
 
 ### Quick Start
@@ -148,8 +147,7 @@ tabby.init({
 	toggleActiveClass: 'active', // Class added to active toggle elements
 	contentActiveClass: 'active', // Class added to active tab content areas
 	initClass: 'js-tabby', // Class added to <html> element when initiated
-	callbackBefore: function ( toggle, tabID ) {}, // Function that's run before tab content is toggled
-	callbackAfter: function ( toggle, tabID ) {} // Function that's run after tab content is toggled
+	callback: function ( toggle, tabID ) {} // Function that's run after tab content is toggled
 });
 ```
 
