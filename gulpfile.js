@@ -29,10 +29,6 @@ var sass = require('gulp-sass');
 var prefix = require('gulp-autoprefixer');
 var minify = require('gulp-minify-css');
 
-// SVGs
-var svgmin = require('gulp-svgmin');
-var svgstore = require('gulp-svgstore');
-
 // Docs
 var markdown = require('gulp-markdown');
 var fileinclude = require('gulp-file-include');
@@ -53,11 +49,6 @@ var paths = {
 		input: 'src/sass/**/*.{scss,sass}',
 		output: 'dist/css/'
 	},
-	svgs: {
-		input: 'src/svg/*',
-		output: 'dist/svg/'
-	},
-	static: 'src/static/**',
 	test: {
 		input: 'src/js/**/*.js',
 		karma: 'test/karma.conf.js',
@@ -80,19 +71,18 @@ var paths = {
 
 var banner = {
 	full :
-		'/**\n' +
-		' * <%= package.name %> v<%= package.version %>\n' +
-		' * <%= package.description %>, by <%= package.author.name %>.\n' +
+		'/*!\n' +
+		' * <%= package.name %> v<%= package.version %>: <%= package.description %>\n' +
+		' * (c) ' + new Date().getFullYear() + ' <%= package.author.name %>\n' +
+		' * MIT License\n' +
 		' * <%= package.repository.url %>\n' +
-		' * \n' +
-		' * Free to use under the MIT License.\n' +
-		' * http://gomakethings.com/mit/\n' +
 		' */\n\n',
 	min :
-		'/**' +
-		' <%= package.name %> v<%= package.version %>, by Chris Ferdinandi' +
+		'/*!' +
+		' <%= package.name %> v<%= package.version %>' +
+		' | (c) ' + new Date().getFullYear() + ' <%= package.author.name %>' +
+		' | MIT License' +
 		' | <%= package.repository.url %>' +
-		' | Licensed under MIT: http://gomakethings.com/mit/' +
 		' */\n'
 };
 
@@ -146,39 +136,6 @@ gulp.task('build:styles', ['clean:dist'], function() {
 		.pipe(gulp.dest(paths.styles.output));
 });
 
-// Generate SVG sprites
-gulp.task('build:svgs', ['clean:dist'], function () {
-	return gulp.src(paths.svgs.input)
-		.pipe(plumber())
-		.pipe(tap(function (file, t) {
-			if ( file.isDirectory() ) {
-				var name = file.relative + '.svg';
-				return gulp.src(file.path + '/*.svg')
-					.pipe(svgmin())
-					.pipe(svgstore({
-						fileName: name,
-						prefix: 'icon-',
-						inlineSvg: true
-					}))
-					.pipe(gulp.dest(paths.svgs.output));
-			}
-		}))
-		.pipe(svgmin())
-		.pipe(svgstore({
-			fileName: 'icons.svg',
-			prefix: 'icon-',
-			inlineSvg: true
-		}))
-		.pipe(gulp.dest(paths.svgs.output));
-});
-
-// Copy static files into output folder
-gulp.task('copy:static', ['clean:dist'], function() {
-	return gulp.src(paths.static)
-		.pipe(plumber())
-		.pipe(gulp.dest(paths.output));
-});
-
 // Lint scripts
 gulp.task('lint:scripts', function () {
 	return gulp.src(paths.scripts.input)
@@ -187,17 +144,23 @@ gulp.task('lint:scripts', function () {
 		.pipe(jshint.reporter('jshint-stylish'));
 });
 
-// Remove prexisting content from output and test folders
+// Remove pre-existing content from output and test folders
 gulp.task('clean:dist', function () {
 	del.sync([
-		paths.output,
+		paths.output
+	]);
+});
+
+// Remove pre-existing content from text folders
+gulp.task('clean:test', function () {
+	del.sync([
 		paths.test.coverage,
 		paths.test.results
 	]);
 });
 
 // Run unit tests
-gulp.task('test:scripts', function() {
+gulp.task('test:scripts', ['clean:test'], function() {
 	return gulp.src([paths.test.input].concat([paths.test.spec]))
 		.pipe(plumber())
 		.pipe(karma({ configFile: paths.test.karma }))
@@ -264,9 +227,7 @@ gulp.task('refresh', ['compile', 'docs'], function () {
 gulp.task('compile', [
 	'lint:scripts',
 	'clean:dist',
-	'copy:static',
 	'build:scripts',
-	'build:svgs',
 	'build:styles'
 ]);
 
@@ -278,20 +239,20 @@ gulp.task('docs', [
 	'copy:assets'
 ]);
 
-// Generate documentation
-gulp.task('tests', [
-	'test:scripts'
-]);
-
 // Compile files, generate docs, and run unit tests (default)
 gulp.task('default', [
 	'compile',
-	'docs',
-	'tests'
+	'docs'
 ]);
 
 // Compile files, generate docs, and run unit tests when something changes
 gulp.task('watch', [
 	'listen',
 	'default'
+]);
+
+// Run unit tests
+gulp.task('test', [
+	'default',
+	'test:scripts'
 ]);

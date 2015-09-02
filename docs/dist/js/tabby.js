@@ -1,10 +1,8 @@
-/**
- * Tabby v8.0.0
- * Simple, mobile-first toggle tabs., by Chris Ferdinandi.
+/*!
+ * Tabby v9.0.0: Simple, mobile-first toggle tabs.
+ * (c) 2015 Chris Ferdinandi
+ * MIT License
  * http://github.com/cferdinandi/tabby
- * 
- * Free to use under the MIT License.
- * http://gomakethings.com/mit/
  */
 
 (function (root, factory) {
@@ -15,7 +13,7 @@
 	} else {
 		root.tabby = factory(root);
 	}
-})(typeof global !== "undefined" ? global : this.window || this.global, function (root) {
+})(typeof global !== 'undefined' ? global : this.window || this.global, function (root) {
 
 	'use strict';
 
@@ -24,11 +22,12 @@
 	//
 
 	var tabby = {}; // Object for public APIs
-	var supports = !!document.querySelector && !!root.addEventListener; // Feature test
+	var supports = 'querySelector' in document && 'addEventListener' in root && 'classList' in document.createElement('_'); // Feature test
 	var settings;
 
 	// Default settings
 	var defaults = {
+		selector: '[data-tab]',
 		toggleActiveClass: 'active',
 		contentActiveClass: 'active',
 		initClass: 'js-tabby',
@@ -116,7 +115,6 @@
 
 		// Variables
 		var firstChar = selector.charAt(0);
-		var supports = 'classList' in document.documentElement;
 		var attribute, value;
 
 		// If selector is a data attribute, split attribute from value
@@ -135,14 +133,8 @@
 
 			// If selector is a class
 			if ( firstChar === '.' ) {
-				if ( supports ) {
-					if ( elem.classList.contains( selector.substr(1) ) ) {
-						return elem;
-					}
-				} else {
-					if ( new RegExp('(^|\\s)' + selector.substr(1) + '(\\s|$)').test( elem.className ) ) {
-						return elem;
-					}
+				if ( elem.classList.contains( selector.substr(1) ) ) {
+					return elem;
 				}
 			}
 
@@ -237,7 +229,7 @@
 		forEach(toggleSiblings, function (sibling) {
 			sibling.classList.remove( settings.toggleActiveClass );
 			if ( isLinkList ) {
-				sibling.querySelector('[data-tab]').classList.remove( settings.toggleActiveClass );
+				sibling.querySelector( settings.selector ).classList.remove( settings.toggleActiveClass );
 			}
 		});
 
@@ -296,7 +288,7 @@
 	 * @private
 	 */
 	var eventHandler = function (event) {
-		var toggle = getClosest(event.target, '[data-tab]');
+		var toggle = getClosest( event.target, settings.selector );
 		if ( toggle ) {
 			event.preventDefault();
 			tabby.toggleTab(toggle, toggle.getAttribute('data-tab'), settings);
