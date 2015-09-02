@@ -1,17 +1,7 @@
 # Tabby [![Build Status](https://travis-ci.org/cferdinandi/tabby.svg)](https://travis-ci.org/cferdinandi/tabby)
 Simple toggle tabs.
 
-[Download Tabby](https://github.com/cferdinandi/tabby/archive/master.zip) / [View the demo](http://cferdinandi.github.io/tabby/).
-
-**In This Documentation**
-
-1. [Getting Started](#getting-started)
-2. [Installing with Package Managers](#installing-with-package-managers)
-3. [Working with the Source Files](#working-with-the-source-files)
-4. [Options & Settings](#options-and-settings)
-5. [Browser Compatibility](#browser-compatibility)
-6. [How to Contribute](#how-to-contribute)
-7. [License](#license)
+[Download Tabby](https://github.com/cferdinandi/tabby/archive/master.zip) / [View the demo](http://cferdinandi.github.io/tabby/)
 
 
 
@@ -23,19 +13,12 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 
 ```html
 <link rel="stylesheet" href="css/tabby.css">
-<script src="js/classList.js"></script>
 <script src="js/tabby.js"></script>
 ```
 
-Tabby is [built with Sass](http://sass-lang.com/) for easy customization. If you don't use Sass, that's ok. The `css` folder contains compiled vanilla CSS.
-
-Tabby follows the same coding conventions as [Kraken](http://cferdinandi.github.io/kraken/), so you can drop the `_tabby.css` file right into Kraken without making any updates. Or, adjust the variables to suit your own project.
-
-Tabby also requires [classList.js](https://github.com/eligrey/classList.js), a polyfill that extends ECMAScript 5 API support to more browsers.
-
 ### 2. Add the markup to your HTML.
 
-Tab toggles can be buttons or links, and can optionally be wrapped in a list element. Make sure that the `[data-tab]` value of each tab toggle matches the ID of the matching `.tab-pane`.
+Tab toggles can be buttons or links, and can optionally be wrapped in a list element. Make sure that the `[data-tab]` value of each tab toggle matches the selector for the matching `.tab-pane`.
 
 Add the `.active` class to the tab and content that you'd like displayed by default.
 
@@ -86,13 +69,13 @@ Add the `.active` class to the tab and content that you'd like displayed by defa
 
 ### 3. Initialize Tabby.
 
+In the footer of your page, after the content, initialize Tabby. And that's it, you're done. Nice work!
+
 ```html
 <script>
 	tabby.init();
 </script>
 ```
-
-In the footer of your page, after the content, initialize Tabby. And that's it, you're done. Nice work!
 
 
 
@@ -123,14 +106,7 @@ Make sure these are installed first.
 3. When it's done installing, run one of the task runners to get going:
 	* `gulp` manually compiles files.
 	* `gulp watch` automatically compiles files and applies changes using [LiveReload](http://livereload.com/).
-
-
-
-## Styling Tabby
-
-Tabby ships without any default styles, so you can adapt it to whatever project you're working on. For responsive navigation patterns, you might use Tabby with [Astro](http://cferdinandi.github.io/astro/).
-
-If you need something with styling, check out [Tabby 3](http://cferdinandi.github.io/tabby/archive/v3/).
+	* `gulp test` compiles files and runs unit tests.
 
 
 
@@ -144,12 +120,15 @@ You can pass options and callbacks into Tabby through the `init()` function:
 
 ```javascript
 tabby.init({
+	selector: '[data-tab]', // Tab toggle selector
 	toggleActiveClass: 'active', // Class added to active toggle elements
 	contentActiveClass: 'active', // Class added to active tab content areas
 	initClass: 'js-tabby', // Class added to <html> element when initiated
 	callback: function ( toggle, tabID ) {} // Function that's run after tab content is toggled
 });
 ```
+
+***Note:*** *If you change the `selector`, you still need to include the `[data-tab]` attribute in order to pass in the selector for the tab content.*
 
 ### Use Tabby events in your own scripts
 
@@ -185,7 +164,7 @@ tabby.destroy();
 
 ## Browser Compatibility
 
-Tabby works in all modern browsers, and IE 9 and above.
+Tabby works in all modern browsers, and IE 10 and above. You can extend browser support back to IE 9 with the [classList.js polyfill](https://github.com/eligrey/classList.js/).
 
 Tabby is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all content will be displayed by default. If you need to support older browsers, you can still [download the jQuery version of Tabby on GitHub](https://github.com/cferdinandi/tabby/tree/archive-v2).
 
