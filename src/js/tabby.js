@@ -222,7 +222,10 @@
 		forEach(toggleSiblings, function (sibling) {
 			sibling.classList.remove( settings.toggleActiveClass );
 			if ( isLinkList ) {
-				sibling.querySelector( settings.selector ).classList.remove( settings.toggleActiveClass );
+				var link = sibling.querySelector( settings.selector );
+				if ( link ) {
+					link.classList.remove( settings.toggleActiveClass );
+				}
 			}
 		});
 

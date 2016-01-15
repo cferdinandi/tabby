@@ -1,6 +1,6 @@
 /*!
- * Tabby v9.0.0: Simple, mobile-first toggle tabs.
- * (c) 2015 Chris Ferdinandi
+ * Tabby v9.1.0: Simple, mobile-first toggle tabs.
+ * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
  */
@@ -229,7 +229,10 @@
 		forEach(toggleSiblings, function (sibling) {
 			sibling.classList.remove( settings.toggleActiveClass );
 			if ( isLinkList ) {
-				sibling.querySelector( settings.selector ).classList.remove( settings.toggleActiveClass );
+				var link = sibling.querySelector( settings.selector );
+				if ( link ) {
+					link.classList.remove( settings.toggleActiveClass );
+				}
 			}
 		});
 

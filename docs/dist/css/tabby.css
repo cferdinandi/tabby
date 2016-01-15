@@ -1,6 +1,6 @@
 /*!
- * Tabby v9.0.0: Simple, mobile-first toggle tabs.
- * (c) 2015 Chris Ferdinandi
+ * Tabby v9.1.0: Simple, mobile-first toggle tabs.
+ * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
  */
@@ -21,7 +21,7 @@
 }
 
 /*  Force browser to show a pointer on tab navigation. */
-/* line 16, /Users/cferdinandi/Sites/tabby/src/sass/components/_tabby.scss */
+/* line 15, /Users/cferdinandi/Sites/tabby/src/sass/components/_tabby.scss */
 .tabs a,
 .tabs button {
   cursor: pointer;
@@ -43,7 +43,7 @@
 }
 
 /* Clearfix */
-/* line 35, /Users/cferdinandi/Sites/tabby/src/sass/components/_tabby.scss */
+/* line 34, /Users/cferdinandi/Sites/tabby/src/sass/components/_tabby.scss */
 .tabs:before,
 .tabs:after {
   display: table;
