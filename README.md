@@ -1,6 +1,8 @@
 # Tabby [![Build Status](https://travis-ci.org/cferdinandi/tabby.svg)](https://travis-ci.org/cferdinandi/tabby)
 Simple toggle tabs.
 
+Supports deep linking to a specific tab via anchor links (ex. http://some-url.com#tabID). Browser back button can be used to navigate back through tabs.
+
 [Download Tabby](https://github.com/cferdinandi/tabby/archive/master.zip) / [View the demo](http://cferdinandi.github.io/tabby/)
 
 
@@ -18,52 +20,32 @@ Compiled and production-ready code can be found in the `dist` directory. The `sr
 
 ### 2. Add the markup to your HTML.
 
-Tab toggles can be buttons or links, and can optionally be wrapped in a list element. Make sure that the `[data-tab]` value of each tab toggle matches the selector for the matching `.tab-pane`.
+For semantic reasons, tab toggles must be links, but can be strutured however you see fit. Make sure that the `href` for each tab toggle matches the id of the target `.tabs-pane`.
+
+Add the `[data-tabs]` attribute to the tab toggles parent element, and the `[data-tab]` attribute to individual toggles. Add a `[data-tabs-content]` attribute to the tab content group parent element, and the `[data-tabs-pane]` attribute to individual tab content.
 
 Add the `.active` class to the tab and content that you'd like displayed by default.
 
-**Standalone Buttons**
-
 ```html
-<div class="tabs">
-	<button class="active" data-tab="#tab1">Superheroes</button>
-	<button data-tab="#tab2">Ice Cream</button>
-	<button data-tab="#tab3">Seasons</button>
-</div>
-
-<div class="tabs-content">
-	<div class="tabs-pane active" id="tab1">
-		Superheros
-		...
-	</div>
-
-	<div class="tabs-pane" id="tab2">
-		Ice Cream
-		...
-	</div>
-
-	<div class="tabs-pane" id="tab3">
-		Seasons
-		...
-	</div>
-</div>
-```
-
-**List Links**
-
-```html
-<ul class="tabs">
-	<li class="active"><a class="active" data-tab="#tab1" href="#">Superheroes</a></li>
-	<li><a data-tab="#tab2" href="#">Ice Cream</a></li>
-	<li><a data-tab="#tab3" href="#">Seasons</a></li>
+<ul data-tabs class="tabs">
+	<li><a data-tab href="#taba">Superheroes</a></li>
+	<li><a data-tab href="#tabb">Ice Cream</a></li>
+	<li><a data-tab href="#tabc">Seasons</a></li>
 </ul>
 
-<div class="tabs-content">
-	<div class="tabs-pane active" id="tab1">
-		Superheros
-		...
+<div data-tabs-content>
+	<div data-tabs-pane class="tabs-pane active" id="taba">
+		<p><strong>Superheros</strong></p>
+		<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
 	</div>
-	...
+	<div data-tabs-pane class="tabs-pane" id="tabb">
+		<p><strong>Ice Cream</strong></p>
+		<p>Chocolate, vanilla or strawberry?</p>
+	</div>
+	<div data-tabs-pane class="tabs-pane" id="tabc">
+		<p><strong>Seasons</strong></p>
+		<p>Winter, summer, spring or fall?</p>
+	</div>
 </div>
 ```
 
@@ -91,7 +73,7 @@ You can install Tabby with your favorite package manager.
 
 ## Working with the Source Files
 
-If you would prefer, you can work with the development code in the `src` directory using the included [Gulp build system](http://gulpjs.com/). This compiles, lints, and minifies code, and runs unit tests. It's the same build system that's used by [Kraken](http://cferdinandi.github.io/kraken/), so it includes some unnecessary tasks and Sass variables but can be dropped right in to the boilerplate without any configuration.
+If you would prefer, you can work with the development code in the `src` directory using the included [Gulp build system](http://gulpjs.com/). This compiles, lints, and minifies code, and runs unit tests.
 
 ### Dependencies
 Make sure these are installed first.
@@ -120,11 +102,14 @@ You can pass options and callbacks into Tabby through the `init()` function:
 
 ```javascript
 tabby.init({
-	selector: '[data-tab]', // Tab toggle selector
+	selectorToggle: '[data-tab]', // Tab toggle selector
+	selectorToggleGroup: '[data-tabs]', // Tab toggle group selector
+	selectorContent: '[data-tabs-pane]', // Tab content selector
+	selectorContentGroup: '[data-tabs-content]', // Tab content group selector
 	toggleActiveClass: 'active', // Class added to active toggle elements
 	contentActiveClass: 'active', // Class added to active tab content areas
 	initClass: 'js-tabby', // Class added to <html> element when initiated
-	callback: function ( toggle, tabID ) {} // Function that's run after tab content is toggled
+	callback: function () {} // Function that's run after tab content is toggled
 });
 ```
 
@@ -142,7 +127,6 @@ tabby.toggleTab(
 	toggle, // Node that toggles the tab action. ex. document.querySelector('#toggle')
 	tabID, // The ID of the tab content area to show. ex. '#content'
 	options, // Classes and callbacks. Same options as those passed into the init() function.
-	event // Optional, if a DOM event was triggered.
 );
 ```
 
@@ -166,13 +150,19 @@ tabby.destroy();
 
 Tabby works in all modern browsers, and IE 10 and above. You can extend browser support back to IE 9 with the [classList.js polyfill](https://github.com/eligrey/classList.js/).
 
-Tabby is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all content will be displayed by default. If you need to support older browsers, you can still [download the jQuery version of Tabby on GitHub](https://github.com/cferdinandi/tabby/tree/archive-v2).
+Tabby is built with modern JavaScript APIs, and uses progressive enhancement. If the JavaScript file fails to load, or if your site is viewed on older and less capable browsers, all content will be displayed by default.
 
 
 
 ## How to Contribute
 
 In lieu of a formal style guide, take care to maintain the existing coding style. Please apply fixes to both the development and production code. Don't forget to update the version number, and when applicable, the documentation.
+
+
+
+## Credits
+
+Kudos to [Remy Sharp](https://24ways.org/2015/how-tabs-should-work/) for inspiring the more accessible code base in version 10.
 
 
 

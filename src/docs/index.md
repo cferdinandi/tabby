@@ -1,45 +1,47 @@
-## Buttons
+## List
 
-<div class="tabs">
-	<button data-tab="#tab1">Superheroes</button>
-	<button data-tab="#tab2">Ice Cream</button>
-	<button data-tab="#tab3">Seasons</button>
-</div>
+<ul data-tabs class="tabs">
+	<li><a data-tab href="#taba">Superheroes</a></li>
+	<li><a data-tab href="#tabb">Ice Cream</a></li>
+	<li><a data-tab href="#tabc">Seasons</a></li>
+</ul>
 
-<div class="tabs-content">
-	<div class="tabs-pane active" id="tab1">
+<div data-tabs-content>
+	<div data-tabs-pane class="tabs-pane active" id="taba">
 		<p><strong>Superheros</strong></p>
 		<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
 	</div>
-	<div class="tabs-pane" id="tab2">
+	<div data-tabs-pane class="tabs-pane" id="tabb">
 		<p><strong>Ice Cream</strong></p>
 		<p>Chocolate, vanilla or strawberry?</p>
 	</div>
-	<div class="tabs-pane" id="tab3">
+	<div data-tabs-pane class="tabs-pane" id="tabc">
 		<p><strong>Seasons</strong></p>
 		<p>Winter, summer, spring or fall?</p>
 	</div>
 </div>
 
 
-## List
+## Unstructured
 
-<ul class="tabs">
-	<li><a data-tab="#taba" href="#taba">Superheroes</a></li>
-	<li><a data-tab="#tabb" href="#tabb">Ice Cream</a></li>
-	<li><a data-tab="#tabc" href="#tabc">Seasons</a></li>
-</ul>
+<div data-tabs class="tabs">
+	<p>
+		<span><a data-tab href="#tab1">Superheroes</a></span>
+		<span><a data-tab href="#tab2">Ice Cream</a></span>
+		<span><a data-tab href="#tab3">Seasons</a></span>
+	</p>
+</div>
 
-<div class="tabs-content">
-	<div class="tabs-pane active" id="taba">
+<div data-tabs-content>
+	<div data-tabs-pane class="tabs-pane active" id="tab1">
 		<p><strong>Superheros</strong></p>
 		<p>Spiderman, Batman, or Iron Man... which one is your favorite?</p>
 	</div>
-	<div class="tabs-pane" id="tabb">
+	<div data-tabs-pane class="tabs-pane" id="tab2">
 		<p><strong>Ice Cream</strong></p>
 		<p>Chocolate, vanilla or strawberry?</p>
 	</div>
-	<div class="tabs-pane" id="tabc">
+	<div data-tabs-pane class="tabs-pane" id="tab3">
 		<p><strong>Seasons</strong></p>
 		<p>Winter, summer, spring or fall?</p>
 	</div>

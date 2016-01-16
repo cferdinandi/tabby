@@ -1,5 +1,5 @@
 /*!
- * Tabby v9.1.0: Simple, mobile-first toggle tabs.
+ * Tabby v10.0.0: Simple, mobile-first toggle tabs.
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
@@ -23,11 +23,14 @@
 
 	var tabby = {}; // Object for public APIs
 	var supports = 'querySelector' in document && 'addEventListener' in root && 'classList' in document.createElement('_'); // Feature test
-	var settings;
+	var settings, tab;
 
 	// Default settings
 	var defaults = {
-		selector: '[data-tab]',
+		selectorToggle: '[data-tab]',
+		selectorToggleGroup: '[data-tabs]',
+		selectorContent: '[data-tabs-pane]',
+		selectorContentGroup: '[data-tabs-content]',
 		toggleActiveClass: 'active',
 		contentActiveClass: 'active',
 		initClass: 'js-tabby',
@@ -170,29 +173,6 @@
 	};
 
 	/**
-	 * Get siblings of an element
-	 * @private
-	 * @param  {Element} elem
-	 * @return {NodeList}
-	 */
-	var getSiblings = function ( elem ) {
-
-		// Variables
-		var siblings = [];
-		var sibling = elem.parentNode.firstChild;
-
-		// Loop through all sibling nodes
-		for ( ; sibling; sibling = sibling.nextSibling ) {
-			if ( sibling.nodeType === 1 && sibling !== elem ) {
-				siblings.push( sibling );
-			}
-		}
-
-		return siblings;
-
-	};
-
-	/**
 	 * Stop YouTube, Vimeo, and HTML5 videos from playing when leaving the slide
 	 * @private
 	 * @param  {Element} content The content container the video is in
@@ -213,76 +193,108 @@
 	};
 
 	/**
-	 * Hide all other tabs and content
-	 * @param  {Element} toggle The element that toggled the tab content
-	 * @param  {Element} tab The tab to show
+	 * Toggle tab toggle active state
+	 * @private
+	 * @param  {Node}   toggle   The toggle element
 	 * @param  {Object} settings
 	 */
-	var hideOtherTabs = function ( toggle, tab, settings ) {
+	var toggleToggles = function ( toggle, settings ) {
 
 		// Variables
-		var isLinkList = toggle.parentNode.tagName.toLowerCase() === 'li' ? true : false;
-		var toggleSiblings = isLinkList ? getSiblings(toggle.parentNode) : getSiblings(toggle);
-		var tabSiblings = getSiblings(tab);
+		var toggleGroup = getClosest( toggle, settings.selectorToggleGroup ); // The parent for the toggle group
+		if ( !toggleGroup ) return;
+		var toggles = toggleGroup.querySelectorAll( settings.selectorToggle ); // The toggles in the group
+		var toggleList = getClosest( toggle, 'li' ); // Toggle list item (if applicable)
 
-		// Hide toggles
-		forEach(toggleSiblings, function (sibling) {
-			sibling.classList.remove( settings.toggleActiveClass );
-			if ( isLinkList ) {
-				var link = sibling.querySelector( settings.selector );
-				if ( link ) {
-					link.classList.remove( settings.toggleActiveClass );
-				}
+		// Hide each toggle
+		forEach(toggles, function (toggle) {
+
+			// Toggle class
+			toggle.classList.remove( settings.toggleActiveClass );
+
+			// If toggle is a list item, toggle class
+			var toggleList = getClosest( toggle, 'li' );
+			if ( toggleList ) {
+				toggleList.classList.remove( settings.toggleActiveClass );
 			}
+
 		});
 
-		// Hide tabs
-		forEach(tabSiblings, function (tab) {
-			if ( tab.classList.contains( settings.contentActiveClass ) ) {
-				stopVideos(tab);
-				tab.classList.remove( settings.contentActiveClass );
-			}
-		});
+		// Show the selected toggle
+		toggle.classList.add( settings.toggleActiveClass );
+		if ( toggleList ) {
+			toggleList.classList.add( settings.toggleActiveClass );
+		}
 
 	};
 
 	/**
-	 * Show target tabs
+	 * Toggle tab active state
 	 * @private
-	 * @param  {NodeList} tabs A nodelist of tabs to close
+	 * @param  {String} tabID    The ID of the tab to activate
 	 * @param  {Object} settings
 	 */
-	// var showTargetTabs = function ( tabs, settings ) {
-	var showTargetTabs = function ( toggle, tabs, settings ) {
-		var toggleParent = toggle.parentNode;
-		toggle.classList.add( settings.toggleActiveClass );
-		if ( toggleParent && toggleParent.tagName.toLowerCase() === 'li' ) {
-			toggleParent.classList.add( settings.toggleActiveClass );
-		}
+	var toggleTabs = function ( tabID, settings ) {
+
+		// Variables
+		var tab = document.querySelector( tabID ); // The selected tab
+		if ( !tab ) return;
+		var tabGroup = getClosest( tab, settings.selectorContentGroup ); // The parent for the tab group
+		if ( !tabGroup ) return;
+		var tabs = tabGroup.querySelectorAll( settings.selectorContent ); // The tabs in the group
+
+		// Hide each tab
 		forEach(tabs, function (tab) {
-			tab.classList.add( settings.contentActiveClass );
+			stopVideos(tab);
+			tab.classList.remove( settings.contentActiveClass );
 		});
+
+		// Show the selected tab
+		tab.classList.add( settings.contentActiveClass );
+
 	};
 
 	/**
 	 * Show a tab and hide all others
 	 * @public
 	 * @param  {Element} toggle The element that toggled the show tab event
-	 * @param  {String} tabID The ID of the tab to show
-	 * @param  {Object} options
-	 * @param  {Event} event
+	 * @param  {String}  tabID The ID of the tab to show
+	 * @param  {Object}  options
 	 */
-	tabby.toggleTab = function ( toggle, tabID, options, event ) {
+	tabby.toggleTab = function ( toggle, tabID, options ) {
 
 		// Selectors and variables
 		var settings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var tabs = document.querySelectorAll(tabID); // Get tab content
 
-		// Set clicked toggle to active. Deactivate others.
-		hideOtherTabs( toggle, tabs[0], settings );
-		showTargetTabs( toggle, tabs, settings );
+		// Toggle visibility of the toggles and tabs
+		toggleToggles(toggle, settings);
+		toggleTabs( tabID, settings );
 
-		settings.callback( toggle, tabID ); // Run callbacks after toggling tab
+		// Run callbacks after toggling tab
+		settings.callback( toggle, tabID );
+
+	};
+
+	/**
+	 * Handle has change event
+	 * @private
+	 */
+	var hashChangeHandler = function () {
+
+		// Get hash from URL
+		var hash = window.location.hash;
+
+		// If clicked tab is cached, reset it's ID
+		if ( tab ) {
+			tab.id = tab.getAttribute( 'data-tab-id' );
+			tab = null;
+		}
+
+		// If there's a URL hash, activate tab with matching ID
+		if ( !hash ) return;
+		var toggle = document.querySelector('[data-tab="' + hash + '"]');
+		tabby.toggleTab( toggle, hash );
 
 	};
 
@@ -290,12 +302,20 @@
 	 * Handle toggle click events
 	 * @private
 	 */
-	var eventHandler = function (event) {
-		var toggle = getClosest( event.target, settings.selector );
-		if ( toggle ) {
-			event.preventDefault();
-			tabby.toggleTab(toggle, toggle.getAttribute('data-tab'), settings);
-		}
+	var clickHandler = function (event) {
+
+		// Check if event target is a tab toggle, and that it's not the currently active toggle
+		var toggle = getClosest( event.target, settings.selectorToggle );
+		if ( !toggle || !toggle.hash || toggle.hash === window.location.hash ) return;
+
+		// Get the tab content
+		tab = document.querySelector( toggle.hash );
+
+		// If tab content exists, save the ID as a data attribute and remove it (prevents scroll jump)
+		if ( !tab ) return;
+		tab.setAttribute( 'data-tab-id', tab.id );
+		tab.id = '';
+
 	};
 
 	/**
@@ -305,8 +325,10 @@
 	tabby.destroy = function () {
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
-		document.removeEventListener('click', eventHandler, false);
+		document.removeEventListener('click', clickHandler, false);
+		root.removeEventListener('hashchange', hashChangeHandler, false);
 		settings = null;
+		tab = null;
 	};
 
 	/**
@@ -329,7 +351,11 @@
 		document.documentElement.classList.add( settings.initClass );
 
 		// Listen for all click events
-		document.addEventListener('click', eventHandler, false);
+		document.addEventListener('click', clickHandler, false);
+		root.addEventListener('hashchange', hashChangeHandler, false);
+
+		// If URL has a hash, activate hashed tab by default
+		hashChangeHandler();
 
 	};
 
