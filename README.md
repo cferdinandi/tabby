@@ -160,6 +160,12 @@ In lieu of a formal style guide, take care to maintain the existing coding style
 
 
 
+## Credits
+
+Kudos to [Remy Sharp](https://24ways.org/2015/how-tabs-should-work/) for inspiring the more accessible code base in version 10.
+
+
+
 ## License
 
 The code is available under the [MIT License](LICENSE.md).
