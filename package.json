@@ -1,6 +1,6 @@
 {
 	"name": "Tabby",
-	"version": "10.0.2",
+	"version": "10.0.3",
 	"description": "Simple, mobile-first toggle tabs.",
 	"main": "./dist/js/tabby.min.js",
 	"author": {
