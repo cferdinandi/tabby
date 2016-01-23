@@ -1,5 +1,5 @@
 /*!
- * Tabby v10.0.0: Simple, mobile-first toggle tabs.
+ * Tabby v10.0.1: Simple, mobile-first toggle tabs.
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
@@ -293,7 +293,7 @@
 
 		// If there's a URL hash, activate tab with matching ID
 		if ( !hash ) return;
-		var toggle = document.querySelector('[data-tab="' + hash + '"]');
+		var toggle = document.querySelector('[data-tab][href*="' + hash + '"]');
 		tabby.toggleTab( toggle, hash );
 
 	};

@@ -286,7 +286,7 @@
 
 		// If there's a URL hash, activate tab with matching ID
 		if ( !hash ) return;
-		var toggle = document.querySelector('[data-tab="' + hash + '"]');
+		var toggle = document.querySelector('[data-tab][href*="' + hash + '"]');
 		tabby.toggleTab( toggle, hash );
 
 	};
