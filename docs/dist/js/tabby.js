@@ -1,5 +1,5 @@
 /*!
- * Tabby v10.0.2: Simple, mobile-first toggle tabs.
+ * Tabby v10.0.3: Simple, mobile-first toggle tabs.
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
@@ -283,7 +283,7 @@
 	var hashChangeHandler = function () {
 
 		// Get hash from URL
-		var hash = window.location.hash;
+		var hash = root.location.hash;
 
 		// If clicked tab is cached, reset it's ID
 		if ( tab ) {
@@ -306,7 +306,7 @@
 
 		// Check if event target is a tab toggle, and that it's not the currently active toggle
 		var toggle = getClosest( event.target, settings.selectorToggle );
-		if ( !toggle || !toggle.hash || toggle.hash === window.location.hash ) return;
+		if ( !toggle || !toggle.hash || toggle.hash === root.location.hash ) return;
 
 		// Get the tab content
 		tab = document.querySelector( toggle.hash );
