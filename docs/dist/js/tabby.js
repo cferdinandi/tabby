@@ -1,5 +1,5 @@
 /*!
- * Tabby v10.0.4: Simple, mobile-first toggle tabs.
+ * Tabby v10.0.5: Simple, mobile-first toggle tabs.
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
@@ -306,7 +306,11 @@
 
 		// Check if event target is a tab toggle, and that it's not the currently active toggle
 		var toggle = getClosest( event.target, settings.selectorToggle );
-		if ( !toggle || !toggle.hash || toggle.hash === root.location.hash ) return;
+		if ( !toggle || !toggle.hash ) return;
+		if ( toggle.hash === root.location.hash ) {
+			event.preventDefault();
+			return;
+		}
 
 		// Get the tab content
 		tab = document.querySelector( toggle.hash );
