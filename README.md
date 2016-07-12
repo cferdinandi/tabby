@@ -109,6 +109,7 @@ tabby.init({
 	toggleActiveClass: 'active', // Class added to active toggle elements
 	contentActiveClass: 'active', // Class added to active tab content areas
 	initClass: 'js-tabby', // Class added to <html> element when initiated
+	stopVideo: true, // [Boolean] If true, stop videos when tab closes
 	callback: function () {} // Function that's run after tab content is toggled
 });
 ```
