@@ -110,11 +110,9 @@ tabby.init({
 	contentActiveClass: 'active', // Class added to active tab content areas
 	initClass: 'js-tabby', // Class added to <html> element when initiated
 	stopVideo: true, // [Boolean] If true, stop videos when tab closes
-	callback: function () {} // Function that's run after tab content is toggled
+	callback: function ( tabs, toggle ) {} // Function that's run after tab content is toggled
 });
 ```
-
-***Note:*** *If you change the `selector`, you still need to include the `[data-tab]` attribute in order to pass in the selector for the tab content.*
 
 ### Use Tabby events in your own scripts
 
@@ -125,8 +123,8 @@ Show tab content.
 
 ```javascript
 tabby.toggleTab(
-	toggle, // Node that toggles the tab action. ex. document.querySelector('#toggle')
 	tabID, // The ID of the tab content area to show. ex. '#content'
+	toggle, // Node that toggles the tab action. ex. document.querySelector('#toggle') [optional]
 	options, // Classes and callbacks. Same options as those passed into the init() function.
 );
 ```
@@ -134,8 +132,8 @@ tabby.toggleTab(
 **Example**
 
 ```javascript
-var toggle = document.querySelector('[data-tab="#tab2"]');
-tabby.toggleTab( toggle, '#tab2' );
+tabby.toggleTab( '#tab2' );
+tabby.toggleTab( '#tab3', document.querySelector('[data-tab][href*="#tab2"]') );
 ```
 
 #### destroy()

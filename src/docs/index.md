@@ -17,7 +17,7 @@
 	</div>
 	<div data-tabs-pane class="tabs-pane" id="tabc">
 		<p><strong>Seasons</strong></p>
-		<p>Winter, summer, spring or fall?</p>
+		<p>Winter, <a href="#">summer</a>, spring or fall?</p>
 	</div>
 </div>
 

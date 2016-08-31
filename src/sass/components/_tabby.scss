@@ -1,17 +1,26 @@
-/*  Force browser to show a pointer on tab navigation. */
-.tabs a {
-	cursor: pointer;
-}
-
-/*  Hide tab content if javascript is enabled. */
+/**
+ * Tab content
+ */
 .js-tabby .tabs-pane {
-	display: none;
-	visibility: hidden;
-}
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
 
-/*  Show tab content when active class is added.
- *  This class is added via javascript. */
-.tabs-pane.active {
-	display: block;
-	visibility: visible;
+	&.active {
+		clip: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		position: static;
+		width: auto;
+	}
+
+	&:focus {
+		outline: none;
+	}
 }
