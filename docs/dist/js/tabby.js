@@ -1,5 +1,5 @@
 /*!
- * Tabby v10.2.0: Simple, mobile-first toggle tabs.
+ * Tabby v11.0.0: Simple, mobile-first toggle tabs.
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
@@ -264,8 +264,8 @@
 		// Check if stop video enabled
 		if ( !settings.stopVideo ) return;
 
-		// Only run if content container was open
-		if ( !content.classList.contains( settings.contentActiveClass ) ) return;
+		// Only run if content container is closed
+		if ( content.classList.contains( settings.contentActiveClass ) ) return;
 
 		// Check if the video is an iframe or HTML5 video
 		var iframe = content.querySelector( 'iframe');
@@ -283,6 +283,34 @@
 	};
 
 	/**
+	 * Add focus to tab
+	 * @private
+	 * @param  {node}   tab      The content to bring into focus
+	 * @param  {object} settings Options
+	 */
+	var adjustFocus = function ( tab, settings ) {
+
+		if ( tab.hasAttribute( 'data-tab-no-focus' ) ) return;
+
+		// If tab is closed, remove tabindex
+		if ( !tab.classList.contains( settings.contentActiveClass ) ) {
+			if ( tab.hasAttribute( 'data-tab-focused' ) ) {
+				tab.removeAttribute( 'tabindex' );
+			}
+			return;
+		}
+
+		// Otherwise, set focus
+		tab.focus();
+		if ( document.activeElement.id !== tab.id ) {
+			tab.setAttribute( 'tabindex', '-1' );
+			tab.setAttribute( 'data-tab-focused', true );
+			tab.focus();
+		}
+
+	};
+
+	/**
 	 * Toggle tab toggle active state
 	 * @private
 	 * @param  {Node}   toggle   The toggle element
@@ -294,27 +322,36 @@
 		var toggleGroup = getClosest( toggle, settings.selectorToggleGroup ); // The parent for the toggle group
 		if ( !toggleGroup ) return;
 		var toggles = toggleGroup.querySelectorAll( settings.selectorToggle ); // The toggles in the group
-		var toggleList = getClosest( toggle, 'li' ); // Toggle list item (if applicable)
+		var toggleList;
 
-		// Hide each toggle
-		forEach(toggles, function (toggle) {
+		// Show or hide each toggle
+		// @todo Start here
+		forEach(toggles, function (item) {
 
-			// Toggle class
-			toggle.classList.remove( settings.toggleActiveClass );
+			// If this is the selected toggle, activate it
+			if ( item.hash === toggle.hash ) {
 
-			// If toggle is a list item, toggle class
-			var toggleList = getClosest( toggle, 'li' );
+				// Add active class
+				item.classList.add( settings.toggleActiveClass );
+
+				// If toggle is a list item, activate <li> element, too
+				toggleList = getClosest( item, 'li' );
+				if ( toggleList ) {
+					toggleList.classList.add( settings.toggleActiveClass );
+				}
+
+				return;
+
+			}
+
+			// Otherwise, deactivate it
+			item.classList.remove( settings.toggleActiveClass );
+			toggleList = getClosest( item, 'li' );
 			if ( toggleList ) {
 				toggleList.classList.remove( settings.toggleActiveClass );
 			}
 
 		});
-
-		// Show the selected toggle
-		toggle.classList.add( settings.toggleActiveClass );
-		if ( toggleList ) {
-			toggleList.classList.add( settings.toggleActiveClass );
-		}
 
 	};
 
@@ -333,14 +370,22 @@
 		if ( !tabGroup ) return;
 		var tabs = tabGroup.querySelectorAll( settings.selectorContent ); // The tabs in the group
 
-		// Hide each tab
+		// Show or hide each tab
 		forEach(tabs, function (tab) {
-			stopVideos( tab, settings );
-			tab.classList.remove( settings.contentActiveClass );
-		});
 
-		// Show the selected tab
-		tab.classList.add( settings.contentActiveClass );
+			// If this is the selected tab, show it
+			if ( tab.id === tabID.substring(1) ) {
+				tab.classList.add( settings.contentActiveClass );
+				adjustFocus( tab, settings );
+				return;
+			}
+
+			// Otherwise, hide it
+			tab.classList.remove( settings.contentActiveClass );
+			stopVideos( tab, settings );
+			adjustFocus( tab, settings );
+
+		});
 
 	};
 
@@ -351,18 +396,20 @@
 	 * @param  {String}  tabID The ID of the tab to show
 	 * @param  {Object}  options
 	 */
-	tabby.toggleTab = function ( toggle, tabID, options ) {
+	tabby.toggleTab = function ( tabID, toggle, options ) {
 
 		// Selectors and variables
-		var toggleSettings = extend( settings || defaults, options || {} );  // Merge user options with defaults
+		var localSettings = extend( settings || defaults, options || {} );  // Merge user options with defaults
 		var tabs = document.querySelectorAll( escapeCharacters( tabID ) ); // Get tab content
 
 		// Toggle visibility of the toggles and tabs
-		toggleToggles(toggle, toggleSettings);
-		toggleTabs( tabID, toggleSettings );
+		toggleTabs( tabID, localSettings );
+		if ( toggle ) {
+			toggleToggles(toggle, localSettings);
+		}
 
 		// Run callbacks after toggling tab
-		toggleSettings.callback( toggle, tabID );
+		localSettings.callback( tabs, toggle );
 
 	};
 
@@ -370,7 +417,7 @@
 	 * Handle has change event
 	 * @private
 	 */
-	var hashChangeHandler = function () {
+	var hashChangeHandler = function (event) {
 
 		// Get hash from URL
 		var hash = root.location.hash;
@@ -383,8 +430,8 @@
 
 		// If there's a URL hash, activate tab with matching ID
 		if ( !hash ) return;
-		var toggle = document.querySelector('[data-tab][href*="' + hash + '"]');
-		tabby.toggleTab( toggle, hash );
+		var toggle = document.querySelector( settings.selectorToggle + '[href*="' + hash + '"]' );
+		tabby.toggleTab( hash, toggle );
 
 	};
 
@@ -413,6 +460,30 @@
 	};
 
 	/**
+	 * Handle content focus events
+	 * @private
+	 */
+	var focusHandler = function (event) {
+
+		// Only run if the focused content is in a tab
+		tab = getClosest( event.target, settings.selectorContent );
+		if ( !tab ) return;
+
+		// Don't run if the content area is already open
+		if ( tab.classList.contains( settings.contentActiveClass ) ) return;
+
+		// Store tab ID to variable and remove it from the tab
+		var hash = tab.id;
+		tab.setAttribute( 'data-tab-id', hash );
+		tab.setAttribute( 'data-tab-no-focus', true );
+		tab.id = '';
+
+		// Change the hash
+		location.hash = hash;
+
+	};
+
+	/**
 	 * Destroy the current initialization.
 	 * @public
 	 */
@@ -420,6 +491,7 @@
 		if ( !settings ) return;
 		document.documentElement.classList.remove( settings.initClass );
 		document.removeEventListener('click', clickHandler, false);
+		document.removeEventListener('focus', focusHandler, true);
 		root.removeEventListener('hashchange', hashChangeHandler, false);
 		settings = null;
 		tab = null;
@@ -446,6 +518,7 @@
 
 		// Listen for all click events
 		document.addEventListener('click', clickHandler, false);
+		document.addEventListener('focus', focusHandler, true);
 		root.addEventListener('hashchange', hashChangeHandler, false);
 
 		// If URL has a hash, activate hashed tab by default
