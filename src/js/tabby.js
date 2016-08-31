@@ -434,9 +434,14 @@
 	 */
 	var clickHandler = function (event) {
 
-		// Check if event target is a tab toggle, and that it's not the currently active toggle
+		// Don't run if right-click or command/control + click
+		if ( event.button !== 0 || event.metaKey || event.ctrlKey ) return;
+
+		// Check if event target is a tab toggle
 		var toggle = getClosest( event.target, settings.selectorToggle );
 		if ( !toggle || !toggle.hash ) return;
+
+		// Don't run if toggle points to currently open tab
 		if ( toggle.hash === root.location.hash ) {
 			event.preventDefault();
 			return;
