@@ -1,5 +1,5 @@
 /*!
- * Tabby v11.0.1: Simple, mobile-first toggle tabs.
+ * Tabby v11.0.2: Simple, mobile-first toggle tabs.
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
@@ -300,13 +300,20 @@
 			return;
 		}
 
-		// Otherwise, set focus
+		// Get current position on the page
+		var position = {
+			x: root.pageXOffset,
+			y: root.pageYOffset
+		};
+
+		// Set focus and reset position to account for page jump on focus
 		tab.focus();
 		if ( document.activeElement.id !== tab.id ) {
 			tab.setAttribute( 'tabindex', '-1' );
 			tab.setAttribute( 'data-tab-focused', true );
 			tab.focus();
 		}
+		root.scrollTo( position.x, position.y );
 
 	};
 
