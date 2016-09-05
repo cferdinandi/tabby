@@ -293,13 +293,20 @@
 			return;
 		}
 
-		// Otherwise, set focus
+		// Get current position on the page
+		var position = {
+			x: root.pageXOffset,
+			y: root.pageYOffset
+		};
+
+		// Set focus and reset position to account for page jump on focus
 		tab.focus();
 		if ( document.activeElement.id !== tab.id ) {
 			tab.setAttribute( 'tabindex', '-1' );
 			tab.setAttribute( 'data-tab-focused', true );
 			tab.focus();
 		}
+		root.scrollTo( position.x, position.y );
 
 	};
 
