@@ -22,7 +22,7 @@ var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var karma = require('gulp-karma');
+var optimizejs = require('gulp-optimize-js');
 
 // Styles
 var sass = require('gulp-sass');
@@ -95,9 +95,11 @@ var banner = {
 gulp.task('build:scripts', ['clean:dist'], function() {
 	var jsTasks = lazypipe()
 		.pipe(header, banner.full, { package : package })
+		.pipe(optimizejs)
 		.pipe(gulp.dest, paths.scripts.output)
 		.pipe(rename, { suffix: '.min' })
 		.pipe(uglify)
+		.pipe(optimizejs)
 		.pipe(header, banner.min, { package : package })
 		.pipe(gulp.dest, paths.scripts.output);
 
@@ -148,27 +150,11 @@ gulp.task('lint:scripts', function () {
 		.pipe(jshint.reporter('jshint-stylish'));
 });
 
-// Remove pre-existing content from output and test folders
+// Remove pre-existing content from output folder
 gulp.task('clean:dist', function () {
 	del.sync([
 		paths.output
 	]);
-});
-
-// Remove pre-existing content from text folders
-gulp.task('clean:test', function () {
-	del.sync([
-		paths.test.coverage,
-		paths.test.results
-	]);
-});
-
-// Run unit tests
-gulp.task('test:scripts', ['clean:test'], function() {
-	return gulp.src([paths.test.input].concat([paths.test.spec]))
-		.pipe(plumber())
-		.pipe(karma({ configFile: paths.test.karma }))
-		.on('error', function(err) { throw err; });
 });
 
 // Generate documentation
@@ -243,20 +229,14 @@ gulp.task('docs', [
 	'copy:assets'
 ]);
 
-// Compile files, generate docs, and run unit tests (default)
+// Compile files and generate docs (default)
 gulp.task('default', [
 	'compile',
 	'docs'
 ]);
 
-// Compile files, generate docs, and run unit tests when something changes
+// Compile files and generate docs when something changes
 gulp.task('watch', [
 	'listen',
 	'default'
-]);
-
-// Run unit tests
-gulp.task('test', [
-	'default',
-	'test:scripts'
 ]);

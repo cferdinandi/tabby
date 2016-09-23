@@ -1,5 +1,5 @@
 /*!
- * Tabby v11.0.2: Simple, mobile-first toggle tabs.
+ * Tabby v11.1.0: Simple, mobile-first toggle tabs.
  * (c) 2016 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
@@ -13,7 +13,7 @@
 	} else {
 		root.tabby = factory(root);
 	}
-})(typeof global !== 'undefined' ? global : this.window || this.global, function (root) {
+})(typeof global !== 'undefined' ? global : this.window || this.global, (function (root) {
 
 	'use strict';
 
@@ -333,7 +333,7 @@
 
 		// Show or hide each toggle
 		// @todo Start here
-		forEach(toggles, function (item) {
+		forEach(toggles, (function (item) {
 
 			// If this is the selected toggle, activate it
 			if ( item.hash === toggle.hash ) {
@@ -358,7 +358,7 @@
 				toggleList.classList.remove( settings.toggleActiveClass );
 			}
 
-		});
+		}));
 
 	};
 
@@ -378,7 +378,7 @@
 		var tabs = tabGroup.querySelectorAll( settings.selectorContent ); // The tabs in the group
 
 		// Show or hide each tab
-		forEach(tabs, function (tab) {
+		forEach(tabs, (function (tab) {
 
 			// If this is the selected tab, show it
 			if ( tab.id === tabID.substring(1) ) {
@@ -392,7 +392,7 @@
 			stopVideos( tab, settings );
 			adjustFocus( tab, settings );
 
-		});
+		}));
 
 	};
 
@@ -545,4 +545,4 @@
 
 	return tabby;
 
-});
+}));
