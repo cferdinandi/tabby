@@ -1,4 +1,4 @@
-# Tabby [![Build Status](https://travis-ci.org/cferdinandi/tabby.svg)](https://travis-ci.org/cferdinandi/tabby)
+# Tabby [![Build Status](https://travis-ci.org/cferdinandi/tabby.svg)](https://travis-ci.org/cferdinandi/tabby) [![CDNJS](https://img.shields.io/cdnjs/v/tabby.svg)](https://cdnjs.com/libraries/tabby/)
 Simple toggle tabs.
 
 Supports deep linking to a specific tab via anchor links (ex. http://some-url.com#tabID). Browser back button can be used to navigate back through tabs.
