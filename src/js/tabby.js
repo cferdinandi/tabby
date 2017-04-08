@@ -394,7 +394,9 @@
 
 		// If clicked tab is cached, reset it's ID
 		if ( tab ) {
-			tab.id = tab.getAttribute( 'data-tab-id' );
+			if (tab.getAttribute( 'data-tab-id' )) {
+                		tab.id = tab.getAttribute( 'data-tab-id' );
+            		}
 			tab = null;
 		}
 
