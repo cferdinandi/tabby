@@ -431,7 +431,11 @@
 		if ( !tab ) return;
 		tab.setAttribute( 'data-tab-id', tab.id );
 		tab.id = '';
-
+		
+		// Without preventDefault() the tab change will open page in Safari if using iPhone web app
+		// To actually change the tab content, we need to still change window.location value
+		event.preventDefault();
+		window.location = event.target.href;
 	};
 
 	/**
