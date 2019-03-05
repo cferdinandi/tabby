@@ -1,0 +1,38 @@
+/**
+ * The list element
+ */
+[role="tablist"] {
+	border-bottom: 1px solid darken($color-gray-light, 7%);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	* {
+		box-sizing: border-box;
+	}
+}
+
+/**
+ * The tabs
+ */
+[role="tab"] {
+	border: 1px solid transparent;
+	border-top-color: darken($color-gray-light, 7%);
+	display: block;
+	padding: 0.5em 1em;
+	text-decoration: none;
+
+	/**
+	 * Active tabs
+	 */
+	&[aria-selected="true"] {
+		background-color: darken($color-gray-light, 7%);
+	}
+
+	/**
+	 * Hovered tabs
+	 */
+	&:hover:not([aria-selected="true"]) {
+		background-color: $color-gray-lighter;
+	}
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tabby</title>
+
+	<!-- Styles -->
+	<style type="text/css">
+		body {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 50em;
+			width: 88%;
+		}
+
+		@media (min-width: 35em) {
+
+			/**
+			 * Grid
+			 */
+			.grid {
+				display: grid;
+				grid-gap: 2em;
+				grid-template-columns: 30% 70%;
+			}
+
+			/**
+			 * Typography
+			 */
+			h2 {
+				margin-top: 0;
+			}
+
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="dist/css/tabby-ui-vertical.css">
+</head>
+<body>
+
+	<h1>Tabby</h1>
+
+	<div class="grid">
+		<div>
+			<ul data-tabs>
+				<li><a data-tabby-default href="#harry">Harry Potter</a></li>
+				<li><a href="#hermione">Hermione</a></li>
+				<li><a href="#neville">Neville</a></li>
+			</ul>
+		</div>
+		<div>
+			<div id="harry">
+				<h2>Harry Potter</h2>
+
+				<p><strong>Fun Facts:</strong></p>
+				<ol>
+					<li>"The boy who lived"</li>
+					<li>Best friends with Ron and Hermione</li>
+					<li>Fails up on a regular basis</li>
+				</ol>
+				<p><a href="https://en.wikipedia.org/wiki/Harry_Potter_(character)">More about Harry &rarr;</a></p>
+			</div>
+
+			<div id="hermione">
+				<h2>Hermione</h2>
+
+				<p><strong>Fun Facts:</strong></p>
+				<ol>
+					<li>The real hero of the Harry Potter series</li>
+					<li>Underappreciated by her friends, but always saves the day</li>
+					<li>Harry somehow gets credit for her accomplishments on a regular basis</li>
+				</ol>
+				<p><a href="https://en.wikipedia.org/wiki/Hermione_Granger">More about Hermione &rarr;</a></p>
+			</div>
+
+			<div id="neville">
+				<h2>Neville</h2>
+
+				<p><strong>Fun Facts:</strong></p>
+				<ol>
+					<li>The surprise hero of the last book</li>
+					<li>His life is forever intertwined with Harry's</li>
+					<li>Total badass</li>
+				</ol>
+				<p><a href="https://www.pottermore.com/explore-the-story/neville-longbottom">More about Neville &rarr;</a></p>
+			</div>
+		</div>
+	</div>
+
+	<script src="dist/js/tabby.js"></script>
+	<script>
+		var tabs = new Tabby('[data-tabs]');
+	</script>
+
+</body>
+</html>

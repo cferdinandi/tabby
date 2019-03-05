@@ -1,29 +1,14 @@
-/*!
- * Tabby v12.0.0
- * Lightweight, accessible vanilla JS toggle tabs.
- * (c) 2019 Chris Ferdinandi
- * MIT License
- * http://github.com/cferdinandi/tabby
- */
-
-/**
- * Element.matches() polyfill (simple version)
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
- */
-if (!Element.prototype.matches) {
-	Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
-}
 (function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
-		define([], (function () {
+		define([], function () {
 			return factory(root);
-		}));
+		});
 	} else if ( typeof exports === 'object' ) {
 		module.exports = factory(root);
 	} else {
 		root.Tabby = factory(root);
 	}
-})(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, (function (window) {
+})(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function (window) {
 
 	'use strict';
 
@@ -48,12 +33,12 @@ if (!Element.prototype.matches) {
 	 */
 	var extend = function () {
 		var merged = {};
-		Array.prototype.forEach.call(arguments, (function (obj) {
+		Array.prototype.forEach.call(arguments, function (obj) {
 			for (var key in obj) {
 				if (!obj.hasOwnProperty(key)) return;
 				merged[key] = obj[key];
 			}
-		}));
+		});
 		return merged;
 	};
 
@@ -282,7 +267,7 @@ if (!Element.prototype.matches) {
 			var tabs = tabWrapper.querySelectorAll('a');
 
 			// Add roles to tabs
-			Array.prototype.forEach.call(tabs, (function (tab) {
+			Array.prototype.forEach.call(tabs, function (tab) {
 
 				// Get the tab content
 				var content = document.querySelector(tab.hash);
@@ -291,7 +276,7 @@ if (!Element.prototype.matches) {
 				// Setup the tab
 				destroyTab(tab, content, settings);
 
-			}));
+			});
 
 			// Remove role from wrapper
 			tabWrapper.removeAttribute('role');
@@ -320,7 +305,7 @@ if (!Element.prototype.matches) {
 			tabWrapper.setAttribute('role', 'tablist');
 
 			// Add roles to tabs
-			Array.prototype.forEach.call(tabs, (function (tab) {
+			Array.prototype.forEach.call(tabs, function (tab) {
 
 				// Get the tab content
 				var content = document.querySelector(tab.hash);
@@ -329,7 +314,7 @@ if (!Element.prototype.matches) {
 				// Setup the tab
 				setupTab(tab, content, settings);
 
-			}));
+			});
 
 		};
 
@@ -421,4 +406,4 @@ if (!Element.prototype.matches) {
 
 	return Constructor;
 
-}));
+});

@@ -1,0 +1,65 @@
+/**
+ * The tablist
+ */
+[role="tablist"] {
+	border-bottom: 1px solid darken($color-gray-light, 7%);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	* {
+		box-sizing: border-box;
+	}
+}
+
+/**
+ * The tablist item
+ */
+[role="tablist"] li {
+	@media (min-width: $bp-small) {
+		display: inline-block;
+	}
+}
+
+/**
+ * The tabs
+ */
+[role="tab"] {
+	border: 1px solid transparent;
+	border-top-color: darken($color-gray-light, 7%);
+	display: block;
+	padding: 0.5em 1em;
+	text-decoration: none;
+
+	@media (min-width: $bp-small) {
+		border-top-color: transparent;
+		border-top-left-radius: 0.5em;
+		border-top-right-radius: 0.5em;
+		display: inline-block;
+		margin-bottom: -1px;
+	}
+
+	/**
+	 * Active tab styling
+	 */
+	&[aria-selected="true"] {
+		background-color: darken($color-gray-light, 7%);
+
+		@media (min-width: $bp-small) {
+			background-color: transparent;
+			border: 1px solid darken($color-gray-light, 7%);
+			border-bottom-color: $color-white;
+		}
+	}
+
+	/**
+	 * Tabs on hover
+	 */
+	&:hover:not([aria-selected="true"]) {
+		background-color: $color-gray-lighter;
+
+		@media (min-width: $bp-small) {
+			border: 1px solid darken($color-gray-light, 7%);
+		}
+	}
+}
