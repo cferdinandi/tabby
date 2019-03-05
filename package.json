@@ -1,6 +1,6 @@
 {
 	"name": "Tabby",
-	"version": "12.0.0",
+	"version": "12.0.1",
 	"description": "Lightweight, accessible vanilla JS toggle tabs.",
 	"main": "./dist/js/tabby.min.js",
 	"author": {

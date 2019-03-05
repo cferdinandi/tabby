@@ -63,3 +63,10 @@
 		}
 	}
 }
+
+/**
+ * [hidden] fallback for IE10 and lower
+ */
+[hidden] {
+	display: none;
+}

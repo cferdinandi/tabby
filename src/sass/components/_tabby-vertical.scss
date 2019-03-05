@@ -36,3 +36,10 @@
 		background-color: $color-gray-lighter;
 	}
 }
+
+/**
+ * [hidden] fallback for IE10 and lower
+ */
+[hidden] {
+	display: none;
+}

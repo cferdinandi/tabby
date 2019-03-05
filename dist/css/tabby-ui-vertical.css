@@ -1,5 +1,5 @@
 /*!
- * Tabby v12.0.0
+ * Tabby v12.0.1
  * Lightweight, accessible vanilla JS toggle tabs.
  * (c) 2019 Chris Ferdinandi
  * MIT License
@@ -44,4 +44,11 @@
 
 [role="tab"]:hover:not([aria-selected="true"]) {
   background-color: #f7f7f7;
+}
+
+/**
+ * [hidden] fallback for IE10 and lower
+ */
+[hidden] {
+  display: none;
 }

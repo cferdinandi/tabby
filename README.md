@@ -235,6 +235,17 @@ Support back to IE9 requires polyfills for the `closest()` and `matches()`. With
 Use the included polyfills version of Tabby, or include your own.
 
 
+### `[hidden]`
+
+Tabby uses the `[hidden]` attribute to hide tab content. This attribute didn't exist prior to IE11. To push support back to IE9, make sure your stylesheet includes the following style for the `[hidden]` attribute.
+
+```css
+[hidden] {
+	display: none;
+}
+```
+
+
 
 ## License
 
