@@ -1,5 +1,5 @@
 /*!
- * Tabby v12.0.1
+ * tabbyjs v12.0.1
  * Lightweight, accessible vanilla JS toggle tabs.
  * (c) 2019 Chris Ferdinandi
  * MIT License
