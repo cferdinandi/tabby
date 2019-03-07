@@ -57,6 +57,14 @@ You can also use the [jsDelivr CDN](https://cdn.jsdelivr.net/gh/cferdinandi/tabb
 <script src="https://cdn.jsdelivr.net/gh/cferdinandi/tabby@12.0.0/dist/js/tabby.polyfills.min.js"></script>
 ```
 
+**NPM**
+
+You can also use NPM (or your favorite package manager).
+
+```bash
+npm install tabbyjs
+```
+
 ### 2. Add the markup to your HTML.
 
 Tabby progressively enhances a linked list of content into tabbed navigation.
