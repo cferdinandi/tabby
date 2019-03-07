@@ -3,6 +3,8 @@ Lightweight, accessible vanilla JS toggle tabs.
 
 **[View the Demo on CodePen &rarr;](https://codepen.io/cferdinandi/pen/rRMJwK)**
 
+[Getting Started](#getting-started) | [Styling](#styling-tabby) | [Keyboard Navigation](#keyboard-navigation) | [API](#api) | [What's New](#whats-new) | [Browser Compatibility](#browser-compatibility) | [License](#license)
+
 
 <hr>
 
@@ -187,34 +189,22 @@ tabs.destroy();
 
 
 
-## Working with the Source Files
+## What's new?
 
-If you would prefer, you can work with the development code in the `src` directory using the included [Gulp build system](http://gulpjs.com/). This compiles, lints, and minifies code.
+Tabby got a complete rewrite in version 12. It now includes:
 
-### Dependencies
-Make sure these are installed first.
+- Support for multiple instantiations at once.
+- Proper roles and properties for accessibility.
+- Keyboard navigation
+- Deprecated callbacks in favor of custom events.
 
-* [Node.js](http://nodejs.org)
-* [Gulp](http://gulpjs.com) `sudo npm install -g gulp`
+### Migrating to Tabby 12 from Older Versions
 
-### Quick Start
-
-1. In bash/terminal/command line, `cd` into your project directory.
-2. Run `npm install` to install required files.
-3. When it's done installing, run one of the task runners to get going:
-	* `gulp` manually compiles files.
-	* `gulp watch` automatically compiles files when changes are made and applies changes using [LiveReload](http://livereload.com/).
+The instantiation method is completely different, but the markup patterns in older versions should work without modification.
 
 
 
-
-## Migrating to Tabby 12 from Older Versions
-
-Tabby got a complete rewrite in version 12. The instantiation method is completely different, but the markup patterns in older versions should work without modification.
-
-
-
-## Special Thanks 👏
+## Kudos 👏
 
 Special thanks to [Dave Rupers A11y Nutrition Cards](https://davatron5000.github.io/a11y-nutrition-cards/#tabs), which provided a solid foundation for this version.
 
