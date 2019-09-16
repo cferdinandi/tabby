@@ -51,14 +51,16 @@
 	var emitEvent = function (tab, content) {
 
 		// Create a new event
-		var event = new CustomEvent('tabby', {
-			bubbles: true,
-			cancelable: true,
-			detail: {
-				tab: tab,
-				content: content
-			}
-		});
+		var event;
+		if (trueTypeOf(window.CustomEvent) === 'function') {
+			event = new CustomEvent('tabby', {
+				bubbles: true,
+				cancelable: true
+			});
+		} else {
+			event = document.createEvent('CustomEvent');
+			event.initCustomEvent('tabby', true, true, null);
+		}
 
 		// Dispatch the event
 		tab.dispatchEvent(event);

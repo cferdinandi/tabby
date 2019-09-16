@@ -1,5 +1,5 @@
 /*!
- * tabbyjs v12.0.1
+ * tabbyjs v12.0.2
  * Lightweight, accessible vanilla JS toggle tabs.
  * (c) 2019 Chris Ferdinandi
  * MIT License
@@ -66,14 +66,16 @@ if (!Element.prototype.matches) {
 	var emitEvent = function (tab, content) {
 
 		// Create a new event
-		var event = new CustomEvent('tabby', {
-			bubbles: true,
-			cancelable: true,
-			detail: {
-				tab: tab,
-				content: content
-			}
-		});
+		var event;
+		if (trueTypeOf(window.CustomEvent) === 'function') {
+			event = new CustomEvent('tabby', {
+				bubbles: true,
+				cancelable: true
+			});
+		} else {
+			event = document.createEvent('CustomEvent');
+			event.initCustomEvent('tabby', true, true, null);
+		}
 
 		// Dispatch the event
 		tab.dispatchEvent(event);
