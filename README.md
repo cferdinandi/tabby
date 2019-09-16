@@ -146,7 +146,7 @@ var tabs = new Tabby('[data-tabs]', {
 
 Tabby emits a custom event&mdash;`tabby`&mdash;when the active tab is changed.
 
-The `tabby` event is emitted on the tab element and bubbles up. You can listen for them with the `addEventListener()` method. The `event.detail` object includes the `tab` and `content` elements.
+The `tabby` event is emitted on the tab element and bubbles up. You can listen for them with the `addEventListener()` method. The `event.detail` object includes the `previousTab`, `previousContent`, `tab` and `content` elements.
 
 ```js
 document.addEventListener('tabby', function (event) {

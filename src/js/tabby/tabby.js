@@ -46,20 +46,21 @@
 	 * Emit a custom event
 	 * @param  {String} type    The event type
 	 * @param  {Node}   tab     The tab to attach the event to
-	 * @param  {Node}   content The content that was revealed
+	 * @param  {Node}   details Details about the event
 	 */
-	var emitEvent = function (tab, content) {
+	var emitEvent = function (tab, details) {
 
 		// Create a new event
 		var event;
-		if (trueTypeOf(window.CustomEvent) === 'function') {
+		if (typeof window.CustomEvent === 'function') {
 			event = new CustomEvent('tabby', {
 				bubbles: true,
-				cancelable: true
+				cancelable: true,
+				detail: details
 			});
 		} else {
 			event = document.createEvent('CustomEvent');
-			event.initCustomEvent('tabby', true, true, null);
+			event.initCustomEvent('tabby', true, true, details);
 		}
 
 		// Dispatch the event
@@ -131,9 +132,9 @@
 
 		// Variables
 		var tabGroup = newTab.closest('[role="tablist"]');
-		if (!tabGroup) return;
+		if (!tabGroup) return {};
 		var tab = tabGroup.querySelector('[role="tab"][aria-selected="true"]');
-		if (!tab) return;
+		if (!tab) return {};
 		var content = document.querySelector(tab.hash);
 
 		// Hide the tab
@@ -141,8 +142,14 @@
 		tab.setAttribute('tabindex', '-1');
 
 		// Hide the content
-		if (!content) return;
+		if (!content) return {previousTab: tab};
 		content.setAttribute('hidden', 'hidden');
+
+		// Return the hidden tab and content
+		return {
+			previousTab: tab,
+			previousContent: content
+		};
 
 	};
 
@@ -172,13 +179,17 @@
 		if (!content) return;
 
 		// Hide active tab and content
-		hide(tab);
+		var details = hide(tab);
 
 		// Show new tab and content
 		show(tab, content);
 
+		// Add event details
+		details.tab = tab;
+		details.content = content;
+
 		// Emit a custom event
-		emitEvent(tab, content);
+		emitEvent(tab, details);
 
 	};
 
