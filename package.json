@@ -12,6 +12,10 @@
 		"type": "git",
 		"url": "http://github.com/cferdinandi/tabby"
 	},
+	"scripts": {
+		"build": "gulp",
+		"watch": "gulp watch"
+	},
 	"devDependencies": {
 		"gulp": "4.0.0",
 		"del": "3.0.0",
