@@ -1,6 +1,6 @@
 {
 	"name": "tabbyjs",
-	"version": "12.0.3",
+	"version": "12.0.4",
 	"description": "Lightweight, accessible vanilla JS toggle tabs.",
 	"main": "./dist/js/tabby.min.js",
 	"author": {
@@ -11,6 +11,10 @@
 	"repository": {
 		"type": "git",
 		"url": "http://github.com/cferdinandi/tabby"
+	},
+	"scripts": {
+		"build": "gulp",
+		"watch": "gulp watch"
 	},
 	"devDependencies": {
 		"gulp": "4.0.0",

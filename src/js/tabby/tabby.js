@@ -162,7 +162,7 @@
 		tab.setAttribute('aria-selected', 'true');
 		tab.setAttribute('tabindex', '0');
 		content.removeAttribute('hidden');
-		tab.focus();
+		tab.focus({ preventScroll: true });
 	};
 
 	/**

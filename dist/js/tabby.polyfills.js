@@ -1,7 +1,7 @@
 /*!
  * tabbyjs v12.0.3
  * Lightweight, accessible vanilla JS toggle tabs.
- * (c) 2019 Chris Ferdinandi
+ * (c) 2023 Chris Ferdinandi
  * MIT License
  * http://github.com/cferdinandi/tabby
  */
@@ -196,7 +196,7 @@ if (!Element.prototype.closest) {
 		tab.setAttribute('aria-selected', 'true');
 		tab.setAttribute('tabindex', '0');
 		content.removeAttribute('hidden');
-		tab.focus();
+		tab.focus({ preventScroll: true });
 	};
 
 	/**
